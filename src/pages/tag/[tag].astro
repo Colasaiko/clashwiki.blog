@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const uniqueTags = [...new Set(posts.map(post => post.data.tags).flat())];
+  
+  return uniqueTags.map(tag => {
+    const filteredPosts = posts.filter(post => post.data.tags.includes(tag));
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<BaseLayout title={`标签: ${tag}`}>
+  <div class="container mx-auto max-w-6xl px-4 py-12">
+    <Breadcrumb items={[{ label: '标签' }, { label: tag }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title={`# ${tag}`} subtitle={`与 "${tag}" 深度相关的精彩文章、评测速写以及宝库汇合。`} align="left" asH1={true} />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {posts.map(post => (
+        <ArticleCard 
+          title={post.data.title}
+          description={post.data.description}
+          url={`/blog/${post.id.replace(/\.md$/, '')}/`}
+          category={post.data.category}
+          pubDate={post.data.pubDate}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackButton from '../../components/BackButton.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+
+// 客户端数据
+const platforms = [
+  {
+    id: 'windows',
+    name: 'Windows',
+    icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2 3.75L10.7 2.4v9.05H2V3.75zm9.9-1.5L22 1v10.45h-10.1V2.25zM2 13.05h8.7v9.05L2 20.75v-7.7zm9.9 0H22V23l-10.1-1.4v-8.55z"/></svg>',
+    color: 'from-blue-500 to-cyan-500',
+    apps: [
+      {
+        name: 'Clash Verge Rev',
+        badge: '强烈推荐',
+        badgeColor: 'bg-emerald-500',
+        desc: '目前 Windows 上最流行、更新最活跃的 Clash 客户端，支持一键导入，界面现代。',
+        url: 'https://github.com/clash-verge-rev/clash-verge-rev/releases',
+        price: '免费开源',
+        iconColor: 'bg-blue-100 text-blue-600'
+      },
+      {
+        name: 'v2rayN',
+        badge: '经典老牌',
+        badgeColor: 'bg-slate-500',
+        desc: '老牌经典客户端，支持 Vmess/Vless/Trojan 等多种协议，资源占用极低。',
+        url: 'https://github.com/2dust/v2rayN/releases',
+        price: '免费开源',
+        iconColor: 'bg-slate-100 text-slate-600'
+      }
+    ]
+  },
+  {
+    id: 'macos',
+    name: 'macOS',
+    icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.246 15.684c-.394.026-.816-.07-1.259-.283-.45-.221-.925-.226-1.393-.016-.465.21-.926.315-1.36.295-1.554-.075-2.796-1.107-3.716-3.08-1.077-2.31-.836-4.664.71-5.776.713-.512 1.542-.589 2.227-.226.417.22.756.24 1.05.05.304-.196.93-.53 1.745-.494 1.135.05 1.954.512 2.457 1.38-2.036 1.144-1.724 3.738.257 4.67-.32 1.05-1.025 2.128-1.637 2.854-.42.496-.69.605-1.08.626zm.453-6.953c-.768.106-1.616-.36-2.13-1.12-.486-.717-.714-1.656-.523-2.348.823-.075 1.688.423 2.164 1.142.433.66.685 1.617.489 2.326z"/></svg>',
+    color: 'from-slate-700 to-slate-900',
+    apps: [
+      {
+        name: 'ClashX Pro',
+        badge: '苹果专享',
+        badgeColor: 'bg-purple-500',
+        desc: '专为 macOS 打造的客户端，支持增强模式，状态栏无缝集成，体验极佳。',
+        url: 'https://appcenter.ms/users/clashx/apps/clashx-pro/distribution_groups/public',
+        price: '免费',
+        iconColor: 'bg-purple-100 text-purple-600'
+      },
+      {
+        name: 'Clash Verge Rev',
+        badge: '跨平台',
+        badgeColor: 'bg-emerald-500',
+        desc: '同样支持 macOS (Intel & Apple Silicon)，界面美观且功能强大。',
+        url: 'https://github.com/clash-verge-rev/clash-verge-rev/releases',
+        price: '免费开源',
+        iconColor: 'bg-blue-100 text-blue-600'
+      }
+    ]
+  },
+  {
+    id: 'ios',
+    name: 'iOS / iPadOS',
+    icon: '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>',
+    color: 'from-fuchsia-500 to-pink-500',
+    apps: [
+      {
+        name: 'Shadowrocket (小火箭)',
+        badge: 'iOS必备',
+        badgeColor: 'bg-pink-500',
+        desc: 'iOS 端最普及的代理工具，支持几乎所有协议，扫码即可导入。需非国区 Apple ID 下载。',
+        url: 'https://apps.apple.com/us/app/shadowrocket/id932747118',
+        price: '$2.99 收费',
+        iconColor: 'bg-pink-100 text-pink-600'
+      },
+      {
+        name: 'Quantumult X (圈X)',
+        badge: '高阶进阶',
+        badgeColor: 'bg-amber-500',
+        desc: '功能极为强大的网络工具，支持复杂的重写规则和脚本，适合喜欢折腾的高级玩家。',
+        url: 'https://apps.apple.com/us/app/quantumult-x/id1443988620',
+        price: '$7.99 收费',
+        iconColor: 'bg-amber-100 text-amber-600'
+      }
+    ]
+  },
+  {
+    id: 'android',
+    name: 'Android',
+    icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414C17.523 15.3414 17.523 15.3414 17.523 15.3414C17.1358 15.3414 16.8209 15.0265 16.8209 14.6393C16.8209 14.2521 17.1358 13.9372 17.523 13.9372C17.9102 13.9372 18.2251 14.2521 18.2251 14.6393C18.2251 15.0265 17.9102 15.3414 17.523 15.3414ZM6.47698 15.3414C6.47698 15.3414 6.47698 15.3414 6.47698 15.3414C6.0898 15.3414 5.77491 15.0265 5.77491 14.6393C5.77491 14.2521 6.0898 13.9372 6.47698 13.9372C6.86415 13.9372 7.17904 14.2521 7.17904 14.6393C7.17904 15.0265 6.86415 15.3414 6.47698 15.3414ZM21.4646 16.4952L23.7018 12.6166C23.8209 12.4116 23.7497 12.15 23.5447 12.0309C23.3397 11.9118 23.0781 11.983 22.959 12.188L20.672 16.1481C18.4312 15.1118 15.3853 14.4754 12.0003 14.4754C8.6152 14.4754 5.56938 15.1118 3.32857 16.1481L1.0416 12.188C0.922485 11.983 0.660892 11.9118 0.455892 12.0309C0.250892 12.15 0.179729 12.4116 0.298836 12.6166L2.536 16.4952C1.04412 17.5539 0.0543236 19.0558 0 20.7601H24C23.9457 19.0558 22.9559 17.5539 21.4646 16.4952Z"/></svg>',
+    color: 'from-emerald-500 to-green-500',
+    apps: [
+      {
+        name: 'Clash Meta for Android',
+        badge: '强烈推荐',
+        badgeColor: 'bg-emerald-500',
+        desc: '基于 Meta 内核的安卓端神器，界面美观，支持所有最新协议，耗电量低。',
+        url: 'https://github.com/MetaCubeX/ClashMetaForAndroid/releases',
+        price: '免费开源',
+        iconColor: 'bg-emerald-100 text-emerald-600'
+      },
+      {
+        name: 'v2rayNG',
+        badge: '备用选择',
+        badgeColor: 'bg-slate-500',
+        desc: '安卓端老牌工具，简单直接，资源占用低，适合老旧机型或作为备用客户端。',
+        url: 'https://github.com/2dust/v2rayNG/releases',
+        price: '免费开源',
+        iconColor: 'bg-slate-100 text-slate-600'
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="全平台软件下载 - ClashWiki">
+  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-50">
+    <div class="absolute top-0 right-0 w-[40vw] h-[40vw] rounded-full bg-indigo-500/5 blur-[120px] mix-blend-multiply"></div>
+  </div>
+
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-24 relative z-10">
+    <BackButton text="返回博客" href="/blog/" />
+    <Breadcrumb items={[{ label: '博客', href: '/blog/' }, { label: '软件下载' }]} />
+    
+    <div class="mt-8 mb-4">
+      <CategoryNav activeCategory="软件下载" />
+    </div>
+    
+    <div class="mt-8 mb-16 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        全平台客户端 <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500">下载中心</span>
+      </h1>
+      <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+        为您整理了 Windows、macOS、iOS 和 Android 各大平台的最新主流代理客户端，安全无毒，直达官方下载。
+      </p>
+    </div>
+    
+    <div class="space-y-16">
+      {platforms.map(platform => (
+        <section class="scroll-mt-24" id={platform.id}>
+          <div class="flex items-center gap-4 mb-8">
+            <div class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${platform.color} flex items-center justify-center text-white shadow-lg`}>
+              <Fragment set:html={platform.icon} />
+            </div>
+            <h2 class="text-3xl font-bold text-slate-800 m-0">{platform.name} 端下载</h2>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {platform.apps.map(app => (
+              <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-slate-200/60 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-300/50 hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-center gap-4">
+                    <div class={`w-12 h-12 rounded-2xl ${app.iconColor} flex items-center justify-center shrink-0`}>
+                      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    </div>
+                    <div>
+                      <h3 class="text-xl font-bold text-slate-800 m-0 group-hover:text-indigo-600 transition-colors">{app.name}</h3>
+                      <p class="text-sm font-medium text-slate-500 mt-1">{app.price}</p>
+                    </div>
+                  </div>
+                  <span class={`px-2.5 py-1 text-xs font-bold text-white rounded-lg ${app.badgeColor} shadow-sm shrink-0`}>
+                    {app.badge}
+                  </span>
+                </div>
+                
+                <p class="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
+                  {app.desc}
+                </p>
+                
+                <a href={app.url} target="_blank" rel="noopener noreferrer" class="mt-auto block w-full py-3 px-4 bg-slate-900 hover:bg-indigo-600 text-white text-center font-bold rounded-xl shadow-lg transition-colors duration-300">
+                  前往下载 ➔
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+    
+    <!-- 提示框 -->
+    <div class="mt-20 bg-amber-50 border border-amber-200 rounded-3xl p-8 flex gap-6 items-start">
+      <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-amber-900 mb-2">安全下载提示</h3>
+        <p class="text-amber-800/80 text-sm leading-relaxed mb-0">
+          为了保障您的设备安全，我们提供的所有下载链接均指向官方 GitHub 仓库或苹果 App Store。<br/>
+          <strong>请不要轻信网络上来源不明的第三方安装包</strong>，以免下载到被植入后门或木马的恶意软件。对于需要外区 Apple ID 下载的 iOS 软件，建议您注册一个美区账号进行购买。
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</BaseLayout>

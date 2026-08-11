@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import StatsStrip from '../components/StatsStrip.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import BannerArticleCard from '../components/BannerArticleCard.astro';
+import TopicCluster from '../components/TopicCluster.astro';
+import BrandCard from '../components/BrandCard.astro';
+
+import FAQ from '../components/FAQ.astro';
+import CTASection from '../components/CTASection.astro';
+import { HOMEPAGE_DATA } from '../data/homepage';
+import { getCollection } from 'astro:content';
+
+const rawPosts = import.meta.glob('../content/blog/*.md', { eager: true });
+const latestPosts = Object.values(rawPosts)
+  .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
+  .slice(0, 6)
+  .map(post => {
+    const slug = post.file.replace(/\\/g, '/').split('/').pop().replace(/\.md$/, '');
+    return {
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      url: `/blog/${slug}/`,
+      category: post.frontmatter.category,
+      pubDate: new Date(post.frontmatter.pubDate),
+      image: post.frontmatter.image
+    };
+  });
+
+const topicsData = [
+  { title: '新手小白必看', description: '从零开始的科学上网配置指南', count: 12, url: '/topics/beginners/' },
+  { title: '流媒体解锁', description: 'Netflix, Disney+, YouTube Premium 解锁评测', count: 8, url: '/topics/streaming/' },
+  { title: '性价比之选', description: '月均 15 元以下的高质量平价机场', count: 5, url: '/topics/budget/' },
+  { title: '客户端配置大全', description: '各平台代理软件下载与实操图文指南', count: 15, url: '/topics/clients/' },
+  { title: '避坑指南', description: '揭秘机场圈套路，教你如何辨别劣质与跑路机场', count: 7, url: '/topics/scam-avoidance/' },
+  { title: '进阶玩法', description: '分流规则配置、自建节点与底层协议深度解析', count: 9, url: '/topics/advanced/' },
+];
+
+const allBrandsData = await getCollection('brands');
+const brandsData = allBrandsData.map(b => ({
+  name: b.data.name,
+  description: b.data.description,
+  url: `/brands/${b.id.replace(/\.md$/, '')}/`,
+  buyUrl: `/go/${b.id.replace(/\.md$/, '')}`,
+  tags: b.data.tags || [],
+  image: b.data.image
+}));
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络">
+  <Hero />
+  
+  <div class="container mx-auto max-w-6xl px-4">
+    
+    <!-- Features -->
+    <section id="features" class="py-16 min-h-screen flex flex-col justify-center scroll-mt-0">
+      <div class="w-full">
+        <SectionTitle title="全方位的内容导航" subtitle="不论您是刚刚入门的新手，还是追求极致的专业用户，都能在这里找到答案。" />
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-20 mt-16">
+        {HOMEPAGE_DATA.features.map(feat => (
+          <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
+        ))}
+      </div>
+    </section>
+  </div> <!-- 关闭上方的 container -->
+
+  <!-- Latest Posts -->
+  <section id="latest-posts" class="py-12 md:py-16 scroll-mt-0 relative overflow-hidden">
+    <!-- Background Image (全屏背景) -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <img src="/background2.png" alt="ClashWiki 2026 Background Theme" class="w-full h-full object-cover object-right-top" />
+      <!-- 极轻微的遮罩以保证文字可读性，保留原图色彩 -->
+      <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
+    </div>
+
+    <!-- 内容重新放回 container 中居中 -->
+    <div class="relative z-10 container mx-auto max-w-7xl px-4">
+      <div class="w-full flex justify-between items-end mb-8">
+        <SectionTitle title="最新评测与教程" align="left" />
+        <a href="/blog/" class="hidden md:inline-block text-emerald-600 font-medium hover:text-emerald-700 mb-6 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">查看全部文章 &rarr;</a>
+      </div>
+      <!-- 恢复单列布局以保持宽版 banner 效果 -->
+      <div class="grid grid-cols-1 gap-y-6 mt-6 w-full max-w-5xl mx-auto">
+        {latestPosts.map(post => (
+          <BannerArticleCard {...post} />
+        ))}
+      </div>
+      <div class="mt-8 text-center md:hidden">
+        <a href="/blog/" class="btn-secondary inline-block">查看全部文章</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 重新开启 container 以容纳后续板块 -->
+  <div class="container mx-auto max-w-6xl px-4">
+    <!-- Topic Clusters -->
+    <section id="topics" class="py-16 scroll-mt-0">
+      <SectionTitle title="热门专题聚合" subtitle="按您的核心需求快速定位内容" />
+      <TopicCluster topics={topicsData} />
+    </section>
+  </div> <!-- 关闭上方的 container -->
+
+  <!-- Brands -->
+  <section id="brands" class="py-24 scroll-mt-0 relative overflow-hidden mt-12 mb-12">
+    <!-- Background Image (全屏背景) -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <img src="/background3.png" alt="ClashWiki Airport Review Background" class="w-full h-full object-cover object-center" />
+      <!-- 极轻微的遮罩以保证文字可读性 -->
+      <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
+    </div>
+
+    <!-- 内容放回 container 中居中 -->
+    <div class="relative z-10 container mx-auto max-w-6xl px-4">
+      <div class="mb-8">
+        <SectionTitle title="精选品牌库" subtitle="经过我们长期追踪与晚高峰实测的优质服务商" align="left" />
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-32 mt-32">
+        {brandsData.map(brand => (
+          <BrandCard {...brand} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 重新开启 container 以容纳后续板块 -->
+  <div class="container mx-auto max-w-6xl px-4">
+
+
+
+    <!-- SEO Content Placeholder -->
+    <section class="py-16 prose-custom max-w-4xl mx-auto">
+      <h2>专业的科学上网工具评测体系</h2>
+      <p>在寻找<strong>机场推荐</strong>的过程中，很多用户往往被华丽的广告词误导。我们建立了一套涵盖节点延迟、晚高峰带宽吞吐、丢包率、以及流媒体解锁状态的自动化监控体系。无论您是寻找<strong>便宜机场推荐</strong>，还是对延迟要求极高的<strong>专线机场推荐</strong>，都能在这里找到客观的数据支撑。</p>
+      <h3>为什么需要稳定的梯子工具？</h3>
+      <p>随着互联网环境的收紧，传统的直连方式常常面临严重的 QoS 甚至 IP 阻断。高质量的 <strong>IEPL / IPLC 专线</strong>能够提供不过墙的内网传输，有效保障晚高峰的流畅度，是重度视频用户和外贸从业者的首选。</p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faqs" class="py-16">
+      <FAQ items={HOMEPAGE_DATA.faqs} />
+    </section>
+
+    <!-- CTA -->
+    <CTASection 
+      title="准备好体验极速网络了吗？" 
+      description="查看我们最新更新的 2026 机场推荐榜单，即刻获取专属优惠码。" 
+      buttonText="查看天梯榜" 
+      buttonLink="/category/airports/" 
+    />
+  </div>
+</BaseLayout>

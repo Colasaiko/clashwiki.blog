@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import BrandCard from '../../components/BrandCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackButton from '../../components/BackButton.astro';
+
+const brands = await getCollection('brands');
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="优质机场品牌严选榜单 - Clash Wiki" description="Clash Wiki 2026白金之选好评甄录：微风网络、灵猫云、连击闪转跨界直抵等超优低延迟大带宽口碑长跑强本领严苛盘查比武总编列！">
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-20">
+    <BackButton text="返回主页" href="/" />
+    <Breadcrumb items={[{ label: '优选品牌库' }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title="优质科学上网机场品牌库" subtitle="收录2026年极速、优质、长寿不跑路的大牌与新锐性价比优良专线，全站数据真实测压一箭直触。" align="left" asH1={true} />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {brands.map(brand => (
+        <BrandCard 
+          name={brand.data.name}
+          description={brand.data.description}
+          url={`/brands/${brand.id.replace(/\.md$/, '')}/`}
+          buyUrl={`/go/${brand.id.replace(/\.md$/, '')}`}
+          tags={brand.data.tags}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

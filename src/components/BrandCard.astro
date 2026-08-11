@@ -1,0 +1,57 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  url: string;
+  tags?: string[];
+  image?: string;
+  buyUrl?: string;
+}
+
+const { name, description, url, tags = [], image, buyUrl } = Astro.props;
+import CardPeep from './CardPeep.astro';
+---
+<div class="tilt-card-3d group block glass-panel p-6 h-full flex flex-col relative transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)] hover:-translate-y-1 z-10" style="transform-style: preserve-3d;">
+  <a href={url} class="absolute inset-0 z-20" aria-label={name}></a>
+  {image && (
+    <div class="absolute inset-0 z-0 overflow-hidden rounded-2xl">
+      <img src={image} alt={name} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-white/40 to-transparent group-hover:from-white/95 group-hover:via-white/50 transition-colors duration-300"></div>
+    </div>
+  )}
+  <div class="relative z-10 flex-1 flex flex-col pointer-events-none">
+    <CardPeep position="left" />
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-2xl font-bold font-heading text-slate-900 group-hover:text-emerald-500 transition-colors">
+      {name}
+    </h3>
+    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-emerald-100 group-hover:text-emerald-500 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+  
+  <p class="text-slate-500 text-sm mb-6 line-clamp-2 h-10">
+    {description}
+  </p>
+  
+  <div class="flex items-center justify-between mt-auto pt-4 gap-2">
+    <div class="flex flex-wrap gap-2 flex-1">
+      {tags.slice(0, 3).map(tag => (
+        <span class="px-2.5 py-1 text-xs font-medium bg-white/60 backdrop-blur-sm border border-white/50 text-slate-700 rounded-md shadow-sm">
+          {tag}
+        </span>
+      ))}
+      {tags.length > 3 && (
+        <span class="px-2.5 py-1 text-xs font-medium bg-white/60 backdrop-blur-sm border border-white/50 text-slate-500 rounded-md shadow-sm">
+          +{tags.length - 3}
+        </span>
+      )}
+    </div>
+    <a href={buyUrl || url} class="relative z-30 pointer-events-auto inline-flex shrink-0 items-center justify-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition-all duration-300 group-hover:shadow-emerald-500/50 hover:-translate-y-0.5 hover:scale-105">
+      立即购买
+    </a>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTASection from '../../components/CTASection.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Mock related posts
+const allPosts = await getCollection('blog');
+const related = allPosts.filter(p => p.data.category === post.data.category && p.id !== post.id).slice(0, 3);
+const slug = post.id.replace(/\.md$/, '');
+
+let ctaTitle = "获取专属网络加速服务";
+let ctaDesc = "点击下方按钮，寻找最适合您的机场套餐。";
+let btnText = "前往品牌库";
+let btnLink = "/brands/";
+
+if (slug.startsWith('seo-brand-')) {
+  const brandName = slug.replace('seo-brand-', '');
+  ctaTitle = "准备好体验极速网络了吗？";
+  ctaDesc = "点击下方按钮，即刻前往官网获取专属优惠并开始使用。";
+  btnText = "立即前往购买";
+  btnLink = `/go/${brandName}/`;
+}
+---
+
+<BlogLayout {...post.data}>
+  <div slot="article-content">
+    <Content />
+  </div>
+  
+  <div slot="after-article" class="w-full clear-both">
+    {related.length > 0 && <RelatedPosts posts={related} />}
+    
+    <CTASection 
+      title={ctaTitle} 
+      description={ctaDesc} 
+      buttonText={btnText} 
+      buttonLink={btnLink} 
+    />
+  </div>
+</BlogLayout>

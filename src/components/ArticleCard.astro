@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  category: string;
+  pubDate: Date;
+}
+
+const { title, description, url, category, pubDate } = Astro.props;
+import CardPeep from './CardPeep.astro';
+---
+<a href={url} class="tilt-card-3d group block glass-panel p-6 h-full flex flex-col relative transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)] hover:-translate-y-1 z-10" style="transform-style: preserve-3d;">
+  <CardPeep />
+  <div class="absolute inset-0 border-2 border-emerald-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+  <div class="relative z-10 flex flex-col h-full">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="px-2.5 py-1 text-xs font-medium bg-emerald-100  text-emerald-700  rounded-lg">
+        {category}
+      </span>
+      <time class="text-xs text-slate-400">
+        {pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'short', day: 'numeric' })}
+      </time>
+    </div>
+    <h3 class="text-xl font-heading font-semibold text-slate-900  mb-3 group-hover:text-emerald-500 transition-colors line-clamp-2 pr-8">
+      {title}
+    </h3>
+    <p class="text-slate-500  text-sm line-clamp-3 mb-4 flex-grow leading-relaxed pr-8">
+      {description}
+    </p>
+    <div class="mt-auto flex items-center text-emerald-500 text-sm font-medium">
+      阅读全文
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
+    </div>
+  </div>
+</a>

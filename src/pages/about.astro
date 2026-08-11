@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="关于我们 - ClashWiki" description="了解ClashWiki（Clash维基）初衷与坚持。打破信息黑屋与诈骗怪圈，誓求真实不掺假、长链深度跟踪硬核实探数据测评与无门槛教程分享，共筑自由互联高地。">
+  <!-- 背景氛围 -->
+  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-50">
+    <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-emerald-500/5 blur-[120px] mix-blend-multiply"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-teal-500/5 blur-[120px] mix-blend-multiply"></div>
+  </div>
+
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20 relative z-10">
+    <Breadcrumb items={[{ label: '关于' }]} />
+    
+    <div class="mt-8 mb-16 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 mb-6 tracking-tight">
+        打破信息壁垒，寻找极速引擎
+      </h1>
+      <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+        在这个充斥着虚假宣传与跑路风险的“机场”圈子里，ClashWiki 致力于为您提供最真实、硬核的数据评测与保姆级教程。
+      </p>
+    </div>
+    
+    <div class="bg-white/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-slate-200/60 shadow-xl shadow-slate-200/40">
+      
+      <div class="prose prose-slate prose-emerald max-w-none">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+          <h2 class="m-0 text-2xl font-bold text-slate-800">我们的初衷</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed">
+          科学上网（翻墙）早已成为许多人工作、学习和娱乐的刚需。然而，目前的“机场”市场鱼龙混杂：真假 IPLC/IEPL 专线难辨、虚标宽带上限、开业圈钱后火速“跑路”的劣质服务商层出不穷。<br/>
+          <strong>ClashWiki 的诞生正是为了打破这种信息不对称。</strong>我们希望通过持续、中立的评测，帮您过滤掉 90% 的垃圾产品，直接锁定那 10% 真正好用的网络引擎。
+        </p>
+
+        <div class="w-full h-px bg-slate-200/60 my-10"></div>
+
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-teal-100 flex items-center justify-center text-teal-600 shrink-0">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+          </div>
+          <h2 class="m-0 text-2xl font-bold text-slate-800">硬核的评测标准</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          我们拒绝云评测。所有被我们收录到“精选品牌库”的服务商，都必须经历严格的考核体系：
+        </p>
+        <ul class="text-slate-600 space-y-2 marker:text-emerald-500">
+          <li><strong>真金白银自费购买：</strong> 绝不依赖服务商提供的特供试用账号，保证我们测试的线路与您买到的完全一致。</li>
+          <li><strong>晚高峰地狱测试：</strong> 抛弃无意义的清晨跑速图，我们只看晚上 8 点到 11 点的真实跨洋吞吐量和延迟抖动。</li>
+          <li><strong>流媒体与AI真机验证：</strong> 针对 Netflix 4K 秒开率、ChatGPT/Claude 原生 IP 纯净度进行持续的黑盒测试。</li>
+          <li><strong>长线追踪：</strong> 不是测完一次就结束。一旦发现某品牌近期频繁断流或线路降级，我们会立刻修改评级甚至将其移除。</li>
+        </ul>
+
+        <div class="w-full h-px bg-slate-200/60 my-10"></div>
+
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <h2 class="m-0 text-2xl font-bold text-slate-800">商业模式透明化</h2>
+        </div>
+        <p class="text-slate-600 leading-relaxed">
+          保持网站的独立运行需要支付不菲的服务器费用。为了让本站能够长期活下去，我们会在部分评测文章中放置**推广链接 (Affiliate Link)**。<br/>
+          当您通过我们的专属链接购买时，我们可能会获得极小比例的佣金。但这<strong>绝不会增加您的一分钱开销</strong>，很多时候反而能通过我们提供的专属优惠码获得折扣。更重要的是，我们<strong>永远秉持客观真实</strong>的原则，绝不为了佣金而去推荐体验糟糕的跑路机场。
+        </p>
+
+        <div class="mt-12 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+          <p class="text-sm text-slate-500 italic text-center m-0">
+            如果您对网站内容有任何建议，或发现了优秀的宝藏服务商，欢迎通过我们的社交媒体频道与我们联系。<br/>
+            感谢您选择 ClashWiki 作为您的专属网络指南。
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</BaseLayout>

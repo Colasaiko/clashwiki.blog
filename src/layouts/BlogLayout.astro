@@ -1,0 +1,84 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import BackButton from '../components/BackButton.astro';
+import { CATEGORIES } from '../data/categories';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  category: string;
+  tags: string[];
+  author?: string;
+}
+
+const { title, description, pubDate, updatedDate, category, tags, author = 'Admin' } = Astro.props;
+const catObj = CATEGORIES.find(c => c.name === category);
+const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.slug}/` : `/category/${category}/`);
+
+// Dynamically generate SEO keywords based on article tags, plus forced global keywords
+const seoKeywords = [...tags, "Clash", "便宜机场推荐", "科学上网"].join(", ");
+---
+
+<BaseLayout title={title} description={description} keywords={seoKeywords} ogType="article">
+  <article class="container mx-auto max-w-4xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
+    <BackButton text="返回上一页" />
+    <Breadcrumb items={[
+      { label: '博客', href: '/blog/' },
+      { label: category, href: categoryUrl },
+      { label: title }
+    ]} />
+    
+    <header class="mb-10 mt-6 text-center">
+      <div class="mb-6 flex justify-center">
+        <a href={categoryUrl} class="px-3 py-1 bg-emerald-50  text-emerald-600  rounded-full text-sm font-medium hover:bg-emerald-100 transition-colors">
+          {category}
+        </a>
+      </div>
+      
+      <h1 class="text-3xl md:text-5xl font-bold font-heading text-slate-900  mb-6 leading-tight">
+        {title}
+      </h1>
+      
+      <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 ">
+        <div class="flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          <span>{author}</span>
+        </div>
+        <span>&bull;</span>
+        <div class="flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <time datetime={pubDate.toISOString()}>发布于 {pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        </div>
+        {updatedDate && (
+          <>
+            <span>&bull;</span>
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              <time datetime={updatedDate.toISOString()}>更新于 {updatedDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            </div>
+          </>
+        )}
+      </div>
+    </header>
+
+    <div class="prose-custom mx-auto mb-16 relative">
+      <slot name="article-content" />
+    </div>
+
+    <div class="border-t border-slate-200  pt-8 pb-4 mb-16">
+      <div class="flex flex-wrap gap-2">
+        <span class="text-sm font-medium text-slate-500  py-1 mr-2">相关标签:</span>
+        {tags.map(tag => (
+          <a href={`/tag/${tag}/`} class="px-3 py-1 bg-slate-100  text-slate-600  rounded-md text-sm hover:bg-emerald-100 hover:text-emerald-600 transition-colors">
+            #{tag}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <slot name="after-article" />
+  </article>
+</BaseLayout>

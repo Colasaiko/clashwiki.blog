@@ -1,0 +1,26 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import SectionTitle from './SectionTitle.astro';
+
+interface Props {
+  posts: any[];
+}
+
+const { posts } = Astro.props;
+---
+{posts.length > 0 && (
+  <div class="mt-16 pt-16 border-t border-slate-200 ">
+    <SectionTitle title="相关阅读" align="left" />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {posts.map(post => (
+        <ArticleCard 
+          title={post.data.title}
+          description={post.data.description}
+          url={`/blog/${post.slug}/`}
+          category={post.data.category}
+          pubDate={post.data.pubDate}
+        />
+      ))}
+    </div>
+  </div>
+)}

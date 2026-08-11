@@ -1,0 +1,77 @@
+---
+import { SITE } from '../data/site';
+import { MAIN_NAV } from '../data/nav';
+---
+<header id="main-header" class="fixed top-0 z-50 w-full transition-all duration-300 bg-transparent border-none">
+  <div class="container mx-auto max-w-6xl px-4 h-20 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <a href="/" id="logo-link" class="flex items-center gap-3 group mt-2 md:mt-4">
+        <img src="/logo.jpg" alt="ClashWiki Mascot Logo" class="h-16 w-16 md:h-20 md:w-20 rounded-full shadow-md group-hover:scale-105 transition-all duration-300 border-2 border-white/80" />
+      </a>
+    </div>
+    
+    <nav class="hidden md:flex items-center gap-1 bg-white/95 backdrop-blur-md px-2 py-1.5 rounded-full shadow-sm border border-slate-200/80">
+      {MAIN_NAV.map(item => (
+        <a href={item.href} class="text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    
+    <div class="flex items-center gap-4">
+      <a href="/brands/" class="hidden md:inline-flex btn-primary py-2.5 px-6 text-sm shadow-lg shadow-emerald-500/20">
+        寻找机场
+      </a>
+      <button class="md:hidden text-slate-800 drop-shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    const header = document.getElementById('main-header');
+    if (!header) return;
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 20) {
+        header.classList.remove('bg-transparent', 'border-none', 'h-20');
+        header.classList.add('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-200/50', 'shadow-sm', 'h-16');
+      } else {
+        header.classList.add('bg-transparent', 'border-none', 'h-20');
+        header.classList.remove('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-200/50', 'shadow-sm', 'h-16');
+      }
+      
+      // Auto-hide header when scrolling down past 100px
+      if (currentScrollY > 100 && currentScrollY > lastScrollY) {
+        header.classList.add('-translate-y-full');
+      } else {
+        header.classList.remove('-translate-y-full');
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    // Trigger once on load
+    handleScroll();
+    
+    // Smooth scroll for logo
+    const logoLink = document.getElementById('logo-link');
+    if (logoLink) {
+      logoLink.addEventListener('click', (e) => {
+        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', initHeader);
+  document.addEventListener('astro:page-load', initHeader);
+</script>

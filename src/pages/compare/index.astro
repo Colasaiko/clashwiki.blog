@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const compareData = [
+  {
+    id: 'breeze',
+    name: '微风网络',
+    logo: '/images/brand_shield.jpg',
+    corePersona: '🏆 全明星专线卷王',
+    monthly: '¥12.00',
+    yearly: '¥118.00',
+    targetAudience: '极客、对稳定有强迫症的用户',
+    priceLevel: '💰💰💰 (高端)',
+    killerFeature: '顶级上游集结 (G家/N家/D家)，晚高峰稳如老狗',
+    weakness: '价格门槛较高',
+    bestScenario: '主力机，硬核游戏，重要业务保障',
+    url: '/brands/breeze/'
+  },
+  {
+    id: 'flashleap',
+    name: '闪跃机场',
+    logo: '/images/brand_speed.jpg',
+    corePersona: '⚡ 电竞物理外挂',
+    monthly: '¥24.00',
+    yearly: '¥96.00',
+    targetAudience: 'FPS重度玩家 (Apex/CSGO)',
+    priceLevel: '💰💰💰 (中高)',
+    killerFeature: '沪日/深港 IPLC专线，15-30ms极低延迟，0丢包',
+    weakness: '功能相对单一，偏向游戏',
+    bestScenario: '替代加速器，极限刚枪，追求毫秒必争',
+    url: '/brands/flashleap/'
+  },
+  {
+    id: 'kuajie',
+    name: '跨界云',
+    logo: '/images/brand_globe.jpg',
+    corePersona: '🛡️ 纯净IP护城河',
+    monthly: '¥20.00',
+    yearly: '¥96.00',
+    targetAudience: '跨境电商、AI重度开发者',
+    priceLevel: '💰💰💰 (中高)',
+    killerFeature: '全球冷门原生/住宅IP，欺诈分极低，防连坐封号',
+    weakness: '非主打极限下载速度',
+    bestScenario: 'ChatGPT矩阵，多账号运营，锁区游戏护号',
+    url: '/brands/kuajie/'
+  },
+  {
+    id: 'civet',
+    name: '灵猫',
+    logo: '/images/brand_key.jpg',
+    corePersona: '🩹 容灾备用底牌',
+    monthly: '¥15.00',
+    yearly: '¥150.00',
+    targetAudience: '老鸟、有流量焦虑的仓鼠症',
+    priceLevel: '💰 (极低按量)',
+    killerFeature: '按量计费永不过期，多设备共享，用完即走',
+    weakness: '不适合作为主力高消耗使用',
+    bestScenario: '应急备用，低频查资料，全家防断网',
+    url: '/brands/civet/'
+  },
+  {
+    id: 'firefly',
+    name: '萤火虫',
+    logo: '/images/brand_power.jpg',
+    corePersona: '🌊 大流量收割机',
+    monthly: '¥18.00',
+    yearly: '¥188.00',
+    targetAudience: '4K剧迷、3A大作下载狂',
+    priceLevel: '💰 (白菜价)',
+    killerFeature: '价格屠夫，百兆大带宽，不限量级体验',
+    weakness: '极限Ping值拼不过顶级专线',
+    bestScenario: '下载神器，刷Netflix 4K，囤积资源',
+    url: '/brands/firefly/'
+  },
+  {
+    id: 'worryfree',
+    name: '无忧链接',
+    logo: '/images/brand_cloak.jpg',
+    corePersona: '🧋 小白入门保姆',
+    monthly: '¥19.00',
+    yearly: '¥79.00',
+    targetAudience: '零基础小白、轻度翻墙用户',
+    priceLevel: '💰 (一杯奶茶)',
+    killerFeature: '1元测试，一键导入，3分钟傻瓜式上手',
+    weakness: '性能天花板有限，晚高峰仅及格',
+    bestScenario: '新手入门，日常看YT，偶尔轻量游戏',
+    url: '/brands/worryfree/'
+  }
+];
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="产品终极对比 - 挑选最适合你的机场">
+  <!-- 页面背景氛围 -->
+  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-900">
+    <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-indigo-600/20 blur-[120px] mix-blend-screen"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-cyan-600/10 blur-[150px] mix-blend-screen"></div>
+    <div class="absolute top-[40%] left-[60%] w-[30vw] h-[30vw] rounded-full bg-fuchsia-600/15 blur-[100px] mix-blend-screen"></div>
+  </div>
+
+  <div class="container mx-auto max-w-7xl px-4 pt-28 pb-20 relative z-10">
+    <Breadcrumb items={[{ label: '产品对比' }]} />
+    
+    <div class="mt-8 mb-16 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-fuchsia-400 mb-4 tracking-tight">
+        六机论剑
+      </h1>
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+        “2026年内卷局：六大顶流机场，到底该翻谁的牌子？”
+      </p>
+    </div>
+
+    <!-- 响应式对比卡片网格 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+      {compareData.map((brand) => (
+        <div class="group relative flex flex-col rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.3)]">
+          <!-- 玻璃拟物背景层 -->
+          <div class="absolute inset-0 bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 rounded-3xl transition-colors duration-500 group-hover:bg-slate-800/60 group-hover:border-indigo-500/30 z-0"></div>
+          
+          <!-- 顶部品牌信息 -->
+          <div class="relative z-10 p-6 sm:p-8 flex items-center space-x-5 border-b border-slate-700/50 bg-slate-900/20">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden shrink-0 ring-2 ring-slate-700/50 group-hover:ring-indigo-400/50 transition-all duration-300">
+              <img src={brand.logo} alt={brand.name} class="w-full h-full object-cover object-right group-hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-slate-100 mb-1 group-hover:text-indigo-300 transition-colors duration-300">{brand.name}</h2>
+              <p class="text-sm font-semibold text-emerald-400">{brand.corePersona}</p>
+            </div>
+          </div>
+
+          <!-- 核心参数列表 -->
+          <div class="relative z-10 p-6 sm:p-8 flex-grow flex flex-col space-y-5">
+            
+            <div class="grid grid-cols-2 gap-x-4 gap-y-3 bg-slate-900/50 rounded-2xl p-4 border border-slate-700/30">
+              <div>
+                <p class="text-[11px] text-slate-500 mb-0.5 font-medium tracking-wider uppercase">起步月付</p>
+                <p class="text-lg font-bold text-emerald-400">{brand.monthly}</p>
+              </div>
+              <div>
+                <p class="text-[11px] text-slate-500 mb-0.5 font-medium tracking-wider uppercase">最低年付</p>
+                <p class="text-lg font-bold text-cyan-400">{brand.yearly}</p>
+              </div>
+              <div class="col-span-2 border-t border-slate-700/30 pt-3 mt-1 grid grid-cols-2 gap-4">
+                <div>
+                  <p class="text-[11px] text-slate-500 mb-0.5 font-medium tracking-wider uppercase">目标受众</p>
+                  <p class="text-sm font-bold text-slate-200">{brand.targetAudience}</p>
+                </div>
+                <div>
+                  <p class="text-[11px] text-slate-500 mb-0.5 font-medium tracking-wider uppercase">价格定位</p>
+                  <p class="text-sm font-bold text-amber-400">{brand.priceLevel}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4 flex-grow">
+              
+              <div class="bg-indigo-900/10 border border-indigo-500/10 rounded-xl p-4">
+                <div class="flex items-center text-sm font-medium text-indigo-300 mb-1.5">
+                  <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  核心杀手锏
+                </div>
+                <p class="text-sm text-slate-300 leading-relaxed font-medium">{brand.killerFeature}</p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-rose-900/10 border border-rose-500/10 rounded-xl p-3">
+                  <div class="flex items-center text-xs font-medium text-rose-400 mb-1">
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    致命短板
+                  </div>
+                  <p class="text-xs text-slate-400">{brand.weakness}</p>
+                </div>
+                <div class="bg-cyan-900/10 border border-cyan-500/10 rounded-xl p-3">
+                  <div class="flex items-center text-xs font-medium text-cyan-400 mb-1">
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    最佳场景
+                  </div>
+                  <p class="text-xs text-slate-400">{brand.bestScenario}</p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <!-- 底部按钮 -->
+          <div class="relative z-10 p-6 sm:px-8 sm:pb-8 pt-0 mt-auto">
+            <a href={brand.url} class="flex items-center justify-center w-full py-3.5 px-4 bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 hover:from-indigo-500/40 hover:to-cyan-500/40 border border-indigo-500/30 rounded-xl text-indigo-300 font-semibold transition-all duration-300 group-hover:text-white group-hover:border-indigo-400 shadow-lg shadow-indigo-900/20">
+              <span>查看深度评测</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../../data/categories';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return CATEGORIES.map(category => {
+    const filteredPosts = posts.filter(post => post.data.category === category.name);
+    
+    // 自定义排序：带有 seo-brand- 前缀的品牌评测置顶，剩下的按时间倒序
+    filteredPosts.sort((a, b) => {
+      const aIsBrand = a.id.startsWith('seo-brand-') ? 1 : 0;
+      const bIsBrand = b.id.startsWith('seo-brand-') ? 1 : 0;
+      if (aIsBrand !== bIsBrand) return bIsBrand - aIsBrand;
+      return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+    });
+
+    return {
+      params: { category: category.slug || category.name },
+      props: { posts: filteredPosts, categoryInfo: category },
+    };
+  });
+}
+
+const { category } = Astro.params;
+const { posts, categoryInfo } = Astro.props;
+---
+
+<BaseLayout title={`${categoryInfo.name} - 分类文章`}>
+  <div class="container mx-auto max-w-6xl px-4 py-12">
+    <Breadcrumb items={[{ label: '博客', href: '/blog/' }, { label: categoryInfo.name }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title={`${categoryInfo.icon} ${categoryInfo.name}`} subtitle={categoryInfo.description} align="left" asH1={true} />
+    </div>
+
+    <CategoryNav activeCategory={categoryInfo.name} />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {posts.map(post => (
+        <ArticleCard 
+          title={post.data.title}
+          description={post.data.description}
+          url={`/blog/${post.id.replace(/\.md$/, '')}/`}
+          category={post.data.category}
+          pubDate={post.data.pubDate}
+        />
+      ))}
+      {posts.length === 0 && (
+        <p class="text-slate-500 py-12">该分类下暂无文章。</p>
+      )}
+    </div>
+  </div>
+</BaseLayout>

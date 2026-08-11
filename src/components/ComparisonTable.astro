@@ -1,0 +1,61 @@
+---
+interface Feature {
+  name: string;
+  support: boolean | 'partial' | string;
+}
+
+interface Item {
+  name: string;
+  price: string;
+  features: Feature[];
+  link: string;
+  isPopular?: boolean;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+<div class="overflow-x-auto pb-4">
+  <div class="min-w-[800px] flex gap-4">
+    {items.map(item => (
+      <div class={`flex-1 glass-panel p-6 flex flex-col relative ${item.isPopular ? 'ring-2 ring-emerald-500 shadow-lg scale-[1.02]' : ''}`}>
+        {item.isPopular && (
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+            最受欢迎
+          </div>
+        )}
+        
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold font-heading text-slate-900  mb-2">{item.name}</h3>
+          <div class="text-2xl font-bold text-emerald-500">{item.price}<span class="text-sm text-slate-400 font-normal"> /起</span></div>
+        </div>
+        
+        <ul class="space-y-4 mb-8 flex-grow">
+          {item.features.map(feat => (
+            <li class="flex items-start justify-between text-sm">
+              <span class="text-slate-600 ">{feat.name}</span>
+              <span class="font-medium">
+                {feat.support === true ? (
+                  <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                ) : feat.support === false ? (
+                  <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                ) : feat.support === 'partial' ? (
+                  <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                ) : (
+                  <span class="text-slate-900 ">{feat.support}</span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+        
+        <a href={item.link} class={`w-full text-center block ${item.isPopular ? 'btn-primary' : 'btn-secondary'}`}>
+          查看详情
+        </a>
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import BackButton from '../../components/BackButton.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('topics');
+  return topics.map(topic => ({
+    params: { slug: topic.data.slug },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const { Content } = await render(topic);
+
+// Mock posts for the topic
+const posts = (await getCollection('blog')).slice(0, 4);
+---
+
+<BaseLayout title={`${topic.data.title} 专题`}>
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
+    <BackButton text="返回首页" fallbackUrl="/" />
+    <Breadcrumb items={[{ label: '专题', href: '/topics/' }, { label: topic.data.title }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title={topic.data.title} subtitle={topic.data.description} align="left" asH1={true} />
+    </div>
+
+    <div class="prose-custom max-w-3xl mb-12">
+      <Content />
+    </div>
+
+    <h3 class="text-2xl font-heading font-bold text-slate-900  mb-6 pt-8 border-t border-slate-200 ">该专题下的文章</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map(post => (
+        <ArticleCard 
+          title={post.data.title}
+          description={post.data.description}
+          url={`/blog/${post.id.replace(/\.md$/, '')}/`}
+          category={post.data.category}
+          pubDate={post.data.pubDate}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

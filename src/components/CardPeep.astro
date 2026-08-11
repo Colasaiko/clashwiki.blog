@@ -1,0 +1,19 @@
+---
+// CardPeep.astro
+// Reusable peeping character for cards
+interface Props {
+  position?: 'left' | 'right';
+}
+const { position = 'right' } = Astro.props;
+const positionClass = position === 'left' ? 'left-4' : 'right-4';
+---
+<!-- 裁剪容器：置于卡片上方，底边对齐卡片顶边。控制高度防止过分超出 -->
+<div class="absolute left-0 right-0 bottom-full h-[80px] overflow-hidden pointer-events-none z-20">
+  <!-- 小猫娘实体：根据 position 决定是在左侧还是右侧。增加 -bottom-5 抵消图片底部的透明留白，使其紧贴边框 -->
+  <div class={`absolute ${positionClass} -bottom-5 w-20 h-20 transition-transform duration-300 ease-out translate-y-0 group-hover:translate-y-[80px] opacity-100`}>
+    <div class="relative w-full h-full">
+      <img src="/peep-body.png" class="absolute inset-0 w-full h-full object-contain drop-shadow-sm" alt="ClashWiki科学上网严谨评测萌兽吉祥物" onerror="this.style.display='none'" />
+      <img src="/peep-eyes.png" class="peep-eyes-card absolute inset-0 w-full h-full object-contain transition-transform duration-100 ease-out" alt="ClashWiki甄选优质专线互动视角特效" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</div>

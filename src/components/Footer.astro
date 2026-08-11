@@ -1,0 +1,55 @@
+---
+import { SITE } from '../data/site';
+import { FOOTER_NAV } from '../data/nav';
+---
+<footer class="bg-transparent border-t border-slate-200/50 pt-16 pb-8 mt-24">
+  <div class="container mx-auto max-w-6xl px-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div class="col-span-1 md:col-span-1">
+        <a href="/" class="text-xl font-heading font-bold text-gradient flex items-center gap-2 mb-4">
+          <span class="text-2xl">⚡</span>
+          {SITE.name}
+        </a>
+        <p class="text-sm text-slate-500  mb-6 leading-relaxed">
+          {SITE.description}
+        </p>
+      </div>
+      
+      <div>
+        <h3 class="font-heading font-semibold text-slate-900  mb-4">内容分类</h3>
+        <ul class="space-y-3 text-sm">
+          {FOOTER_NAV.categories.map(item => (
+            <li><a href={item.href} class="text-slate-500  hover:text-emerald-500 transition-colors">{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="font-heading font-semibold text-slate-900  mb-4">重要页面</h3>
+        <ul class="space-y-3 text-sm">
+          {FOOTER_NAV.important.map(item => (
+            <li><a href={item.href} class="text-slate-500  hover:text-emerald-500 transition-colors">{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="font-heading font-semibold text-slate-900  mb-4">法律条款</h3>
+        <ul class="space-y-3 text-sm">
+          {FOOTER_NAV.legal.map(item => (
+            <li><a href={item.href} class="text-slate-500  hover:text-emerald-500 transition-colors">{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-slate-200  pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-slate-500 ">
+        &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
+      </p>
+      <p class="text-xs text-slate-400">
+        本站内容仅供学习研究使用，请遵守所在地区法律法规。
+      </p>
+    </div>
+  </div>
+</footer>

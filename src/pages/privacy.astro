@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="隐私政策 - ClashWiki">
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '隐私政策' }]} />
+    
+    <div class="mt-8 prose prose-slate prose-emerald max-w-none">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8">隐私政策</h1>
+      
+      <p class="lead text-lg text-slate-600 mb-8">
+        ClashWiki 非常重视您的个人隐私保护。本隐私政策旨在说明在您访问和使用本网站时，我们如何处理和保护您的信息。
+      </p>
+
+      <h3>1. 信息的收集</h3>
+      <p>作为一个以信息展示为主的静态网站，ClashWiki <strong>不会</strong>强制要求用户注册账号，也<strong>不会</strong>主动收集您的姓名、电话号码、家庭住址、身份证号等敏感个人识别信息 (PII)。</p>
+      <p>当您浏览本站时，我们的服务器和所依赖的第三方分析工具（如 Google Analytics、Cloudflare 等）可能会自动收集一些非个人身份特征的数据。这些数据包括但不限于：</p>
+      <ul>
+        <li>您的 IP 地址（通常会被匿名化处理）</li>
+        <li>浏览器类型及版本</li>
+        <li>设备类型与操作系统</li>
+        <li>您访问本站的页面、停留时间及来源链接</li>
+      </ul>
+
+      <h3>2. Cookie 的使用</h3>
+      <p>本站可能会使用 Cookie 及同类技术来改善您的浏览体验。Cookie 是存储在您设备上的小数据文件，用于帮助网站记住您的访问偏好、统计页面流量并优化网站性能。您可以通过浏览器设置拒绝或清除 Cookie，但这可能导致部分网站功能无法正常运作。</p>
+
+      <h3>3. 信息的用途</h3>
+      <p>我们自动收集的非个人识别信息仅用于以下用途：</p>
+      <ul>
+        <li>监控网站运行状态及安全防护，防范恶意攻击或刷量行为。</li>
+        <li>分析网站流量与用户偏好，以便我们提供更高质量的评测内容。</li>
+        <li>优化网页加载速度与用户界面的交互体验。</li>
+      </ul>
+
+      <h3>4. 第三方链接与服务</h3>
+      <p>本站的评测文章和资源列表中包含大量指向第三方网站的链接（如机场服务商官网、软件下载站等）。我们无法控制这些外部网站的隐私惯例和数据收集行为。当您点击离开 ClashWiki 后，本隐私政策将不再适用。我们强烈建议您在向第三方网站提供任何个人信息之前，仔细阅读其隐私政策。</p>
+      
+      <h3>5. 数据安全</h3>
+      <p>本站采用全程 HTTPS 加密传输，致力于保护您的访问数据免遭未经授权的截获或篡改。但请理解，互联网传输并非绝对安全，我们无法做出100%的安全保证。</p>
+
+      <h3>6. 未成年人隐私</h3>
+      <p>本网站的内容不面向未满 18 周岁的未成年人。我们不会有意收集未成年人的任何信息。如果您是未成年人，请在监护人的陪同与指导下使用互联网。</p>
+
+      <h3>7. 隐私政策的更新</h3>
+      <p>随着业务发展和法律法规的变化，我们可能会不定期更新本隐私政策。任何重大变更都将在本页面更新并标明生效日期。</p>
+
+      <p class="text-sm text-slate-500 mt-12">最后更新日期：2026年7月28日</p>
+    </div>
+  </div>
+</BaseLayout>

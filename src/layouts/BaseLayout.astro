@@ -1,0 +1,107 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import DotGrid from '../components/DotGrid.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  noindex?: boolean;
+  ogType?: string;
+  bgImage?: string;
+}
+
+const { title, description, keywords, noindex, ogType, bgImage = '/background3.png' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+  <head>
+    <SeoHead title={title} description={description} keywords={keywords} noindex={noindex} ogType={ogType} />
+  </head>
+  <body id="top" class="flex flex-col min-h-screen bg-transparent">
+    <div class={`fixed inset-0 z-0 pointer-events-none ${bgImage === '/background3.png' ? 'opacity-50 mix-blend-normal' : 'opacity-100 mix-blend-normal'}`} style={`background-image: url('${bgImage}'); background-size: cover; background-position: center; background-attachment: fixed;`}></div>
+    {bgImage === '/background3.png' && <DotGrid />}
+    
+    <!-- Interactive Chibi Peep -->
+    <div class="wiki-chibi-peep-hitbox" title="点我回主页~">
+      <a href="/" class="wiki-chibi-peep-wrapper">
+        <img src="/peep-body.png" id="peep-body" class="peep-layer" alt="Clash Wiki 极速机场导览主旨动态挂载玩偶" onerror="this.style.display='none'" />
+        <img src="/peep-eyes.png" id="peep-eyes" class="peep-layer" alt="Clash Wiki 长尾评测与避坑指南指引徽章" onerror="this.style.display='none'" />
+      </a>
+    </div>
+
+    <div class="relative z-10 flex flex-col min-h-screen w-full">
+      <Header />
+      <main class="flex-grow w-full">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <script>
+      function initTiltCards() {
+        const cards = document.querySelectorAll('.tilt-card-3d');
+        
+        cards.forEach(card => {
+          const el = card as HTMLElement;
+          
+          el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            
+            el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            el.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          });
+          
+          el.addEventListener('mouseleave', () => {
+            el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            el.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          });
+        });
+      }
+
+      function initPeepTracking() {
+        const topEyes = document.getElementById('peep-eyes');
+        const cardEyesList = document.querySelectorAll('.peep-eyes-card');
+        
+        document.addEventListener('mousemove', (e) => {
+          // Top Peep (upside down)
+          if (topEyes) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 4;
+            const y = -(e.clientY / window.innerHeight - 0.5) * 2; 
+            topEyes.style.transform = `scaleY(-1) translate(${x}px, ${y}px)`;
+          }
+          
+          // Card Peeps (upright)
+          if (cardEyesList.length > 0) {
+            const cx = (e.clientX / window.innerWidth - 0.5) * 4;
+            const cy = (e.clientY / window.innerHeight - 0.5) * 2; 
+            cardEyesList.forEach(eyes => {
+              const el = eyes as HTMLElement;
+              el.style.transform = `translate(${cx}px, ${cy}px)`;
+            });
+          }
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initTiltCards();
+        initPeepTracking();
+      });
+      document.addEventListener('astro:page-load', () => {
+        initTiltCards();
+        initPeepTracking();
+      });
+    </script>
+  </body>
+</html>

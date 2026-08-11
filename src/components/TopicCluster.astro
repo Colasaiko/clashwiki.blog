@@ -1,0 +1,33 @@
+---
+interface Topic {
+  title: string;
+  description: string;
+  count: number;
+  url: string;
+}
+
+interface Props {
+  topics: Topic[];
+}
+
+const { topics } = Astro.props;
+---
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {topics.map(topic => (
+    <a href={topic.url} class="tilt-card-3d group block p-1 rounded-2xl bg-gradient-to-br from-slate-200 to-slate-100   hover:from-emerald-400 hover:to-teal-500 transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)] hover:-translate-y-1 z-10" style="transform-style: preserve-3d;">
+      <div class="bg-white  h-full rounded-xl p-6 flex flex-col transition-colors group-hover:bg-white/90">
+        <div class="flex justify-between items-start mb-4">
+          <h3 class="text-xl font-bold font-heading text-slate-900  group-hover:text-emerald-600 transition-colors">
+            {topic.title}
+          </h3>
+          <span class="px-2 py-1 bg-slate-100  text-xs font-medium text-slate-500 rounded-md">
+            {topic.count} 篇
+          </span>
+        </div>
+        <p class="text-sm text-slate-500  flex-grow">
+          {topic.description}
+        </p>
+      </div>
+    </a>
+  ))}
+</div>

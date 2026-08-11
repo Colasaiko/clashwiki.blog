@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import TopicCluster from '../../components/TopicCluster.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const topics = await getCollection('topics');
+const formattedTopics = topics.map(t => ({
+  title: t.data.title,
+  description: t.data.description,
+  count: Math.floor(Math.random() * 10) + 5, // Mock count
+  url: `/topics/${t.data.slug}/`
+}));
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="精选精诚严析聚合指南专题库 - Clash Wiki" description="ClashWiki专题聚合库：从游戏降延提稳至专区追流大流量看齐解谜、新手急建速安、协议黑匣辨别等直达要诀一栈统吃汇总全包！">
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '专题' }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title="精选专题聚合" subtitle="深度划分整合核心常搜需求，带您不耗分秒疾跃解疑指战图签秘法。" align="left" asH1={true} />
+    </div>
+
+    <TopicCluster topics={formattedTopics} />
+  </div>
+</BaseLayout>

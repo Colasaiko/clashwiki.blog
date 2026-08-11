@@ -1,0 +1,56 @@
+---
+import { HOMEPAGE_DATA } from '../data/homepage';
+import StatsStrip from './StatsStrip.astro';
+---
+<section class="relative pt-24 pb-8 md:pt-32 md:pb-12 overflow-hidden border-b border-slate-200/50 min-h-[500px] flex items-center">
+  <!-- Full-width Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img src="/hero_anime.jpg" alt="Anime girl under tree with WiFi" class="w-full h-full object-cover object-center" />
+    <!-- Gradient just at the very bottom to blend smoothly into the page -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+    <!-- Very subtle gradient on the right side to ensure text legibility without a frame -->
+    <div class="absolute inset-y-0 right-0 w-full md:w-1/2 bg-gradient-to-l from-white/40 via-white/10 to-transparent pointer-events-none"></div>
+  </div>
+  
+  <!-- Content -->
+  <div class="container mx-auto max-w-7xl px-4 relative z-10 w-full flex flex-col justify-between">
+    
+    <!-- Text Content Wrapper aligned to right -->
+    <div class="w-full flex justify-end">
+      <div class="max-w-2xl w-full flex flex-col items-start text-left pt-10">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm text-emerald-600 text-sm font-medium mb-6">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          2026 最新测速数据已更新
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight leading-tight drop-shadow-md">
+          寻找最适合您的<br/>
+          <span class="text-emerald-600 drop-shadow-sm">科学上网工具</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-800 max-w-lg mb-10 leading-relaxed font-semibold drop-shadow-sm">
+          {HOMEPAGE_DATA.hero.subtitle}
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <a href={HOMEPAGE_DATA.hero.primaryCta.href} class="btn-primary w-full sm:w-auto text-center text-lg px-8 py-3.5 shadow-lg shadow-emerald-500/30 hover:-translate-y-1 transition-transform">
+            {HOMEPAGE_DATA.hero.primaryCta.label}
+          </a>
+          <a href={HOMEPAGE_DATA.hero.secondaryCta.href} class="btn-secondary w-full sm:w-auto text-center text-lg px-8 py-3.5 bg-white/70 backdrop-blur-md hover:bg-white border-white/50 shadow-md">
+            {HOMEPAGE_DATA.hero.secondaryCta.label}
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats Strip inside Hero -->
+    <div class="w-full mt-16 max-w-6xl mx-auto">
+      <StatsStrip stats={HOMEPAGE_DATA.stats} />
+    </div>
+    
+  </div>
+</section>

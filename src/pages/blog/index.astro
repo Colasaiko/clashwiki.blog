@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackButton from '../../components/BackButton.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => {
+  const aIsBrand = a.id.startsWith('seo-brand-') ? 1 : 0;
+  const bIsBrand = b.id.startsWith('seo-brand-') ? 1 : 0;
+  if (aIsBrand !== bIsBrand) return bIsBrand - aIsBrand;
+  return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+});
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="最新科学上网博客与深度评测 - Clash Wiki" description="Clash Wiki深度干货博客专区：2026专业前瞻严实测压、精选稳强场主底册、翻墙游戏丢包追根揭底研判连坐曝光防雷心法大公开。">
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '博客文章' }]} />
+    
+    <!-- 头部标题区 -->
+    <div class="mt-8 mb-16">
+      <SectionTitle title="博客文章与测速报告" subtitle="获取最新节点测评数据、客户端高级避坑指南与专业网络通信原理科普。" align="left" asH1={true} />
+    </div>
+
+    <CategoryNav />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-32 mt-32">
+      {posts.map(post => (
+        <ArticleCard 
+          title={post.data.title}
+          description={post.data.description}
+          url={`/blog/${post.id.replace(/\.md$/, '')}/`}
+          category={post.data.category}
+          pubDate={post.data.pubDate}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

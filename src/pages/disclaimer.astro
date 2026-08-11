@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="免责声明 - ClashWiki">
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '免责声明' }]} />
+    
+    <div class="mt-8 prose prose-slate prose-emerald max-w-none">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8">免责声明</h1>
+      
+      <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+        <p class="text-amber-800 font-medium m-0">
+          访问并使用本网站（ClashWiki）即表示您已阅读、理解并同意接受以下全部免责声明条款。如果您不同意这些条款，请立即停止使用本网站。
+        </p>
+      </div>
+
+      <h3>1. 网站性质与定位</h3>
+      <p>ClashWiki 是一个提供网络测速、技术评测与教程分享的第三方信息资讯平台。本站<strong>不开发、不运营、不提供</strong>任何形式的 VPN、代理服务器或相关网络节点服务。站内所有提及的品牌与服务商均属于独立第三方机构。</p>
+
+      <h3>2. 合规与法律适用</h3>
+      <p>本站提供的所有文章、教程、软件下载链接以及相关信息，仅供计算机网络技术研究、外贸办公沟通、海外学术交流等合法合规用途。用户在使用本站信息及相关第三方服务时，必须严格遵守所在国家或地区的法律法规。对于用户利用本站信息进行任何违法违规操作所产生的一切法律责任，由用户自行承担，本站概不负责。</p>
+
+      <h3>3. 第三方服务与链接</h3>
+      <p>本站评测和推荐的第三方服务商（如各机场品牌）与本站无直接从属或控制关系。本站力求提供客观真实的评测数据，但由于网络环境的复杂性，不保证所有数据在任何时间、任何地区的一致性与绝对准确性。</p>
+      <p>用户在点击本站提供的外部链接前往第三方网站购买服务时，双方建立的交易关系与本站无关。本站不对第三方服务商的服务质量、资金安全、隐私保护以及可能出现的“跑路”等运营风险提供任何明示或暗示的担保，因使用第三方服务导致的任何直接或间接损失，本站不承担连带责任。</p>
+
+      <h3>4. 收益说明 (Affiliate Disclosure)</h3>
+      <p>为了维持本站的服务器及日常运营开支，本站的部分推荐链接可能包含推广（Affiliate）追踪。当您通过这些链接进行购买时，本站可能会获得少量的佣金，但这<strong>绝对不会</strong>增加您的购买成本。我们承诺，所有评测均基于真实的测速数据与主观体验，不会因为推广佣金而作出虚假推荐。</p>
+
+      <h3>5. 声明的修改与解释权</h3>
+      <p>本站保留随时修改、更新本免责声明的权利，修改后的条款一旦公布即刻生效。本声明的最终解释权归 ClashWiki 所有。</p>
+      
+      <p class="text-sm text-slate-500 mt-12">最后更新日期：2026年7月28日</p>
+    </div>
+  </div>
+</BaseLayout>

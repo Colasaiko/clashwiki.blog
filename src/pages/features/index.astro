@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+import { HOMEPAGE_DATA } from '../../data/homepage';
+---
+
+<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="全方位的内容导航 - Clash Wiki" description="Clash Wiki（Clash维基）全盘精编版科学上网内容地图与新手引路全指南。涵盖白话级入门部署、防欺诈自卫法则以及主流高端低价稳连机场品牌客观测评聚合库，秒懂解法畅快穿梭。">
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-12">
+    <Breadcrumb items={[{ label: '内容导航' }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title="全方位的内容导航" subtitle="不论您是刚刚入门的新手，还是追求极致的专业用户，都能在这里找到答案。" align="left" asH1={true} />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-20 mt-16 mb-20">
+      {HOMEPAGE_DATA.features.map(feat => (
+        <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  text?: string;
+  href?: string;
+}
+const { text = "返回", href = "javascript:history.back()" } = Astro.props;
+---
+<a href={href} onclick={href === 'javascript:history.back()' ? "history.back(); return false;" : undefined} class="inline-flex items-center gap-2.5 px-6 py-3 mb-8 text-base font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full hover:text-white hover:bg-emerald-500 hover:border-emerald-500 shadow-sm hover:shadow-md transition-all duration-300 w-max group">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+  </svg>
+  {text}
+</a>
