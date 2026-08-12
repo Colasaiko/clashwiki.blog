@@ -95,7 +95,7 @@ Clash 是一类常见的规则管理与网络代理客户端，可以通过配�
 
 ### 📚 相关页面
 
-* **Clash 客户端下载与项目介绍** → [前往下载](https://clashwiki.blog/blog/clash-client-download-intro)
+* **Clash 客户端下载与官方介绍** → [前往官方 GitHub 下载](https://github.com/clash-verge-rev/clash-verge-rev/releases)
 * **Windows Clash 教程** → [Windows 教程](https://clashwiki.blog/blog/clash-for-windows-tutorial)
 * **macOS Clash 教程** → [macOS 教程](https://clashwiki.blog/blog/clash-for-mac-tutorial)
 * **Android Clash 教程** → [Android 教程](https://clashwiki.blog/blog/clash-for-android-tutorial)
