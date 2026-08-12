@@ -18,9 +18,15 @@
 
 ## 🧭 分类导航
 通过以下分类，您可以快速查找您需要的干货资源：
-- **📚 教程 (Tutorials)**：涵盖 Clash for Windows / Mac / Android 配置指南、v2rayN 使用教程、软路由进阶设置等。
-- **📊 评测 (Reviews)**：全网热门机场真实测速、晚高峰表现对比、流媒体解锁实测、专线/IPLC 解析。
-- **🛠️ 工具 (Tools)**：常用网络诊断工具、全网节点测速网站推荐、订阅格式转换器。
+- **📚 教程 (Tutorials)**：
+  - [👉 Clash 客户端配置使用指南](docs/clash-guide.md)
+  - [👉 基础网络与网络优化指南](docs/network-guide.md)
+  - [👉 常见问题解答 (FAQ)](docs/faq.md)
+- **📊 评测 (Reviews)**：
+  - [👉 网络服务评测报告 01](docs/vpn-review-01.md)
+  - [👉 网络服务评测报告 02](docs/vpn-review-02.md)
+- **🛠️ 工具 (Tools)**：
+  - [👉 AI 工具推荐与使用指南](docs/ai-tools.md)
 
 > 💡 更多详细的图文教程与分类，请前往我们的博客查看：[clashwiki.blog](https://clashwiki.blog)
 
