@@ -512,31 +512,31 @@ sing-box 是一个功能丰富的网络代理工具和网络平台组件。
 
 ### 🤖 AI 工具
 
-**{{AI_TOOLS_PAGE}}**
+**[👉 探索更多 AI 工具与资源](https://clashwiki.blog)**
 
 全球 AI 工具导航、产品分类与使用建议。
 
 ### ⚙️ Clash
 
-**{{CLASH_HOME_PAGE}}**
+**[👉 Clash 客户端配置使用指南](clash-guide.md)**
 
 Clash 客户端使用教程、配置说明以及常见问题。
 
 ### ⚙️ sing-box
 
-**{{SINGBOX_HOME_PAGE}}**
+**[👉 sing-box 进阶教程与配置向导](https://clashwiki.blog)**
 
 sing-box 配置、规则、DNS 和进阶使用教程。
 
 ### 🌐 IP 检测
 
-**{{IPINFO_PAGE}}**
+**[👉 IP 与网络基础信息检测指南](network-guide.md)**
 
 查看公网 IP、ASN、地区以及网络基础信息。
 
 ### 📖 网络服务评测
 
-**{{NETWORK_REVIEW_PAGE}}**
+**[👉 2026 最新高性价比网络服务排行榜](../README.md)**
 
 整理不同网络服务的套餐、价格、流量以及使用体验，方便进行横向比较。
 
