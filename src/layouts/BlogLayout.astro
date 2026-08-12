@@ -22,7 +22,7 @@ const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.sl
 const seoKeywords = [...tags, "Clash", "便宜机场推荐", "科学上网"].join(", ");
 ---
 
-<BaseLayout title={title} description={description} keywords={seoKeywords} ogType="article">
+<BaseLayout title={title} description={description} keywords={seoKeywords} ogType="article" pubDate={pubDate} updatedDate={updatedDate} author={author}>
   <article class="container mx-auto max-w-4xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
     <BackButton text="返回上一页" />
     <Breadcrumb items={[

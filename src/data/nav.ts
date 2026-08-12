@@ -1,7 +1,17 @@
 export const MAIN_NAV = [
   { label: '首页', href: '/' },
   { label: '内容导航', href: '/features/' },
-  { label: '博客', href: '/blog/' },
+  { 
+    label: '博客', 
+    href: '/blog/',
+    children: [
+      { label: 'Clash 项目介绍', href: '/blog/clash-client-download-intro/' },
+      { label: 'Windows 教程', href: '/blog/clash-for-windows-tutorial/' },
+      { label: 'macOS 教程', href: '/blog/clash-for-mac-tutorial/' },
+      { label: 'Android 教程', href: '/blog/clash-for-android-tutorial/' },
+      { label: 'iOS 教程', href: '/blog/clash-for-ios-tutorial/' }
+    ]
+  },
   { label: '专题', href: '/topics/' },
   { label: '品牌库', href: '/brands/' },
   { label: '对比', href: '/compare/' },

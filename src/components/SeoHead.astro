@@ -8,6 +8,9 @@ interface Props {
   canonicalUrl?: string;
   ogType?: string;
   noindex?: boolean;
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
 }
 
 const {
@@ -17,9 +20,40 @@ const {
   canonicalUrl = Astro.url.href,
   ogType = 'website',
   noindex = false,
+  pubDate,
+  updatedDate,
+  author,
 } = Astro.props;
 
 const pageTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+
+const schemaData = ogType === 'article' ? {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "author": {
+    "@type": "Person",
+    "name": author || SITE.defaultAuthor
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": SITE.name,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE.domain}/logo.jpg`
+    }
+  },
+  "url": canonicalUrl,
+  "datePublished": pubDate ? pubDate.toISOString() : undefined,
+  "dateModified": updatedDate ? updatedDate.toISOString() : (pubDate ? pubDate.toISOString() : undefined)
+} : {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": SITE.name,
+  "url": SITE.domain,
+  "description": SITE.description
+};
 ---
 
 <!-- Global Metadata -->
@@ -47,3 +81,6 @@ const pageTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
 <meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={pageTitle} />
 <meta property="twitter:description" content={description} />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />

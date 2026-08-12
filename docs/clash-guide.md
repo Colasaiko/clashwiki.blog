@@ -95,11 +95,11 @@ Clash 是一类常见的规则管理与网络代理客户端，可以通过配�
 
 ### 📚 相关页面
 
-* **Clash 客户端下载与项目介绍** → `[前往下载](https://clashwiki.blog)`
-* **Windows Clash 教程** → `[Windows 教程](https://clashwiki.blog)`
-* **macOS Clash 教程** → `[macOS 教程](https://clashwiki.blog)`
-* **Android Clash 教程** → `[Android 教程](https://clashwiki.blog)`
-* **iOS 客户端教程** → `[iOS 教程](https://clashwiki.blog)`
+* **Clash 客户端下载与项目介绍** → [前往下载](https://clashwiki.blog/blog/clash-client-download-intro)
+* **Windows Clash 教程** → [Windows 教程](https://clashwiki.blog/blog/clash-for-windows-tutorial)
+* **macOS Clash 教程** → [macOS 教程](https://clashwiki.blog/blog/clash-for-mac-tutorial)
+* **Android Clash 教程** → [Android 教程](https://clashwiki.blog/blog/clash-for-android-tutorial)
+* **iOS 客户端教程** → [iOS 教程](https://clashwiki.blog/blog/clash-for-ios-tutorial)
 
 ---
 

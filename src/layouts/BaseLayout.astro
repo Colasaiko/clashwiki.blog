@@ -12,15 +12,18 @@ interface Props {
   noindex?: boolean;
   ogType?: string;
   bgImage?: string;
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
 }
 
-const { title, description, keywords, noindex, ogType, bgImage = '/background3.png' } = Astro.props;
+const { title, description, keywords, noindex, ogType, bgImage = '/background3.png', pubDate, updatedDate, author } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
   <head>
-    <SeoHead title={title} description={description} keywords={keywords} noindex={noindex} ogType={ogType} />
+    <SeoHead title={title} description={description} keywords={keywords} noindex={noindex} ogType={ogType} pubDate={pubDate} updatedDate={updatedDate} author={author} />
   </head>
   <body id="top" class="flex flex-col min-h-screen bg-transparent">
     <div class={`fixed inset-0 z-0 pointer-events-none ${bgImage === '/background3.png' ? 'opacity-50 mix-blend-normal' : 'opacity-100 mix-blend-normal'}`} style={`background-image: url('${bgImage}'); background-size: cover; background-position: center; background-attachment: fixed;`}></div>

@@ -12,9 +12,27 @@ import { MAIN_NAV } from '../data/nav';
     
     <nav class="hidden md:flex items-center gap-1 bg-white/95 backdrop-blur-md px-2 py-1.5 rounded-full shadow-sm border border-slate-200/80">
       {MAIN_NAV.map(item => (
-        <a href={item.href} class="text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all">
-          {item.label}
-        </a>
+        item.children ? (
+          <div class="relative group">
+            <a href={item.href} class="text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all flex items-center gap-1">
+              {item.label}
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:rotate-180"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </a>
+            <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-lg rounded-2xl py-2 w-48 flex flex-col">
+                {item.children.map(child => (
+                  <a href={child.href} class="text-sm text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2.5 transition-colors text-center font-medium">
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} class="text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all">
+            {item.label}
+          </a>
+        )
       ))}
     </nav>
     
