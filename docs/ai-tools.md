@@ -347,9 +347,9 @@ AI 已经逐渐成为开发者日常工作中的辅助工具。
 
 例如：
 
-**IPInfo**
-
+**[IPInfo](https://ipinfo.io)**
 可用于查看当前 IP 的基础信息、网络运营商以及大致地理位置。
+**(也可参考我们的 [👉 基础网络与网络优化指南](network-guide.md) 了解更多细节)**
 
 同时建议注意：
 
@@ -376,14 +376,14 @@ Clash 系列客户端在网络工具领域拥有较大的用户群体。
 
 ### 📚 推荐阅读
 
-- **Clash 入门教程** → `{{CLASH_GUIDE_PAGE}}`
-- **Clash 配置文件说明** → `{{CLASH_CONFIG_PAGE}}`
-- **Clash 常见问题** → `{{CLASH_FAQ_PAGE}}`
-- **Clash 节点与规则说明** → `{{CLASH_RULE_PAGE}}`
+- **Clash 入门教程** → [阅读教程](clash-guide.md)
+- **Clash 配置文件说明** → [阅读教程](clash-guide.md)
+- **Clash 常见问题** → [查看 FAQ](faq.md)
+- **Clash 节点与规则说明** → [阅读教程](clash-guide.md)
 
 如果你正在寻找完整的 Clash 教程，可以进入：
 
-**{{CLASH_HOME_PAGE}}**
+**[👉 Clash 客户端配置使用指南](clash-guide.md)**
 
 ---
 
@@ -407,15 +407,15 @@ sing-box 是一个功能丰富的网络代理工具和网络平台组件。
 
 ### 📚 推荐阅读
 
-- **sing-box 入门教程** → `{{SINGBOX_GUIDE_PAGE}}`
-- **sing-box 配置说明** → `{{SINGBOX_CONFIG_PAGE}}`
-- **sing-box DNS 教程** → `{{SINGBOX_DNS_PAGE}}`
-- **sing-box Route 规则** → `{{SINGBOX_ROUTE_PAGE}}`
-- **sing-box FAQ** → `{{SINGBOX_FAQ_PAGE}}`
+- **sing-box 入门教程** → [阅读教程](https://clashwiki.blog)
+- **sing-box 配置说明** → [阅读教程](https://clashwiki.blog)
+- **sing-box DNS 教程** → [阅读教程](https://clashwiki.blog)
+- **sing-box Route 规则** → [阅读教程](https://clashwiki.blog)
+- **sing-box FAQ** → [查看 FAQ](faq.md)
 
 完整教程：
 
-**{{SINGBOX_HOME_PAGE}}**
+**[👉 sing-box 进阶教程与配置向导](https://clashwiki.blog)**
 
 ---
 
