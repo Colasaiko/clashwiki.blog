@@ -29,14 +29,13 @@ const brands = defineCollection({
     tags: z.array(z.enum(ALLOWED_TAGS)).optional(),
     updatedDate: z.any().optional(),
     scores: z.object({
-      stability: z.number().min(0).max(10), // 25%
-      peak_speed: z.number().min(0).max(10), // 2< 1%
-      latency: z.number().min(0).max(10), // 15%
-      packet_loss: z.number().min(0).max(10), // 15%
-      streaming: z.number().min(0).max(10), // 1< 1%
-      ai_support: z.number().min(0).max(10), // 5%
-      price: z.number().min(0).max(10), // 1< 1%
-    }).optional(), // Optional for now to not break anything before injection
+      stability: z.number().min(0).max(5),
+      latency: z.number().min(0).max(5),
+      speed: z.number().min(0).max(5),
+      price: z.number().min(0).max(5),
+      client_support: z.number().min(0).max(5),
+      service: z.number().min(0).max(5),
+    }).optional(),
     last_checked: z.object({
       price: z.string().or(z.date()),
       network: z.string().or(z.date()),
