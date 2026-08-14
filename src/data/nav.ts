@@ -1,72 +1,68 @@
 export const MAIN_NAV = [
   { label: '首页', href: '/' },
   { 
-    label: '客户端', 
-    href: '/tag/Clash/',
+    label: '新手入门', 
+    href: '/topics/beginners/',
     children: [
-      { label: 'Clash', href: '/tag/Clash/' },
-      { label: 'Clash Verge', href: '/blog/clash-verge-vs-clash-for-windows/' },
+      { label: '网络工具基础', href: '/blog/airport-acceleration-principles/' },
+      { label: 'Clash', href: '/tag/clash/' },
       { label: 'sing-box', href: '/tag/sing-box/' },
-      { label: 'Shadowrocket', href: '/tag/Shadowrocket/' },
-      { label: 'v2rayN', href: '/tag/v2rayN/' }
+      { label: '常见问题', href: '/tag/troubleshooting/' }
     ]
   },
   { 
     label: '网络工具', 
-    href: '/tools/',
+    href: '/topics/clients/',
     children: [
-      { label: 'IP & ASN 查询', href: '/tools/ip/' },
-      { label: 'DNS 泄漏测试', href: '/tools/dns-leak/' },
-      { label: 'WebRTC 探测', href: '/tools/webrtc/' },
-      { label: '全球公开数据评估', href: '/tools/ping/' }
-    ]
-  },
-  { 
-    label: 'AI 工具', 
-    href: '/tag/ai-tools/',
-    children: [
-      { label: 'ChatGPT 解锁', href: '/tag/chatgpt/' },
-      { label: 'Claude 注册', href: '/tag/claude/' },
-      { label: 'AI 编程', href: '/tag/ai-programming/' },
-      { label: 'AI 搜索', href: '/tag/ai-search/' }
-    ]
-  },
-  {
-    label: '教程',
-    href: '/category/tutorials/',
-    children: [
-      { label: 'Windows', href: '/blog/clash-for-windows-tutorial/' },
-      { label: 'macOS', href: '/blog/clash-for-mac-tutorial/' },
-      { label: 'Android', href: '/blog/clash-for-android-tutorial/' },
-      { label: 'iOS', href: '/blog/clash-for-ios-tutorial/' },
-      { label: 'Linux', href: '/tag/Linux/' }
+      { label: '客户端', href: '/topics/clients/' },
+      { label: '协议', href: '/tag/proxy-protocols/' },
+      { label: 'DNS', href: '/blog/sing-box-dns-guide/' },
+      { label: '网络诊断', href: '/tag/network-diagnostics/' }
     ]
   },
   {
     label: '服务评测',
     href: '/brands/',
     children: [
-      { label: '横向对比库', href: '/compare/' },
-      { label: '测试数据', href: '/data/' },
-      { label: '评测标准', href: '/methodology/' },
-      { label: '品牌库', href: '/brands/' },
-      { label: '机场推荐榜', href: '/blog/2026-airport-recommendation-guide/' }
+      { label: '品牌评测', href: '/brands/' },
+      { label: '价格对比', href: '/compare/' },
+      { label: '测试数据', href: '/data/' }
     ]
   },
-  { label: '内容中心', href: '/topics/' }
+  { 
+    label: 'AI 工具', 
+    href: '/tag/ai-tools/',
+    children: [
+      { label: 'ChatGPT', href: '/tag/chatgpt/' },
+      { label: 'Claude', href: '/tag/claude/' },
+      { label: 'Cursor', href: '/blog/cursor-ai-programming-guide/' },
+      { label: 'Perplexity', href: '/blog/perplexity-ai-search-tutorial/' }
+    ]
+  },
+  { 
+    label: '工具', 
+    href: '/tools/',
+    children: [
+      { label: 'IP 查询', href: '/tools/ip/' },
+      { label: 'DNS Leak', href: '/tools/dns-leak/' },
+      { label: 'Ping', href: '/tools/ping/' },
+      { label: 'WebRTC', href: '/tools/webrtc/' }
+    ]
+  }
 ];
 
 export const FOOTER_NAV = {
   categories: [
-    { label: '机场推荐', href: '/category/airports/' },
-    { label: '教程指南', href: '/category/tutorials/' },
-    { label: '软件下载', href: '/downloads/' },
+    { label: '新手入门', href: '/topics/beginners/' },
+    { label: '网络工具', href: '/topics/clients/' },
+    { label: '服务评测', href: '/brands/' },
+    { label: 'AI 工具', href: '/tag/ai-tools/' },
   ],
   important: [
+    { label: '横评对比', href: '/compare/' },
     { label: '测试数据', href: '/data/' },
-    { label: '产品对比', href: '/compare/' },
     { label: '评测标准', href: '/methodology/' },
-    { label: '更新日志', href: '/changelog/' },
+    { label: '在线工具', href: '/tools/' },
     { label: '关于我们', href: '/about/' },
   ],
   legal: [
