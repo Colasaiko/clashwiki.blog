@@ -4,7 +4,7 @@ description: "还在为查不到真实网络出口发愁？一文看懂公网 IP
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["网络诊断", "IP查询", "网络安全", "实用教程"]
-image: "/images/blog-default.jpg"
+image: "/og/network-tools-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

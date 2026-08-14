@@ -6,6 +6,7 @@ category: "教程指南"
 tags: ["V2Ray", "Trojan", "Hysteria 2"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+image: "/og/network-tools-theme.jpg"
 ---
 
 ## 协议演进史：从猫鼠游戏到隐形伪装

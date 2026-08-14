@@ -4,7 +4,7 @@ description: "全面解析新一代万能代理核心 sing-box。了解它支持
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Clash", "代理协议", "实用教程", "Hysteria 2", "VLESS"]
-image: "/images/blog-default.jpg"
+image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

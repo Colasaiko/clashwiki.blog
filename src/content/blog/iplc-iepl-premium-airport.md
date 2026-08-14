@@ -6,6 +6,7 @@ category: "机场推荐"
 tags: ["专线", "IPLC", "IEPL", "游戏加速"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+image: "/og/network-test-theme.jpg"
 ---
 
 ## 引言：为什么你需要一条“专线”？

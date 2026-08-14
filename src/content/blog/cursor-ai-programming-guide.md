@@ -4,7 +4,7 @@ description: "零基础如何开始 AI 编程？全面解析爆火的 Cursor 编
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["AI 编程", "AI 工具", "实用教程"]
-image: "/images/blog-default.jpg"
+image: "/og/ai-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

@@ -6,6 +6,7 @@ author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash", "macOS", "ClashX"]
 updatedDate: 2026-08-13
+image: "/og/clash-theme.jpg"
 ---
 
 得益于 macOS 优雅的系统环境与权限管理，在 Mac 上配置代理工具通常比其他平台更加省心。目前在 macOS 上主流的选择有经典开源的 **ClashX** 以及跨平台的新星 **Clash Verge (Rev)**。

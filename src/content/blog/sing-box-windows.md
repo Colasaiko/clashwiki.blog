@@ -4,7 +4,7 @@ description: "在 Windows 系统上如何使用 sing-box？本文为您提供最
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Windows", "Hiddify", "客户端教程"]
-image: "/images/blog-default.jpg"
+image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

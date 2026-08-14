@@ -4,7 +4,7 @@ description: "安卓手机如何配置 sing-box？一文看懂官方客户端 SF
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Android", "安卓教程", "客户端教程"]
-image: "/images/blog-default.jpg"
+image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

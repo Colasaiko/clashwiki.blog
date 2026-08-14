@@ -6,6 +6,7 @@ category: "教程指南"
 tags: ["Clash"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+image: "/og/clash-theme.jpg"
 ---
 
 ## 引言：为什么在2026年依然首选 Clash？

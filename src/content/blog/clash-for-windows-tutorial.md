@@ -5,7 +5,7 @@ pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash", "Windows", "Clash Verge"]
-image: "/og/clash-for-windows.jpg"
+image: "/og/clash-theme.jpg"
 updatedDate: 2026-08-13
 ---
 

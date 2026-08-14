@@ -4,7 +4,7 @@ description: "全面客观对比目前两款最优质的 AI 模型，从逻辑�
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["Claude", "ChatGPT", "AI 工具"]
-image: "/images/blog-default.jpg"
+image: "/og/ai-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

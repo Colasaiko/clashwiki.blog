@@ -6,6 +6,7 @@ author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash", "Android"]
 updatedDate: 2026-08-13
+image: "/og/clash-theme.jpg"
 ---
 
 由于安卓系统极高的开放性，在 Android 设备上运行代理工具不仅稳定，还能实现极其精细的应用级别分流（例如只让 Telegram 走代理，微信走直连）。

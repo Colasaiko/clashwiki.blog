@@ -4,7 +4,7 @@ description: "本文整理了 2026 年最新跨境网络机场推荐与评测数
 pubDate: 2026-07-27
 category: "机场推荐"
 tags: ["机场推荐", "Clash", "专线", "流媒体", "游戏加速", "网络诊断"]
-image: "/og/airport-review.jpg"
+image: "/og/network-test-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

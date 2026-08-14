@@ -4,7 +4,7 @@ description: "深入浅出解析 sing-box 的 route 路由模块。教你如何�
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "分流规则", "实用教程"]
-image: "/images/blog-default.jpg"
+image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

@@ -6,6 +6,7 @@ updatedDate: 2026-08-13
 category: "教程指南"
 tags: ["Clash", "Clash Verge"]
 author: "Clash Wiki 编辑组"
+image: "/og/clash-theme.jpg"
 ---
 
 ## 时代的眼泪：Clash for Windows (CFW) 的落幕

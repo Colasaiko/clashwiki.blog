@@ -6,6 +6,7 @@ category: "教程指南"
 tags: ["Clash", "网络诊断", "节点排查"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+image: "/og/network-test-theme.jpg"
 ---
 
 ## 引子：钱花了，网速为什么还是慢？

@@ -4,7 +4,7 @@ description: "在 Mac 上如何使用 sing-box？本文为您提供 macOS 平台
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "macOS", "客户端教程", "苹果教程"]
-image: "/images/blog-default.jpg"
+image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

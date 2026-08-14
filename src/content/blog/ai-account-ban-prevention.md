@@ -4,7 +4,7 @@ description: "解析 OpenAI 与 Anthropic 严苛的风控策略。教你如何�
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["ChatGPT", "Claude", "节点排查", "网络安全", "实用教程"]
-image: "/images/blog-default.jpg"
+image: "/og/ai-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---

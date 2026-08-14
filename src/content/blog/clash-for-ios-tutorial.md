@@ -6,6 +6,7 @@ author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["iOS", "Shadowrocket"]
 updatedDate: 2026-08-13
+image: "/og/clash-theme.jpg"
 ---
 
 在 iOS (iPhone / iPad) 平台上，由于政策原因您在 App Store 里是**搜索不到官方名为 Clash 的应用程序的**。但不用担心，iOS 生态拥有极为丰富的替代方案，其中最著名的是 **Shadowrocket (小火箭)** 和 **Stash**。

@@ -6,6 +6,7 @@ author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["v2rayN", "Windows", "客户端教程"]
 updatedDate: 2026-08-13
+image: "/og/network-tools-theme.jpg"
 ---
 
 v2rayN 是一款在 Windows 平台上历史悠久、功能强大的网络代理客户端，支持 Vmess, Vless, Shadowsocks, Trojan 等多种协议。

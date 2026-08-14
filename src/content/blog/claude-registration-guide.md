@@ -6,6 +6,7 @@ author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["AI 工具", "Claude", "实用教程"]
 updatedDate: 2026-08-13
+image: "/og/ai-theme.jpg"
 ---
 
 > [!NOTE]

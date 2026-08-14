@@ -6,6 +6,7 @@ category: "机场推荐"
 tags: ["机场推荐"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+image: "/og/network-test-theme.jpg"
 ---
 
 ## 揭秘“便宜机场”的灰色地带：一分钱真的一分货吗？
