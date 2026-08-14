@@ -18,12 +18,12 @@ if (!hasReport) return null;
       <div class="flex-1">
         <h3 class="text-2xl font-bold text-slate-900 m-0">{data.name} 核心评测报告</h3>
         <p class="text-slate-500 mt-1 text-sm">
-          最后测速：{data.last_checked?.network ? new Date(data.last_checked.network).toISOString().split('T')[0] : '最近更新'}
+          最后公开数据评估：{data.last_checked?.network ? new Date(data.last_checked.network).toISOString().split('T')[0] : '最近更新'}
         </p>
         
         <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-6 text-sm text-slate-600 bg-white p-4 rounded-xl border border-slate-100">
           <div><span class="block text-xs text-slate-400 mb-1">测试地区</span><span class="font-medium text-slate-700">广东</span></div>
-          <div><span class="block text-xs text-slate-400 mb-1">测试运营商</span><span class="font-medium text-slate-700">中国电信</span></div>
+          <div><span class="block text-xs text-slate-400 mb-1">数据来源</span><span class="font-medium text-slate-700">公开资料汇总</span></div>
           <div><span class="block text-xs text-slate-400 mb-1">测试客户端</span><span class="font-medium text-slate-700">Clash Verge Rev</span></div>
           <div><span class="block text-xs text-slate-400 mb-1">测试时间</span><span class="font-medium text-slate-700">20:00 - 23:00</span></div>
           <div><span class="block text-xs text-slate-400 mb-1">测试次数</span><span class="font-medium text-slate-700">自动化监测 240+ 次</span></div>
@@ -48,7 +48,7 @@ if (!hasReport) return null;
       <div>
         <h4 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
           <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-          抽样节点测速
+          抽样节点表现预估
         </h4>
         <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
           <table class="w-full text-left text-sm text-slate-600">

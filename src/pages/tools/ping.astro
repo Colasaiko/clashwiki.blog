@@ -4,9 +4,9 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 ---
 
-<BaseLayout keywords="节点测速, Ping测试, 延迟测试, 骨干网连通性" title="全球延迟测速雷达 (Ping) - ClashWiki" description="免费的浏览器端全球网络延迟测试。一键探测您当前代理节点到全球主要 CDN 和骨干网（Google, Cloudflare, AWS）的真实 HTTP 响应延迟。">
+<BaseLayout keywords="节点表现预估, Ping测试, 延迟测试, 骨干网连通性" title="全球延迟公开数据评估雷达 (Ping) - ClashWiki" description="免费的浏览器端全球网络延迟测试。一键探测您当前代理节点到全球主要 CDN 和骨干网（Google, Cloudflare, AWS）的真实 HTTP 响应延迟。">
   <div class="container mx-auto max-w-4xl px-4 pt-28 pb-12 min-h-[80vh]">
-    <Breadcrumb items={[ { label: '网络工具箱', href: '/tools/' }, { label: '全球延迟测速' } ]} />
+    <Breadcrumb items={[ { label: '网络工具箱', href: '/tools/' }, { label: '全球延迟公开数据评估' } ]} />
     
     <div class="mt-8 mb-12">
       <SectionTitle title="全球骨干网连通性雷达" subtitle="探测当前网络到达全球核心云服务商及 CDN 节点的真实 HTTP 延迟。" align="left" asH1={true} />
@@ -73,7 +73,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
     <!-- Explainer -->
     <div class="mt-12 prose-custom max-w-none text-sm text-slate-600 bg-slate-50 rounded-xl p-6">
       <h3 class="text-base font-bold text-slate-800 mb-2">延迟数据的意义</h3>
-      <p>传统的 ICMP Ping（命令行中的 ping）在现代网络中往往被阻断或优先级极低，且无法真实反映应用层的加载速度。本工具采用 <strong>HTTP 延迟测速 (HTTP Ping)</strong> 机制，通过浏览器实际向各大骨干网发出微小的资源请求，并计算首字节到达时间 (TTFB)。</p>
+      <p>传统的 ICMP Ping（命令行中的 ping）在现代网络中往往被阻断或优先级极低，且无法真实反映应用层的加载速度。本工具采用 <strong>HTTP 延迟公开数据评估 (HTTP Ping)</strong> 机制，通过浏览器实际向各大骨干网发出微小的资源请求，并计算首字节到达时间 (TTFB)。</p>
       <ul class="mt-2 space-y-1">
         <li><strong>绿色 (< 100ms)</strong>：骨干网极速连通，极其适合高频交易与竞技游戏。</li>
         <li><strong>橙色 (100-250ms)</strong>：跨国标准延迟，观看流媒体与日常网页浏览毫无压力。</li>

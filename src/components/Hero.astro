@@ -9,8 +9,8 @@ const { brandCount = 6 } = Astro.props;
 
 // Overwrite the static stat with dynamic stat
 const dynamicStats = HOMEPAGE_DATA.stats.map(stat => {
-  if (stat.label === '已深度测试') {
-    return { label: '已深度测试', value: `${brandCount} 家` };
+  if (stat.label === '已深度收录') {
+    return { label: '已深度收录', value: `${brandCount} 家` };
   }
   return stat;
 });
@@ -37,7 +37,7 @@ const dynamicStats = HOMEPAGE_DATA.stats.map(stat => {
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          2026 最新测速数据已更新
+          2026 最新表现参考数据已更新
         </div>
         
         <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight leading-tight drop-shadow-md">

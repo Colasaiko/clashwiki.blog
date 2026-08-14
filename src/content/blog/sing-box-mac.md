@@ -35,7 +35,7 @@ Hiddify 不仅在 Windows 上表现优异，它的 macOS 版本同样是新手�
 
 ## 推荐二：GUI.for.SingBox (Mac 版)
 
-如果您是硬核玩家，想要直观的节点测速和复杂的路由控制，GUI.for.SingBox 也推出了 Mac 版本。
+如果您是硬核玩家，想要直观的节点表现预估和复杂的路由控制，GUI.for.SingBox 也推出了 Mac 版本。
 
 ### 1. 准备工作
 - 同样在 GitHub Releases 下载 macOS 版本的压缩包。

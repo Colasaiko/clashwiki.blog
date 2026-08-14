@@ -18,7 +18,7 @@ export const MAIN_NAV = [
       { label: 'IP & ASN 查询', href: '/tools/ip/' },
       { label: 'DNS 泄漏测试', href: '/tools/dns-leak/' },
       { label: 'WebRTC 探测', href: '/tools/webrtc/' },
-      { label: '全球测速', href: '/tools/ping/' }
+      { label: '全球公开数据评估', href: '/tools/ping/' }
     ]
   },
   { 

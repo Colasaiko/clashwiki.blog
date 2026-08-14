@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 ---
 
-<BaseLayout keywords="机场评测标准, 节点测速, Clash 节点测试, 跨境网络测试" title="评测与测试标准 - ClashWiki">
+<BaseLayout keywords="机场评测标准, 节点表现预估, Clash 节点测试, 跨境网络测试" title="评测与测试标准 - ClashWiki">
   <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20">
     <Breadcrumb items={[{ label: '评测标准' }]} />
     
@@ -68,18 +68,18 @@ import Breadcrumb from '../components/Breadcrumb.astro';
       <p class="text-sm text-slate-500 italic mt-4">注：上述延迟阈值仅作为同类线路的横向参考标准，实际结果会因测试地点、所在地区运营商（如南电信北联通）及测试时间不同而产生差异。</p>
 
       <h2>4. 流媒体与 AI 解锁测试</h2>
-      <p>IP 的纯净度越来越重要。我们将对每个品牌的节点进行如下项目的连通性实测：</p>
+      <p>IP 的纯净度越来越重要。我们将对每个品牌的节点进行如下项目的连通性综合评估：</p>
       <ul>
         <li><strong>流媒体</strong>：Netflix (是否非自制剧)、Disney+、YouTube (是否送中/免流区)、HBO Max。</li>
         <li><strong>AI 生产力工具</strong>：ChatGPT (Web版/APP版连通性)、Claude、Gemini。</li>
       </ul>
-      <p><em>注：我们使用专用的解锁检测脚本进行辅助验证，并结合真实浏览器无痕模式实测。</em></p>
+      <p><em>注：我们使用专用的解锁检测脚本进行辅助验证，并结合真实浏览器无痕模式综合评估。</em></p>
 
       <h2>5. 综合评分体系 (Scoring System)</h2>
       <p>为了让用户能够直观地对比不同服务商的综合表现，我们独创了加权评分算法（满分 10 分）。分数完全由客观测试数据生成，具体权重如下：</p>
       <ul>
         <li><strong>稳定性 (25%)</strong>：基于长期在线率及晚高峰不断流的表现。</li>
-        <li><strong>晚高峰速度 (20%)</strong>：基于单线程与多线程测速相对吞吐量。</li>
+        <li><strong>晚高峰速度 (20%)</strong>：基于单线程与多线程公开数据评估相对吞吐量。</li>
         <li><strong>延迟 (15%)</strong>：基于 ICMP Ping 和 HTTP 握手响应速度。</li>
         <li><strong>丢包 (15%)</strong>：针对骨干网络拥堵时段的零丢包率考核。</li>
         <li><strong>流媒体 (10%)</strong>：覆盖 Netflix、Disney+ 等主流平台的原生解锁率。</li>

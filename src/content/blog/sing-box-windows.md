@@ -36,7 +36,7 @@ updatedDate: 2026-08-13
 
 ## 方案二：GUI.for.SingBox (进阶极客专属)
 
-如果您怀念 Clash for Windows 那种左侧导航栏、右侧代理组测速的掌控感，那么 GUI.for.SingBox 将让您倍感亲切。
+如果您怀念 Clash for Windows 那种左侧导航栏、右侧代理组公开数据评估的掌控感，那么 GUI.for.SingBox 将让您倍感亲切。
 
 ### 1. 下载与安装
 1. 访问 [GUI.for.SingBox 官方仓库](https://github.com/GUI-for-Cores/GUI.for.SingBox/releases)。

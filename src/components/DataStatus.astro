@@ -21,7 +21,7 @@ const formatDate = (date: any) => {
 
 const checks = [
   { label: '入网价格与优惠检查', value: formatDate(last_checked.price) },
-  { label: '晚高峰测速与线路探针', value: formatDate(last_checked.network) },
+  { label: '晚高峰公开数据评估与线路探针', value: formatDate(last_checked.network) },
   { label: '流媒体(Netflix/Disney)解锁', value: formatDate(last_checked.streaming) },
   { label: 'AI (ChatGPT/Claude)纯净度', value: formatDate(last_checked.ai_support) },
 ];
@@ -32,7 +32,7 @@ const checks = [
   <div class="flex items-center justify-between bg-slate-800/50 px-4 py-3 border-b border-slate-700">
     <div class="flex items-center space-x-2">
       <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
-      <h3 class="text-emerald-400 font-bold tracking-wider m-0">DATA STATUS // 实测数据监控台</h3>
+      <h3 class="text-emerald-400 font-bold tracking-wider m-0">DATA STATUS // 综合评估数据监控台</h3>
     </div>
     <div class="text-slate-400 text-xs">
       数据版本: {formatDate(updatedDate)}
