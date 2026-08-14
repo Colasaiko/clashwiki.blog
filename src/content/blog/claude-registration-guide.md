@@ -1,12 +1,15 @@
 ---
-title: "Claude 3 注册与封号防范终极指南"
-description: "Anthropic 旗下的 Claude 3 性能卓越，但注册门槛极高。本文教您如何通过干净节点成功注册并防范封号风险。"
+title: "Claude 注册与封号防范终极指南"
+description: "Anthropic 旗下的 Claude 性能卓越，但注册门槛极高。本文教您如何通过干净节点成功注册并防范封号风险。"
 pubDate: 2026-08-13
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["AI 工具", "Claude", "实用教程"]
 updatedDate: 2026-08-13
 ---
+
+> [!NOTE]
+> **文章说明：** 本文涉及的部分模型（如 Claude 3 / GPT-4o 等）属于特定时期的历史版本。随着 AI 技术的快速迭代，当前产品功能及模型名称可能已经发生显著变化，评测结论仅供历史参考。
 
 Claude 3 在代码生成和长文本理解上展现了惊人的实力。但 Anthropic 对 IP 的风控比 OpenAI 更加严格。
 

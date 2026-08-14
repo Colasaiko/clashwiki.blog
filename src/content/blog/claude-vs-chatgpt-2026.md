@@ -1,5 +1,5 @@
 ---
-title: "Claude 3.5 Sonnet 与 ChatGPT-4o 深度对比：2026 谁才是最强 AI？"
+title: "Claude 与 ChatGPT 深度对比：2026 谁才是最强 AI？"
 description: "全面客观对比目前两款最优质的 AI 模型，从逻辑推理、代码编写、长文本处理及节点要求四个维度进行深度评测。"
 pubDate: "2026-08-13"
 category: "tutorials"
@@ -8,6 +8,9 @@ image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 ---
+
+> [!NOTE]
+> **文章说明：** 本文涉及的部分模型（如 Claude 3 / GPT-4o 等）属于特定时期的历史版本。随着 AI 技术的快速迭代，当前产品功能及模型名称可能已经发生显著变化，评测结论仅供历史参考。
 
 在 AI 领域，如果说 ChatGPT 是奠定基石的王者，那么 Claude 无疑是最强有力的挑战者。进入 2026 年，OpenAI 带着速度奇快的 **GPT-4o** 席卷全网，而 Anthropic 则用智商爆表的 **Claude 3.5 Sonnet** 给出了强力回应。
 
