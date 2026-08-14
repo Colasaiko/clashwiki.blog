@@ -1,130 +1,57 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
-const compareData = [
-  {
-    id: 'breeze',
-    name: '微风网络',
-    logo: '/images/brand_shield.jpg',
-    corePersona: '🏆 全明星专线卷王',
-    monthly: '¥12.00',
-    yearly: '¥118.00',
-    traffic: '100GB起',
-    lineType: 'IEPL专线',
-    gaming: '✓',
-    streaming: '✓',
-    ai: '✓',
-    recommendation: '⭐⭐⭐⭐⭐',
-    targetAudience: '极客、对稳定有强迫症的用户',
-    priceLevel: '💰💰💰 (高端)',
-    killerFeature: '优质上游集结 (G家/N家/D家)，晚高峰晚高峰稳定性表现较好',
-    weakness: '价格门槛较高',
-    bestScenario: '主力机，硬核游戏，重要业务保障',
-    url: '/brands/breeze/'
-  },
-  {
-    id: 'flashleap',
-    name: '闪跃机场',
-    logo: '/images/brand_speed.jpg',
-    corePersona: '⚡ 电竞低延迟网络方案',
-    monthly: '¥24.00',
-    yearly: '¥96.00',
-    traffic: '200GB起',
-    lineType: 'IPLC专线',
-    gaming: '✓',
-    streaming: '✓',
-    ai: '△',
-    recommendation: '⭐⭐⭐⭐',
-    targetAudience: 'FPS重度玩家 (Apex/CSGO)',
-    priceLevel: '💰💰💰 (中高)',
-    killerFeature: '沪日/深港 IPLC专线，15-30ms极低延迟，极低丢包',
-    weakness: '功能相对单一，偏向游戏',
-    bestScenario: '替代加速器，极限刚枪，追求毫秒必争',
-    url: '/brands/flashleap/'
-  },
-  {
-    id: 'kuajie',
-    name: '跨界云',
-    logo: '/images/brand_globe.jpg',
-    corePersona: '🛡️ 纯净IP护城河',
-    monthly: '¥20.00',
-    yearly: '¥96.00',
-    traffic: '150GB起',
-    lineType: '专线+中转',
-    gaming: '△',
-    streaming: '✓',
-    ai: '✓',
-    recommendation: '⭐⭐⭐⭐',
-    targetAudience: '跨境电商、AI重度开发者',
-    priceLevel: '💰💰💰 (中高)',
-    killerFeature: '全球冷门原生/住宅IP，欺诈分极低，防连坐封号',
-    weakness: '非主打极限下载速度',
-    bestScenario: 'ChatGPT矩阵，多账号运营，锁区游戏护号',
-    url: '/brands/kuajie/'
-  },
-  {
-    id: 'civet',
-    name: '灵猫',
-    logo: '/images/brand_key.jpg',
-    corePersona: '🩹 容灾备用底牌',
-    monthly: '¥15.00',
-    yearly: '¥150.00',
-    traffic: '按量计费',
-    lineType: 'BGP中转',
-    gaming: '✗',
-    streaming: '✓',
-    ai: '✓',
-    recommendation: '⭐⭐⭐⭐',
-    targetAudience: '老鸟、有流量焦虑的适合希望长期保留流量的用户',
-    priceLevel: '💰 (极低按量)',
-    killerFeature: '按量计费永不过期，多设备共享，用完即走',
-    weakness: '不适合作为主力高消耗使用',
-    bestScenario: '应急备用，低频查资料，全家防断网',
-    url: '/brands/civet/'
-  },
-  {
-    id: 'firefly',
-    name: '萤火虫',
-    logo: '/images/brand_power.jpg',
-    corePersona: '🌊 大流量方案',
-    monthly: '¥18.00',
-    yearly: '¥188.00',
-    traffic: '500GB起',
-    lineType: 'BGP中转',
-    gaming: '△',
-    streaming: '✓',
-    ai: '✓',
-    recommendation: '⭐⭐⭐⭐',
-    targetAudience: '4K剧迷、3A大作下载狂',
-    priceLevel: '💰 (白菜价)',
-    killerFeature: '价格竞争力较强，百兆大带宽，不限量级体验',
-    weakness: '极限Ping值拼不过优质专线',
-    bestScenario: '下载神器，刷Netflix 4K，囤积资源',
-    url: '/brands/firefly/'
-  },
-  {
-    id: 'worryfree',
-    name: '无忧链接',
-    logo: '/images/brand_cloak.jpg',
-    corePersona: '🧋 小白入门保姆',
-    monthly: '¥19.00',
-    yearly: '¥79.00',
-    traffic: '100GB起',
-    lineType: '直连+中转',
-    gaming: '✗',
-    streaming: '△',
-    ai: '△',
-    recommendation: '⭐⭐⭐',
-    targetAudience: '零基础小白、轻度跨境网络用户',
-    priceLevel: '💰 (一杯奶茶)',
-    killerFeature: '1元测试，一键导入，3分钟快速完成基础配置',
-    weakness: '性能天花板有限，晚高峰仅及格',
-    bestScenario: '新手入门，日常看YT，偶尔轻量游戏',
-    url: '/brands/worryfree/'
+const brands = await getCollection('brands');
+
+const compareData = brands.map(brand => {
+  const d = brand.data;
+  
+  // Calculate total score
+  let totalScore = 0;
+  if (d.scores) {
+    totalScore = (
+      (d.scores.stability * 0.3) +
+      (d.scores.latency * 0.2) +
+      (d.scores.speed * 0.2) +
+      (d.scores.price * 0.15) +
+      (d.scores.client_support * 0.1) +
+      (d.scores.service * 0.05)
+    );
   }
-];
+  const scoreStr = totalScore > 0 ? totalScore.toFixed(1) : '4.0';
+
+  // Helper to determine status icon
+  const getStatus = (score) => score >= 4.5 ? '✓' : (score >= 3.5 ? '△' : '✗');
+
+  return {
+    id: brand.id.replace(/\.md$/, ''),
+    name: d.name,
+    logo: d.image || '/images/brand_shield.jpg',
+    corePersona: d.tags ? d.tags.slice(0, 2).join(' · ') : '精选服务商',
+    monthly: '详见评测',
+    yearly: '详见评测',
+    traffic: '详见评测',
+    lineType: d.protocols ? d.protocols[0] : '专线+中转',
+    score: scoreStr,
+    scores: d.scores,
+    gaming: d.scores ? getStatus(d.scores.latency) : '△',
+    streaming: d.scores ? getStatus(d.scores.speed) : '△',
+    ai: d.scores ? getStatus(d.scores.client_support) : '△',
+    recommendation: parseFloat(scoreStr) >= 4.5 ? '⭐⭐⭐⭐⭐' : '⭐⭐⭐⭐',
+    targetAudience: d.audience?.suitable?.[0] || '广大跨境网络用户',
+    priceLevel: d.scores?.price >= 4.5 ? '💰 (极具性价比)' : (d.scores?.price >= 3.5 ? '💰💰 (价格适中)' : '💰💰💰 (高端)'),
+    killerFeature: d.pros?.[0] || '各方面表现均衡稳定',
+    weakness: d.cons?.[0] || '服务细分领域略有欠缺',
+    bestScenario: d.audience?.suitable?.[1] || d.audience?.suitable?.[0] || '日常多场景适用',
+    url: `/brands/${brand.id.replace(/\.md$/, '')}/`
+  };
+});
+
+// Sort by score descending
+compareData.sort((a, b) => parseFloat(b.score) - parseFloat(a.score));
 ---
 
 <BaseLayout keywords="Clash, 便宜机场推荐, 跨境网络, 优质机场节点, 微风网络" title="产品终极对比 - 挑选最适合你的机场">
@@ -160,13 +87,14 @@ const compareData = [
         <thead>
           <tr class="bg-slate-800/80 border-b border-slate-700/50 text-slate-300 text-sm tracking-wider">
             <th class="p-5 font-semibold rounded-tl-3xl">服务商</th>
-            <th class="p-5 font-semibold">月付起点</th>
-            <th class="p-5 font-semibold">流量/月</th>
             <th class="p-5 font-semibold">核心线路</th>
-            <th class="p-5 font-semibold text-center">电竞游戏</th>
+            <th class="p-5 font-semibold text-center text-emerald-400">综合评分</th>
+            <th class="p-5 font-semibold text-center">稳定性</th>
+            <th class="p-5 font-semibold text-center">速度</th>
+            <th class="p-5 font-semibold text-center">价格定位</th>
             <th class="p-5 font-semibold text-center">流媒体4K</th>
             <th class="p-5 font-semibold text-center">AI解锁</th>
-            <th class="p-5 font-semibold text-center rounded-tr-3xl">综合推荐</th>
+            <th class="p-5 font-semibold text-center rounded-tr-3xl">评级</th>
           </tr>
         </thead>
         <tbody class="text-slate-300 divide-y divide-slate-700/50">
@@ -178,10 +106,11 @@ const compareData = [
                   <span class="group-hover:text-indigo-400 transition-colors">{brand.name}</span>
                 </a>
               </td>
-              <td class="p-5 font-medium text-emerald-400">{brand.monthly}</td>
-              <td class="p-5 text-sm">{brand.traffic}</td>
               <td class="p-5 text-sm"><span class="px-2 py-1 bg-slate-800 rounded-md text-cyan-300 border border-cyan-900/50">{brand.lineType}</span></td>
-              <td class="p-5 text-center font-bold" class:list={[{'text-emerald-400': brand.gaming === '✓', 'text-amber-400': brand.gaming === '△', 'text-rose-400': brand.gaming === '✗'}]}>{brand.gaming}</td>
+              <td class="p-5 text-center font-black text-lg text-emerald-400">{brand.score}</td>
+              <td class="p-5 text-center font-mono text-sm text-slate-300">{brand.scores?.stability.toFixed(1) || 'N/A'}</td>
+              <td class="p-5 text-center font-mono text-sm text-slate-300">{brand.scores?.speed.toFixed(1) || 'N/A'}</td>
+              <td class="p-5 text-center text-xs font-bold text-amber-400">{brand.priceLevel}</td>
               <td class="p-5 text-center font-bold" class:list={[{'text-emerald-400': brand.streaming === '✓', 'text-amber-400': brand.streaming === '△', 'text-rose-400': brand.streaming === '✗'}]}>{brand.streaming}</td>
               <td class="p-5 text-center font-bold" class:list={[{'text-emerald-400': brand.ai === '✓', 'text-amber-400': brand.ai === '△', 'text-rose-400': brand.ai === '✗'}]}>{brand.ai}</td>
               <td class="p-5 text-center tracking-widest text-xs">{brand.recommendation}</td>
