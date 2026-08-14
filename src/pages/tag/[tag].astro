@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts, originalName } = Astro.props;
-const shouldIndex = posts.length >= 3;
+const shouldIndex = posts.length >= 5;
 ---
 
 <BaseLayout title={`标签: ${originalName}`} noindex={!shouldIndex}>
