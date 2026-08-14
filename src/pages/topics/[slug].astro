@@ -14,11 +14,14 @@ export async function getStaticPaths() {
   }));
 }
 
+import { getPostsForTopic } from '../../utils/topics';
+
 const { topic } = Astro.props;
 const { Content } = await render(topic);
 
-// Mock posts for the topic
-const posts = (await getCollection('blog')).slice(0, 4);
+const allBlogPosts = await getCollection('blog');
+const posts = getPostsForTopic(topic.data.slug, allBlogPosts)
+  .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf());
 ---
 
 <BaseLayout title={`${topic.data.title} 专题`}>

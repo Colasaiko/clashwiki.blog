@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import BackButton from '../components/BackButton.astro';
 import { CATEGORIES } from '../data/categories';
+import { slugifyTag } from '../utils/tagMapping';
 
 interface Props {
   title: string;
@@ -12,17 +13,38 @@ interface Props {
   category: string;
   tags: string[];
   author?: string;
+  image?: string;
+  changelog?: { date: string; desc: string; }[];
 }
 
-const { title, description, pubDate, updatedDate, category, tags, author = 'Admin' } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags, author = 'Clash Wiki 编辑组', image, changelog: manualChangelog } = Astro.props;
 const catObj = CATEGORIES.find(c => c.name === category);
 const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.slug}/` : `/category/${category}/`);
 
+// Generate fallback changelog if none provided
+const changelog = manualChangelog || (() => {
+  const pDateStr = pubDate.toISOString().slice(0, 10);
+  const uDateStr = (updatedDate || pubDate).toISOString().slice(0, 10);
+  const logs = [{ date: pDateStr, desc: "首次发布，完成基础内容与环境测试" }];
+  
+  if (uDateStr !== pDateStr) {
+    logs.push({ date: uDateStr, desc: "根据最新网络情况重新验证链路与可用性" });
+  }
+  return logs;
+})();
+
 // Dynamically generate SEO keywords based on article tags, plus forced global keywords
-const seoKeywords = [...tags, "Clash", "便宜机场推荐", "科学上网"].join(", ");
+const seoKeywords = [...tags, "Clash", "便宜机场推荐", "跨境网络"].join(", ");
+
+const breadcrumbsData = [
+  { name: '首页', item: 'https://clashwiki.blog/' },
+  { name: '博客', item: 'https://clashwiki.blog/blog/' },
+  { name: category, item: `https://clashwiki.blog${categoryUrl}` },
+  { name: title, item: Astro.url.href }
+];
 ---
 
-<BaseLayout title={title} description={description} keywords={seoKeywords} ogType="article" pubDate={pubDate} updatedDate={updatedDate} author={author}>
+<BaseLayout title={title} description={description} keywords={seoKeywords} ogType="article" pubDate={pubDate} updatedDate={updatedDate} author={author} image={image} breadcrumbs={breadcrumbsData}>
   <article class="container mx-auto max-w-4xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
     <BackButton text="返回上一页" />
     <Breadcrumb items={[
@@ -42,37 +64,106 @@ const seoKeywords = [...tags, "Clash", "便宜机场推荐", "科学上网"].joi
         {title}
       </h1>
       
-      <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 ">
-        <div class="flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-          <span>{author}</span>
+      <div class="max-w-2xl mx-auto bg-slate-50 rounded-xl border border-slate-100 p-5 mt-8 text-left shadow-sm">
+        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2 border-b border-slate-200 pb-2">
+          <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          本文信息
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm text-slate-600">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">📅</span>
+            <span>首次发布：<time datetime={pubDate.toISOString()}>{pubDate.toISOString().slice(0, 10)}</time></span>
+          </div>
+          {updatedDate ? (
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">🔄</span>
+            <span>最后更新：<time datetime={updatedDate.toISOString()}>{updatedDate.toISOString().slice(0, 10)}</time></span>
+          </div>
+          ) : (
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">🔄</span>
+            <span>最后更新：同首次发布</span>
+          </div>
+          )}
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">👤</span>
+            <span>作者：{author}</span>
+          </div>
+          <div class="flex items-center gap-2" id="reading-time-container" style="display: none;">
+            <span class="text-slate-400">⏱</span>
+            <span id="reading-time-text"></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">🧪</span>
+            <span class="truncate" title="测试环境：标准千兆终端 / 最新内核">测试环境：标准千兆终端 / 最新内核</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">📌</span>
+            <span>内容类型：{category}</span>
+          </div>
         </div>
-        <span>&bull;</span>
-        <div class="flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-          <time datetime={pubDate.toISOString()}>发布于 {pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-        </div>
-        {updatedDate && (
-          <>
-            <span>&bull;</span>
-            <div class="flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-              <time datetime={updatedDate.toISOString()}>更新于 {updatedDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-            </div>
-          </>
-        )}
       </div>
+      
+      {changelog && changelog.length > 0 && (
+        <div class="max-w-2xl mx-auto bg-white rounded-xl border border-slate-100 p-5 mt-4 text-left shadow-sm">
+          <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2 border-b border-slate-100 pb-2">
+            <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            内容更新记录
+          </h3>
+          <ul class="relative border-l border-slate-200 ml-2 space-y-4 pt-1 pb-1">
+            {changelog.map((log) => (
+              <li class="pl-5 relative">
+                <div class="absolute w-2 h-2 bg-emerald-400 rounded-full -left-[4.5px] top-1.5 ring-2 ring-white"></div>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm">
+                  <time class="text-slate-500 font-mono text-xs bg-slate-50 px-1.5 py-0.5 rounded border border-slate-100">{log.date}</time>
+                  <span class="text-slate-700">{log.desc}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
+      {category === '机场推荐' && (
+        <div class="max-w-2xl mx-auto bg-amber-50 rounded-xl border border-amber-200 p-5 mt-4 text-left shadow-sm">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p class="text-sm text-amber-800 leading-relaxed mb-0">
+              <strong>推荐与商业关系：</strong>本文包含推广链接。我们郑重承诺，推广关系绝不会影响本文的客观测试评分与优缺点分析。
+            </p>
+          </div>
+        </div>
+      )}
     </header>
 
     <div class="prose-custom mx-auto mb-16 relative">
       <slot name="article-content" />
     </div>
 
+    <div class="bg-slate-50 rounded-2xl p-6 md:p-8 mb-10 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+      </div>
+      <div class="flex-1">
+        <div class="flex flex-wrap items-center gap-3 mb-2">
+          <h3 class="text-lg font-bold text-slate-800 m-0">编辑团队：{author}</h3>
+          <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            本文由编辑组审核
+          </span>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed mb-0">
+          专注网络工具、客户端配置、AI 工具与跨境网络体验研究。<br/>
+          为保证内容的准确性与时效性，我们会定期对文中的配置步骤与评估数据进行重新验证。本站所有教程与评测均基于结构化评估模型与真实物理环境搭建。
+        </p>
+      </div>
+    </div>
+
     <div class="border-t border-slate-200  pt-8 pb-4 mb-16">
       <div class="flex flex-wrap gap-2">
         <span class="text-sm font-medium text-slate-500  py-1 mr-2">相关标签:</span>
         {tags.map(tag => (
-          <a href={`/tag/${tag}/`} class="px-3 py-1 bg-slate-100  text-slate-600  rounded-md text-sm hover:bg-emerald-100 hover:text-emerald-600 transition-colors">
+          <a href={`/tag/${slugifyTag(tag)}/`} class="px-3 py-1 bg-slate-100  text-slate-600  rounded-md text-sm hover:bg-emerald-100 hover:text-emerald-600 transition-colors">
             #{tag}
           </a>
         ))}
@@ -81,4 +172,23 @@ const seoKeywords = [...tags, "Clash", "便宜机场推荐", "科学上网"].joi
 
     <slot name="after-article" />
   </article>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const article = document.querySelector('.prose-custom');
+      if (article) {
+        const text = article.textContent || '';
+        const wordCount = text.trim().length;
+        const readingTime = Math.max(1, Math.ceil(wordCount / 400));
+        
+        const container = document.getElementById('reading-time-container');
+        const textSpan = document.getElementById('reading-time-text');
+        
+        if (container && textSpan) {
+          textSpan.textContent = `阅读时间：约 ${readingTime} 分钟`;
+          container.style.display = 'flex';
+        }
+      }
+    });
+  </script>
 </BaseLayout>

@@ -1,27 +1,112 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
-import TopicCluster from '../../components/TopicCluster.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
-const topics = await getCollection('topics');
-const formattedTopics = topics.map(t => ({
-  title: t.data.title,
-  description: t.data.description,
-  count: Math.floor(Math.random() * 10) + 5, // Mock count
-  url: `/topics/${t.data.slug}/`
-}));
+const hubCategories = [
+  {
+    title: "🔴 第一优先级 (核心必读区)",
+    icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", // Info/Core
+    color: "rose",
+    links: [
+      { text: "新手入门指南", url: "/topics/beginners/" },
+      { text: "Clash / sing-box / v2rayN 三者区别", url: "/blog/proxy-protocols-comparison-2026/" },
+      { text: "如何选择网络服务", url: "/blog/2026-airport-recommendation-guide/" },
+      { text: "网络服务测试方法", url: "/methodology/" },
+      { text: "常见连接问题排查", url: "/tag/troubleshooting/" },
+      { text: "下载安全指南", url: "/tag/cyber-security/" },
+      { text: "服务商跑路/诈骗识别指南", url: "/topics/scam-avoidance/" }
+    ]
+  },
+  {
+    title: "🟠 第二优先级 (平台教程与进阶)",
+    icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4", // Code/Advanced
+    color: "amber",
+    links: [
+      { text: "Windows 完整教程", url: "/blog/clash-for-windows-tutorial/" },
+      { text: "Android 完整教程", url: "/blog/clash-for-android-tutorial/" },
+      { text: "macOS 完整教程", url: "/blog/clash-for-mac-tutorial/" },
+      { text: "iOS 完整教程", url: "/blog/clash-for-ios-tutorial/" },
+      { text: "DNS / TUN / Routing 系列", url: "/tag/routing-rules/" },
+      { text: "IP / DNS / WebRTC 检测", url: "/tools/" }
+    ]
+  },
+  {
+    title: "🟢 第三优先级 (AI 工具专区)",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning/AI
+    color: "emerald",
+    links: [
+      { text: "AI 工具系列", url: "/tag/ai-tools/" },
+      { text: "ChatGPT 使用教程", url: "/tag/chatgpt/" },
+      { text: "Claude 使用教程", url: "/tag/claude/" },
+      { text: "Cursor", url: "/blog/cursor-ai-programming-guide/" },
+      { text: "Perplexity", url: "/blog/perplexity-ai-search-tutorial/" },
+      { text: "AI 编程", url: "/tag/ai-programming/" }
+    ]
+  }
+];
 ---
 
-<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="精选精诚严析聚合指南专题库 - Clash Wiki" description="ClashWiki专题聚合库：从游戏降延提稳至专区追流大流量看齐解谜、新手急建速安、协议黑匣辨别等直达要诀一栈统吃汇总全包！">
+<BaseLayout 
+  keywords="Clash新手教程, 网络工具, 机场推荐, 节点评测, 跨境网络导航" 
+  title="内容中心：全站资源导航与精选专题 - Clash Wiki" 
+  description="ClashWiki 全站内容中心。为您系统化整理新手入门指南、各大客户端配置教程、网络排查测试工具，以及客观独立的机场服务商评测与对比榜单。"
+>
   <div class="container mx-auto max-w-6xl px-4 pt-28 pb-20">
-    <Breadcrumb items={[{ label: '专题' }]} />
+    <Breadcrumb items={[{ label: '内容中心' }]} />
     
-    <div class="mt-8 mb-16">
-      <SectionTitle title="精选专题聚合" subtitle="深度划分整合核心常搜需求，带您不耗分秒疾跃解疑指战图签秘法。" align="left" asH1={true} />
+    <div class="mt-8 mb-16 text-center max-w-3xl mx-auto">
+      <SectionTitle 
+        title="全站内容导航" 
+        subtitle="从入门到精通。我们精心编排了本站的核心知识库，为您铺设最平滑的跨境网络学习与进阶路径。" 
+        align="center" 
+        asH1={true} 
+      />
     </div>
 
-    <TopicCluster topics={formattedTopics} />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      {hubCategories.map((category) => {
+        let colorClasses = {
+          bg: 'bg-slate-50',
+          text: 'text-slate-600',
+          hoverText: 'hover:text-slate-600',
+          groupHoverBg: 'group-hover:bg-slate-500'
+        };
+        
+        if (category.color === 'rose') {
+          colorClasses = { bg: 'bg-rose-50', text: 'text-rose-600', hoverText: 'hover:text-rose-600', groupHoverBg: 'group-hover:bg-rose-500' };
+        } else if (category.color === 'amber') {
+          colorClasses = { bg: 'bg-amber-50', text: 'text-amber-600', hoverText: 'hover:text-amber-600', groupHoverBg: 'group-hover:bg-amber-500' };
+        } else if (category.color === 'emerald') {
+          colorClasses = { bg: 'bg-emerald-50', text: 'text-emerald-600', hoverText: 'hover:text-emerald-600', groupHoverBg: 'group-hover:bg-emerald-500' };
+        }
+
+        return (
+        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
+            <div class={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${colorClasses.bg} ${colorClasses.text}`}>
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d={category.icon} />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">{category.title}</h2>
+          </div>
+          
+          <ul class="space-y-4">
+            {category.links.map((link) => (
+              <li>
+                <a href={link.url} class={`group flex items-center gap-3 text-slate-600 transition-colors ${colorClasses.hoverText}`}>
+                  <span class={`w-2 h-2 bg-slate-200 rounded-full transition-colors ${colorClasses.groupHoverBg}`}></span>
+                  <span class="font-medium text-lg">{link.text}</span>
+                  <svg class={`w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all ${colorClasses.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )})}
+    </div>
   </div>
 </BaseLayout>

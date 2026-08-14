@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<BaseLayout keywords="DNS泄漏, DNS Leak, DNS劫持, 网络隐私, 代理测试" title="DNS 泄漏深度检测指南 - ClashWiki" description="了解什么是 DNS 泄漏以及它如何暴露您的真实身份。提供权威的 DNS 泄漏测试工具入口与防泄漏配置教程。">
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-12 min-h-[80vh]">
+    <Breadcrumb items={[ { label: '网络工具箱', href: '/tools/' }, { label: 'DNS 泄漏测试' } ]} />
+    
+    <div class="mt-8 mb-12">
+      <SectionTitle title="DNS 解析泄漏测试" subtitle="检测您的域名解析请求是否被本地运营商劫持，保护浏览隐私。" align="left" asH1={true} />
+    </div>
+
+    <!-- UI Panel -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center">
+      <div class="w-20 h-20 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+      
+      <h2 class="text-2xl font-bold text-slate-800 mb-4">高度敏感的隐私检测</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+        由于 DNS 泄漏测试需要动态生成数百个独一无二的随机子域名（Subdomains）并从服务器底层抓取解析请求，这需要极高的服务器权限。为了保证检测的相对权威与准确，我们强烈建议您使用全球公认的第三方独立开源侦测机构进行测试。
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://ipleak.net/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-3.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
+          前往 IPLeak.net 检测 &rarr;
+        </a>
+        <a href="https://bash.ws/dnsleak" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-3.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-sm font-medium transition-colors">
+          前往 Bash.ws 检测 &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Explainer -->
+    <div class="mt-12 prose-custom max-w-none text-sm text-slate-600 bg-slate-50 rounded-xl p-6">
+      <h3 class="text-base font-bold text-slate-800 mb-2">什么是 DNS 泄漏？</h3>
+      <p>当您连接了代理工具（如 Clash、Shadowrocket）后，您的流量应该由代理服务器接管。但如果您的系统或浏览器配置不当，您输入的网址（如 `google.com`）依然会发送给您本地的宽带运营商（如中国电信、联通）进行 DNS 解析。</p>
+      
+      <h3 class="text-base font-bold text-slate-800 mt-4 mb-2">泄漏的严重后果：</h3>
+      <ul class="mt-2 space-y-1">
+        <li><strong>隐私暴露：</strong> 运营商会清楚地记录下您访问了哪些“被屏蔽”的网站，因为他们收到了您的解析请求。</li>
+        <li><strong>DNS 污染：</strong> 您可能被解析到一个虚假的 IP 地址，导致网站无法打开，或者遭到中间人攻击。</li>
+      </ul>
+
+      <h3 class="text-base font-bold text-slate-800 mt-4 mb-2">如何修复 DNS 泄漏？</h3>
+      <p>绝大多数现代代理客户端（如 Clash Verge Rev、Mihomo）默认已启用 <code>Fake-IP</code> 模式或 <code>远程 DNS 解析</code>。如果测试结果中依然出现了您本地省份的运营商名称（如 China Telecom），请检查您的客户端设置，确保打开了**“系统代理 (System Proxy)”**或**“TUN 虚拟网卡模式”**。</p>
+    </div>
+  </div>
+</BaseLayout>

@@ -13,31 +13,36 @@ import FAQ from '../components/FAQ.astro';
 import CTASection from '../components/CTASection.astro';
 import { HOMEPAGE_DATA } from '../data/homepage';
 import { getCollection } from 'astro:content';
+import { getPostsForTopic } from '../utils/topics';
 
-const rawPosts = import.meta.glob('../content/blog/*.md', { eager: true });
-const latestPosts = Object.values(rawPosts)
-  .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
+const allBlogPosts = await getCollection('blog');
+const latestPosts = allBlogPosts
+  .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf())
   .slice(0, 6)
   .map(post => {
-    const slug = post.file.replace(/\\/g, '/').split('/').pop().replace(/\.md$/, '');
     return {
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
-      url: `/blog/${slug}/`,
-      category: post.frontmatter.category,
-      pubDate: new Date(post.frontmatter.pubDate),
-      image: post.frontmatter.image
+      title: post.data.title,
+      description: post.data.description,
+      url: `/blog/${post.slug || post.id.replace(/\.md$/, '')}/`,
+      category: post.data.category,
+      pubDate: new Date(post.data.pubDate || new Date()),
+      image: post.data.image
     };
   });
 
-const topicsData = [
-  { title: '新手小白必看', description: '从零开始的科学上网配置指南', count: 12, url: '/topics/beginners/' },
-  { title: '流媒体解锁', description: 'Netflix, Disney+, YouTube Premium 解锁评测', count: 8, url: '/topics/streaming/' },
-  { title: '性价比之选', description: '月均 15 元以下的高质量平价机场', count: 5, url: '/topics/budget/' },
-  { title: '客户端配置大全', description: '各平台代理软件下载与实操图文指南', count: 15, url: '/topics/clients/' },
-  { title: '避坑指南', description: '揭秘机场圈套路，教你如何辨别劣质与跑路机场', count: 7, url: '/topics/scam-avoidance/' },
-  { title: '进阶玩法', description: '分流规则配置、自建节点与底层协议深度解析', count: 9, url: '/topics/advanced/' },
+const rawTopicsData = [
+  { title: '新手小白必看', description: '从零开始的跨境网络配置指南', slug: 'beginners', url: '/topics/beginners/' },
+  { title: '流媒体解锁', description: 'Netflix, Disney+, YouTube Premium 解锁评测', slug: 'streaming', url: '/topics/streaming/' },
+  { title: '性价比之选', description: '月均 15 元以下的高质量平价机场', slug: 'budget', url: '/topics/budget/' },
+  { title: '客户端配置大全', description: '各平台代理软件下载与实操图文指南', slug: 'clients', url: '/topics/clients/' },
+  { title: '避坑指南', description: '揭秘机场圈套路，教你如何辨别劣质与跑路机场', slug: 'scam-avoidance', url: '/topics/scam-avoidance/' },
+  { title: '进阶玩法', description: '分流规则配置、自建节点与底层协议深度解析', slug: 'advanced', url: '/topics/advanced/' },
 ];
+
+const topicsData = rawTopicsData.map(topic => ({
+  ...topic,
+  count: getPostsForTopic(topic.slug, allBlogPosts).length
+}));
 
 const allBrandsData = await getCollection('brands');
 const brandsData = allBrandsData.map(b => ({
@@ -46,44 +51,65 @@ const brandsData = allBrandsData.map(b => ({
   url: `/brands/${b.id.replace(/\.md$/, '')}/`,
   buyUrl: `/go/${b.id.replace(/\.md$/, '')}`,
   tags: b.data.tags || [],
-  image: b.data.image
+  image: b.data.image,
+  scores: b.data.scores
 }));
 ---
 
-<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络">
-  <Hero />
+<BaseLayout keywords="网络工具, 网络诊断, AI工具教程, 优质测速数据, ClashWiki">
+  <Hero brandCount={allBrandsData.length} />
   
-  <div class="container mx-auto max-w-6xl px-4">
+  <div class="container mx-auto max-w-6xl px-4 mt-8">
     
-    <!-- Features -->
-    <section id="features" class="py-16 min-h-screen flex flex-col justify-center scroll-mt-0">
-      <div class="w-full">
-        <SectionTitle title="全方位的内容导航" subtitle="不论您是刚刚入门的新手，还是追求极致的专业用户，都能在这里找到答案。" />
+    <!-- 1. Network Tools -->
+    <section id="network-tools" class="py-16 flex flex-col justify-center scroll-mt-0">
+      <div class="w-full mb-12">
+        <SectionTitle title="网络工具导航" subtitle="涵盖主流代理内核与全平台客户端的详尽配置指南。" align="left" />
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-20 mt-16">
-        {HOMEPAGE_DATA.features.map(feat => (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-12 mt-4">
+        {HOMEPAGE_DATA.networkTools.map(feat => (
           <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
         ))}
       </div>
     </section>
-  </div> <!-- 关闭上方的 container -->
 
-  <!-- Latest Posts -->
+    <!-- 2. Diagnostics -->
+    <section id="diagnostics" class="py-16 flex flex-col justify-center scroll-mt-0 border-t border-slate-100">
+      <div class="w-full mb-12">
+        <SectionTitle title="网络诊断工具箱" subtitle="快速检测您的出口 IP 纯净度、DNS 泄露及节点真实延迟。" align="left" />
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-12 mt-4">
+        {HOMEPAGE_DATA.diagnostics.map(feat => (
+          <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
+        ))}
+      </div>
+    </section>
+
+    <!-- 3. AI Tools -->
+    <section id="ai-tools" class="py-16 flex flex-col justify-center scroll-mt-0 border-t border-slate-100">
+      <div class="w-full mb-12">
+        <SectionTitle title="AI 生产力工具专区" subtitle="ChatGPT、Claude 等前沿 AI 工具的注册、解锁与原生 IP 验证指南。" align="left" />
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-12 mt-4">
+        {HOMEPAGE_DATA.aiTools.map(feat => (
+          <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
+        ))}
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 4. Latest Posts -->
   <section id="latest-posts" class="py-12 md:py-16 scroll-mt-0 relative overflow-hidden">
-    <!-- Background Image (全屏背景) -->
     <div class="absolute inset-0 z-0 pointer-events-none">
-      <img src="/background2.png" alt="ClashWiki 2026 Background Theme" class="w-full h-full object-cover object-right-top" />
-      <!-- 极轻微的遮罩以保证文字可读性，保留原图色彩 -->
+      <img src="/background2.png" alt="ClashWiki 2026 Background Theme" width="1920" height="1080" class="w-full h-full object-cover object-right-top" />
       <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
     </div>
-
-    <!-- 内容重新放回 container 中居中 -->
     <div class="relative z-10 container mx-auto max-w-7xl px-4">
       <div class="w-full flex justify-between items-end mb-8">
-        <SectionTitle title="最新评测与教程" align="left" />
+        <SectionTitle title="实用教程与最新内容" align="left" />
         <a href="/blog/" class="hidden md:inline-block text-emerald-600 font-medium hover:text-emerald-700 mb-6 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">查看全部文章 &rarr;</a>
       </div>
-      <!-- 恢复单列布局以保持宽版 banner 效果 -->
       <div class="grid grid-cols-1 gap-y-6 mt-6 w-full max-w-5xl mx-auto">
         {latestPosts.map(post => (
           <BannerArticleCard {...post} />
@@ -95,28 +121,36 @@ const brandsData = allBrandsData.map(b => ({
     </div>
   </section>
 
-  <!-- 重新开启 container 以容纳后续板块 -->
   <div class="container mx-auto max-w-6xl px-4">
     <!-- Topic Clusters -->
     <section id="topics" class="py-16 scroll-mt-0">
-      <SectionTitle title="热门专题聚合" subtitle="按您的核心需求快速定位内容" />
+      <SectionTitle title="热门专题聚合" subtitle="按您的核心需求快速定位教程库" />
       <TopicCluster topics={topicsData} />
     </section>
-  </div> <!-- 关闭上方的 container -->
 
-  <!-- Brands -->
+    <!-- SEO Content Placeholder -->
+    <section class="py-16 prose-custom max-w-4xl mx-auto border-t border-slate-100 mt-8">
+      <h2>专业的网络与 AI 工具评测数据库</h2>
+      <p>在寻找<strong>前沿生产力工具</strong>的过程中，很多用户往往被华丽的广告词误导。我们建立了一套涵盖节点延迟、晚高峰带宽吞吐、丢包率、以及流媒体解锁状态的自动化监控体系。无论您是寻找<strong>高性价比网络优化服务</strong>，还是对连通性要求极高的<strong>企业级网络专线</strong>，都能在这里找到客观的数据支撑。</p>
+      <h3>为什么需要客观的网络体验评测数据库？</h3>
+      <p>随着国际互联网环境的复杂化，传统的直连方式常常面临严重的路由绕道甚至 IP 阻断。高质量的 <strong>跨境网络优化服务</strong>能够提供更稳定的内网传输，有效保障跨国视频会议、海外开发与外贸业务的流畅度。</p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faqs" class="py-16">
+      <FAQ items={HOMEPAGE_DATA.faqs} />
+    </section>
+  </div>
+
+  <!-- 5. Brands (Moved to the bottom, before CTA) -->
   <section id="brands" class="py-24 scroll-mt-0 relative overflow-hidden mt-12 mb-12">
-    <!-- Background Image (全屏背景) -->
     <div class="absolute inset-0 z-0 pointer-events-none">
-      <img src="/background3.png" alt="ClashWiki Airport Review Background" class="w-full h-full object-cover object-center" />
-      <!-- 极轻微的遮罩以保证文字可读性 -->
+      <img src="/background3.png" alt="ClashWiki Airport Review Background" width="1920" height="1080" class="w-full h-full object-cover object-center" />
       <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
     </div>
-
-    <!-- 内容放回 container 中居中 -->
     <div class="relative z-10 container mx-auto max-w-6xl px-4">
       <div class="mb-8">
-        <SectionTitle title="精选品牌库" subtitle="经过我们长期追踪与晚高峰实测的优质服务商" align="left" />
+        <SectionTitle title="网络服务商测试榜单" subtitle="经过我们长期追踪与晚高峰实测的优质节点提供商，客观展示其技术实力。" align="left" />
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-32 mt-32">
         {brandsData.map(brand => (
@@ -126,29 +160,12 @@ const brandsData = allBrandsData.map(b => ({
     </div>
   </section>
 
-  <!-- 重新开启 container 以容纳后续板块 -->
-  <div class="container mx-auto max-w-6xl px-4">
-
-
-
-    <!-- SEO Content Placeholder -->
-    <section class="py-16 prose-custom max-w-4xl mx-auto">
-      <h2>专业的科学上网工具评测体系</h2>
-      <p>在寻找<strong>机场推荐</strong>的过程中，很多用户往往被华丽的广告词误导。我们建立了一套涵盖节点延迟、晚高峰带宽吞吐、丢包率、以及流媒体解锁状态的自动化监控体系。无论您是寻找<strong>便宜机场推荐</strong>，还是对延迟要求极高的<strong>专线机场推荐</strong>，都能在这里找到客观的数据支撑。</p>
-      <h3>为什么需要稳定的梯子工具？</h3>
-      <p>随着互联网环境的收紧，传统的直连方式常常面临严重的 QoS 甚至 IP 阻断。高质量的 <strong>IEPL / IPLC 专线</strong>能够提供不过墙的内网传输，有效保障晚高峰的流畅度，是重度视频用户和外贸从业者的首选。</p>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faqs" class="py-16">
-      <FAQ items={HOMEPAGE_DATA.faqs} />
-    </section>
-
-    <!-- CTA -->
+  <!-- CTA -->
+  <div class="container mx-auto max-w-6xl px-4 mb-20">
     <CTASection 
-      title="准备好体验极速网络了吗？" 
-      description="查看我们最新更新的 2026 机场推荐榜单，即刻获取专属优惠码。" 
-      buttonText="查看天梯榜" 
+      title="准备好搭建您的专属网络环境了吗？" 
+      description="查看我们最新更新的 2026 节点测速榜单与详尽配置指南。" 
+      buttonText="查看测速榜单" 
       buttonLink="/category/airports/" 
     />
   </div>

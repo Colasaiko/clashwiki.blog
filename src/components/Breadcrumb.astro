@@ -1,11 +1,33 @@
 ---
+import { SITE } from '../data/site';
+
 interface Props {
   items: { label: string; href?: string }[];
 }
 
 const { items } = Astro.props;
+
+// Construct BreadcrumbList Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": SITE.domain
+    },
+    ...items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": item.label,
+      "item": item.href ? new URL(item.href, SITE.domain).href : undefined
+    }))
+  ]
+};
 ---
-<nav class="flex text-sm text-slate-500  mb-6" aria-label="Breadcrumb">
+<nav class="flex text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
   <ol class="inline-flex items-center space-x-1 md:space-x-2">
     <li class="inline-flex items-center">
       <a href="/" class="hover:text-emerald-500 transition-colors">
@@ -19,10 +41,11 @@ const { items } = Astro.props;
           {item.href ? (
             <a href={item.href} class="hover:text-emerald-500 transition-colors ml-1 md:ml-2">{item.label}</a>
           ) : (
-            <span class="text-slate-700  ml-1 md:ml-2 font-medium">{item.label}</span>
+            <span class="text-slate-700 ml-1 md:ml-2 font-medium">{item.label}</span>
           )}
         </div>
       </li>
     ))}
   </ol>
 </nav>
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

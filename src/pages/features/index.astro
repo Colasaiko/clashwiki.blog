@@ -2,21 +2,93 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import FeatureCard from '../../components/FeatureCard.astro';
-import { HOMEPAGE_DATA } from '../../data/homepage';
+
+const tools = [
+  {
+    title: "IP 与 IPv6 查询",
+    description: "一键查询您的本机公网 IP 地址、地理位置以及是否支持 IPv6 网络。",
+    icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9",
+    url: "/tools/ip/",
+    color: "from-blue-500 to-cyan-400"
+  },
+  {
+    title: "DNS 泄露检测",
+    description: "测试您的代理连接是否存在 DNS 泄露风险，确保隐私安全。",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    url: "/tools/dns-leak/",
+    color: "from-emerald-500 to-teal-400"
+  },
+  {
+    title: "WebRTC 节点真实 IP 测试",
+    description: "通过 WebRTC 接口检测浏览器是否绕过了代理暴露了您的真实 IP。",
+    icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
+    url: "/tools/webrtc/",
+    color: "from-purple-500 to-indigo-400"
+  },
+  {
+    title: "Ping 延迟测速",
+    description: "测试您的网络到全球主要节点的真实延迟响应时间。",
+    icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    url: "/tools/ping/",
+    color: "from-amber-500 to-orange-400"
+  },
+  {
+    title: "全平台客户端下载库",
+    description: "获取 Windows, Mac, Android, iOS 最新版代理客户端下载地址。",
+    icon: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4",
+    url: "/blog/clash-client-download-intro/",
+    color: "from-rose-500 to-red-400"
+  },
+  {
+    title: "主流代理协议对比",
+    description: "SSR / V2ray / Trojan / Shadowrocket 等主流协议深度解析与选择指南。",
+    icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+    url: "/blog/proxy-protocols-comparison-2026/",
+    color: "from-sky-500 to-blue-400"
+  },
+  {
+    title: "本站机场测试标准",
+    description: "了解本站如何通过 10+ 维度客观测试晚高峰速度、流媒体解锁等指标。",
+    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
+    url: "/methodology/",
+    color: "from-slate-600 to-slate-500"
+  }
+];
 ---
 
-<BaseLayout keywords="Clash, 便宜机场推荐, 科学上网, 优质机场节点, 微风网络" title="全方位的内容导航 - Clash Wiki" description="Clash Wiki（Clash维基）全盘精编版科学上网内容地图与新手引路全指南。涵盖白话级入门部署、防欺诈自卫法则以及主流高端低价稳连机场品牌客观测评聚合库，秒懂解法畅快穿梭。">
-  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-12">
-    <Breadcrumb items={[{ label: '内容导航' }]} />
+<BaseLayout 
+  keywords="网络工具箱, IP查询, DNS泄露检测, WebRTC测试, 客户端下载, 机场测试标准" 
+  title="Clash Wiki 使用工具箱 - 实用网络排查与辅助工具聚合" 
+  description="Clash Wiki 专属网络辅助工具箱。为您提供一键 IP 查询、DNS 泄露检测、WebRTC 测试、Ping 延迟测速、全平台客户端下载及代理协议科普。"
+>
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '工具箱' }]} />
     
-    <div class="mt-8 mb-16">
-      <SectionTitle title="全方位的内容导航" subtitle="不论您是刚刚入门的新手，还是追求极致的专业用户，都能在这里找到答案。" align="left" asH1={true} />
+    <div class="mt-8 mb-16 text-center max-w-3xl mx-auto">
+      <SectionTitle 
+        title="Clash Wiki 工具箱" 
+        subtitle="从网络诊断到客户端下载，我们为您准备了最实用的辅助工具，助您轻松排查网络问题、优化节点体验。" 
+        align="center" 
+        asH1={true} 
+      />
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-20 mt-16 mb-20">
-      {HOMEPAGE_DATA.features.map(feat => (
-        <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {tools.map((tool) => (
+        <a href={tool.url} class="group relative bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+          <div class={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${tool.color} opacity-0 group-hover:opacity-100 transition-opacity`}></div>
+          <div class="flex items-start gap-4">
+            <div class={`w-12 h-12 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${tool.color} shadow-md flex-shrink-0`}>
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d={tool.icon} />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2 group-hover:text-emerald-600 transition-colors">{tool.title}</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">{tool.description}</p>
+            </div>
+          </div>
+        </a>
       ))}
     </div>
   </div>

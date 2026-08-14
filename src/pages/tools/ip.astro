@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<BaseLayout keywords="IP查询, 我的IP, ASN查询, IP归属地检测" title="IP 与 ASN 深度解析 - ClashWiki" description="免费无广告的纯前端 IP 与 ASN 检测工具，快速识别您的真实出口 IP 地址、地理位置及服务商信息，排查代理是否生效。">
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-12 min-h-[80vh]">
+    <Breadcrumb items={[ { label: '网络工具箱', href: '/tools/' }, { label: 'IP 查询' } ]} />
+    
+    <div class="mt-8 mb-12">
+      <SectionTitle title="IP & ASN 深度解析" subtitle="检测您当前的出口网络环境，排查节点代理是否生效。" align="left" asH1={true} />
+    </div>
+
+    <!-- UI Panel -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <div class="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
+        <h2 class="text-xl font-bold text-slate-800">当前出口 IP 信息</h2>
+        <span id="ip-status" class="text-slate-400 text-sm flex items-center gap-2">
+          <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          正在探测...
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <p class="text-sm text-slate-500 mb-1">IP 地址 (IPv4/IPv6)</p>
+          <p id="ip-address" class="text-3xl font-bold text-emerald-600 font-mono">---</p>
+        </div>
+        
+        <div>
+          <p class="text-sm text-slate-500 mb-1">地理位置 (Location)</p>
+          <p id="ip-location" class="text-xl font-medium text-slate-800">---</p>
+        </div>
+
+        <div>
+          <p class="text-sm text-slate-500 mb-1">网络服务商 (ISP / Org)</p>
+          <p id="ip-org" class="text-lg font-medium text-slate-800">---</p>
+        </div>
+
+        <div>
+          <p class="text-sm text-slate-500 mb-1">自治系统编号 (ASN)</p>
+          <p id="ip-asn" class="text-lg font-medium text-slate-800 font-mono">---</p>
+        </div>
+      </div>
+      
+      <div class="mt-8 pt-6 border-t border-slate-100">
+        <button id="refresh-btn" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-colors">重新检测</button>
+      </div>
+    </div>
+
+    <!-- Explainer -->
+    <div class="mt-12 prose-custom max-w-none text-sm text-slate-600 bg-slate-50 rounded-xl p-6">
+      <h3 class="text-base font-bold text-slate-800 mb-2">关于 IP 与 ASN 检测</h3>
+      <p>本工具完全基于您的浏览器前端运行，调用第三方安全 API 获取当前出口 IP 状态。当您开启代理客户端（如 Clash, V2Ray）的“全局模式”或命中“规则模式”时，此处显示的 IP 应当为您所选节点服务器的 IP 地址。</p>
+      <ul class="mt-2 space-y-1">
+        <li><strong>如何判断代理生效？</strong> 开启节点后点击重新检测，若 IP 地址和归属地变成了境外地址，说明代理已生效。</li>
+        <li><strong>为什么是原生 IP？</strong> 原生 IP 通常指该 IP 的注册地与机房物理位置一致，且未被主流流媒体平台标记为数据中心 IP。</li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  async function fetchIP() {
+    const statusEl = document.getElementById('ip-status');
+    const addressEl = document.getElementById('ip-address');
+    const locEl = document.getElementById('ip-location');
+    const orgEl = document.getElementById('ip-org');
+    const asnEl = document.getElementById('ip-asn');
+
+    statusEl.innerHTML = '<svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 正在探测...';
+    statusEl.className = 'text-slate-500 text-sm flex items-center gap-2';
+
+    try {
+      // 优先使用 ipapi.co
+      const res = await fetch('https://ipapi.co/json/');
+      if (!res.ok) throw new Error('API Rate limit or error');
+      const data = await res.json();
+      
+      addressEl.innerText = data.ip || '---';
+      locEl.innerText = `${data.city || ''}, ${data.region || ''}, ${data.country_name || ''}`.replace(/^, | , | ,$/g, '');
+      orgEl.innerText = data.org || '---';
+      asnEl.innerText = data.asn || '---';
+      
+      statusEl.innerText = "✅ 检测完成";
+      statusEl.className = "text-emerald-500 text-sm font-bold";
+    } catch(e) {
+      try {
+        // Fallback to ipwhois.app
+        const fallbackRes = await fetch('https://ipwhois.app/json/');
+        const fallbackData = await fallbackRes.json();
+        
+        addressEl.innerText = fallbackData.ip || '---';
+        locEl.innerText = `${fallbackData.city || ''}, ${fallbackData.country || ''}`.replace(/^, | , | ,$/g, '');
+        orgEl.innerText = fallbackData.isp || '---';
+        asnEl.innerText = fallbackData.asn || '---';
+        
+        statusEl.innerText = "✅ 检测完成";
+        statusEl.className = "text-emerald-500 text-sm font-bold";
+      } catch (err) {
+        statusEl.innerText = "❌ 检测失败";
+        statusEl.className = "text-red-500 text-sm font-bold";
+        addressEl.innerText = "Error: 请关闭广告拦截器重试";
+      }
+    }
+  }
+
+  // Load on mount
+  document.addEventListener('DOMContentLoaded', fetchIP);
+  
+  // Attach refresh
+  document.getElementById('refresh-btn')?.addEventListener('click', fetchIP);
+</script>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FeatureCard from '../../components/FeatureCard.astro';
+
+const tools = [
+  { title: 'IP & ASN 查询', description: '高精度检测当前出口 IP 地址、归属地、服务商与欺诈评分', icon: 'search', href: '/tools/ip/' },
+  { title: 'WebRTC 泄漏探测', description: '检测浏览器是否绕过代理泄露您的真实局域网与公网 IP', icon: 'shield', href: '/tools/webrtc/' },
+  { title: 'DNS 泄漏测试', description: '验证您的 DNS 解析请求是否被本地运营商劫持', icon: 'question', href: '/tools/dns-leak/' },
+  { title: '全球延迟测速', description: '测试当前网络到全球主要 CDN 骨干网的真实 HTTP 延迟', icon: 'chart', href: '/tools/ping/' },
+];
+---
+
+<BaseLayout keywords="网络诊断工具, IP查询, DNS泄漏测试, WebRTC泄漏, 节点测速" title="高级网络诊断工具箱 - ClashWiki" description="ClashWiki 提供的纯粹、免费、无广告的在线网络诊断工具箱。帮助您检测 IP 纯净度、DNS 泄露、WebRTC 隐私状态及全球网络延迟。">
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-12 min-h-[80vh]">
+    <Breadcrumb items={[{ label: '网络工具箱' }]} />
+    
+    <div class="mt-8 mb-16">
+      <SectionTitle title="网络诊断工具箱" subtitle="极客专属的纯净版诊断面板。快速排查节点连通性、隐私泄漏风险与 IP 质量。" align="left" asH1={true} />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 mt-8 mb-20 max-w-4xl">
+      {tools.map(tool => (
+        <FeatureCard title={tool.title} description={tool.description} icon={tool.icon} href={tool.href} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

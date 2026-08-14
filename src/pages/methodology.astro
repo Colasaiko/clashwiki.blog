@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout keywords="机场评测标准, 节点测速, Clash 节点测试, 跨境网络测试" title="评测与测试标准 - ClashWiki">
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '评测标准' }]} />
+    
+    <div class="mt-8 prose prose-slate prose-emerald max-w-none">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-8">ClashWiki 节点与机场评测标准</h1>
+      
+      <p class="lead text-lg text-slate-600 mb-8">
+        为了保证评估的客观性、真实性和结构化对比能力，ClashWiki 建立了一套严谨的标准化评估体系。本站所有的量化评分均旨在反映典型的网络特征与连通性表现。
+      </p>
+
+      <h2>1. 标准评估参考基线</h2>
+      <p>为了保证数据的横向可比性，我们的评估模型基于以下参考基线建立：</p>
+      <ul>
+        <li><strong>网络环境基线</strong>：参考中国大陆主流运营商（电信/联通/移动）的典型跨境路由特征进行数据建模与校准。</li>
+        <li><strong>测试设备模型</strong>：以现代主流千兆网卡终端作为带宽评估上限的参考环境。</li>
+        <li><strong>协议解析基准</strong>：默认基于主流现代网络代理内核（如 Clash Verge Rev 最新版）的网络栈特征。</li>
+      </ul>
+
+      <h2>2. 连通性与压力指标 (核心权重)</h2>
+      <p>在网络评估中，我们着重考察服务商在网络拥堵期的表现，主要评估以下维度：</p>
+      <ul>
+        <li><strong>时间权重窗口</strong>：在评分模型中，大幅增加每天 <strong>20:00 - 23:00</strong> 典型高负载时段网络表现的权重。</li>
+        <li><strong>吞吐量评估</strong>：分析节点单线程与多线程在不同应用场景下的理论峰值与稳定性。</li>
+        <li><strong>稳定性监控</strong>：将连接丢包率作为核心惩罚指标，< 1%为极优，丢包率过高将大幅拉低总评分。</li>
+      </ul>
+
+      <h2>3. 核心节点延迟标准 (Latency)</h2>
+      <p>针对不同线路类型，我们确立了以下延迟参考阈值（基于沿海城市至海外落地节点）：</p>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full text-left">
+          <thead>
+            <tr>
+              <th>节点地区</th>
+              <th>IPLC/IEPL 专线 (优秀标准)</th>
+              <th>公网中转 (优秀标准)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>🇭🇰 中国香港</td>
+              <td>&lt; 35 ms</td>
+              <td>&lt; 60 ms</td>
+            </tr>
+            <tr>
+              <td>🇯🇵 日本东京</td>
+              <td>&lt; 50 ms</td>
+              <td>&lt; 80 ms</td>
+            </tr>
+            <tr>
+              <td>🇸🇬 新加坡</td>
+              <td>&lt; 60 ms</td>
+              <td>&lt; 90 ms</td>
+            </tr>
+            <tr>
+              <td>🇺🇸 美国洛杉矶</td>
+              <td>&lt; 140 ms</td>
+              <td>&lt; 170 ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-slate-500 italic mt-4">注：上述延迟阈值仅作为同类线路的横向参考标准，实际结果会因测试地点、所在地区运营商（如南电信北联通）及测试时间不同而产生差异。</p>
+
+      <h2>4. 流媒体与 AI 解锁测试</h2>
+      <p>IP 的纯净度越来越重要。我们将对每个品牌的节点进行如下项目的连通性实测：</p>
+      <ul>
+        <li><strong>流媒体</strong>：Netflix (是否非自制剧)、Disney+、YouTube (是否送中/免流区)、HBO Max。</li>
+        <li><strong>AI 生产力工具</strong>：ChatGPT (Web版/APP版连通性)、Claude、Gemini。</li>
+      </ul>
+      <p><em>注：我们使用专用的解锁检测脚本进行辅助验证，并结合真实浏览器无痕模式实测。</em></p>
+
+      <h2>5. 综合评分体系 (Scoring System)</h2>
+      <p>为了让用户能够直观地对比不同服务商的综合表现，我们独创了加权评分算法（满分 10 分）。分数完全由客观测试数据生成，具体权重如下：</p>
+      <ul>
+        <li><strong>稳定性 (25%)</strong>：基于长期在线率及晚高峰不断流的表现。</li>
+        <li><strong>晚高峰速度 (20%)</strong>：基于单线程与多线程测速相对吞吐量。</li>
+        <li><strong>延迟 (15%)</strong>：基于 ICMP Ping 和 HTTP 握手响应速度。</li>
+        <li><strong>丢包 (15%)</strong>：针对骨干网络拥堵时段的零丢包率考核。</li>
+        <li><strong>流媒体 (10%)</strong>：覆盖 Netflix、Disney+ 等主流平台的原生解锁率。</li>
+        <li><strong>价格 (10%)</strong>：基于提供相同服务质量所需支付的最低月均成本。</li>
+        <li><strong>AI (5%)</strong>：针对 ChatGPT、Claude 等高风控平台的节点纯净度。</li>
+      </ul>
+      <p><em>注：综合评分 = 各项指标得分 × 对应权重相加。这样算出的 8.7 分，不再是一个毫无依据的数字，而是基于大量测试数据的量化体现。</em></p>
+
+      <h2>6. 测试数据说明 (数据局限性声明)</h2>
+      <p>网络质量会受到地区、运营商、时间、设备、节点负载及服务商线路调整等因素影响。本站所有测试结果与评分仅代表本站特定评估模型与环境下的切片表现，不应视为所有地区或所有网络环境下用户的实际体验保证。我们强烈建议用户在购买长期套餐前，先通过月付或试用套餐进行本地化验证。</p>
+
+      <h2>7. 中立性声明</h2>
+      <p>本站（ClashWiki）的使命是打造一个真实的<strong>“网络工具资料库 + 测试数据库”</strong>。虽然本站可能包含推广链接，但我们郑重承诺，绝不会因为佣金而篡改测试数据。差的节点我们会明确指出，优质的专线我们会用真实的数据予以证明。</p>
+      
+      <p class="text-sm text-slate-500 mt-12">最后更新日期：2026年8月12日</p>
+    </div>
+  </div>
+</BaseLayout>

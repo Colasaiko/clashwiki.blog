@@ -12,22 +12,11 @@ const { title, description, url, category, pubDate, image } = Astro.props;
 ---
 <a href={url} class="group block relative rounded-2xl transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)] hover:-translate-y-1 h-56 md:h-48 z-10">
   
-  <!-- 裁剪容器：外部右上角探头 -->
-  <div class="absolute left-0 right-0 bottom-full h-[80px] overflow-hidden pointer-events-none z-30">
-    <!-- 小猫娘实体：默认探头，悬停时往下躲藏。增加 -bottom-5 抵消图片底部的透明留白 -->
-    <div class="absolute right-8 -bottom-5 w-20 h-20 transition-transform duration-300 ease-out translate-y-0 group-hover:translate-y-[80px] opacity-100">
-      <div class="relative w-full h-full">
-        <img src="/peep-body.png" class="absolute inset-0 w-full h-full object-contain drop-shadow-sm" alt="ClashWiki Mascot Body" />
-        <img src="/peep-eyes.png" class="peep-eyes-card absolute inset-0 w-full h-full object-contain transition-transform duration-100 ease-out" alt="ClashWiki Mascot Eyes" />
-      </div>
-    </div>
-  </div>
-
   <!-- 内容与背景容器 (处理圆角和溢出裁剪) -->
   <div class="absolute inset-0 overflow-hidden rounded-2xl">
     <!-- Background Image or Placeholder -->
     {image ? (
-      <img src={image} alt={title} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      <img src={image} alt={title} width="800" height="400" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
     ) : (
       <div class="absolute inset-0 w-full h-full bg-slate-800 flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-600 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">

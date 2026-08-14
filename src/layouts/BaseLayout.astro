@@ -15,15 +15,17 @@ interface Props {
   pubDate?: Date;
   updatedDate?: Date;
   author?: string;
+  image?: string;
+  breadcrumbs?: { name: string; item: string }[];
 }
 
-const { title, description, keywords, noindex, ogType, bgImage = '/background3.png', pubDate, updatedDate, author } = Astro.props;
+const { title, description, keywords, noindex, ogType, bgImage = '/background3.png', pubDate, updatedDate, author, image, breadcrumbs } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
   <head>
-    <SeoHead title={title} description={description} keywords={keywords} noindex={noindex} ogType={ogType} pubDate={pubDate} updatedDate={updatedDate} author={author} />
+    <SeoHead title={title} description={description} keywords={keywords} noindex={noindex} ogType={ogType} pubDate={pubDate} updatedDate={updatedDate} author={author} image={image} breadcrumbs={breadcrumbs} />
   </head>
   <body id="top" class="flex flex-col min-h-screen bg-transparent">
     <div class={`fixed inset-0 z-0 pointer-events-none ${bgImage === '/background3.png' ? 'opacity-50 mix-blend-normal' : 'opacity-100 mix-blend-normal'}`} style={`background-image: url('${bgImage}'); background-size: cover; background-position: center; background-attachment: fixed;`}></div>
@@ -32,8 +34,9 @@ const { title, description, keywords, noindex, ogType, bgImage = '/background3.p
     <!-- Interactive Chibi Peep -->
     <div class="wiki-chibi-peep-hitbox" title="点我回主页~">
       <a href="/" class="wiki-chibi-peep-wrapper">
-        <img src="/peep-body.png" id="peep-body" class="peep-layer" alt="Clash Wiki 极速机场导览主旨动态挂载玩偶" onerror="this.style.display='none'" />
-        <img src="/peep-eyes.png" id="peep-eyes" class="peep-layer" alt="Clash Wiki 长尾评测与避坑指南指引徽章" onerror="this.style.display='none'" />
+        <div class="peep-container">
+          <!-- Peep character removed for cleaner aesthetic -->
+        </div>
       </a>
     </div>
 

@@ -11,6 +11,9 @@ interface Props {
   pubDate?: Date;
   updatedDate?: Date;
   author?: string;
+  image?: string;
+  breadcrumbs?: { name: string; item: string }[];
+  faqs?: { question: string; answer: string }[];
 }
 
 const {
@@ -23,37 +26,107 @@ const {
   pubDate,
   updatedDate,
   author,
+  image,
+  breadcrumbs,
+  faqs,
 } = Astro.props;
 
-const pageTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+const pageTitle = title.includes(SITE.name) ? title : `${title} - ${SITE.name}`;
+const imageUrl = image ? new URL(image, SITE.domain).href : new URL('/logo.jpg', SITE.domain).href;
 
 const schemaData = ogType === 'article' ? {
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": title,
   "description": description,
+  "image": imageUrl,
   "author": {
     "@type": "Person",
-    "name": author || SITE.defaultAuthor
+    "name": author || SITE.defaultAuthor,
+    "url": `${SITE.domain}/about/`
   },
   "publisher": {
     "@type": "Organization",
     "name": SITE.name,
+    "url": SITE.domain,
+    "sameAs": [
+      `${SITE.domain}/`
+    ],
     "logo": {
       "@type": "ImageObject",
       "url": `${SITE.domain}/logo.jpg`
     }
   },
   "url": canonicalUrl,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
   "datePublished": pubDate ? pubDate.toISOString() : undefined,
   "dateModified": updatedDate ? updatedDate.toISOString() : (pubDate ? pubDate.toISOString() : undefined)
-} : {
+} : null;
+
+const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": SITE.name,
   "url": SITE.domain,
   "description": SITE.description
 };
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": SITE.name,
+  "url": SITE.domain,
+  "logo": `${SITE.domain}/logo.jpg`
+};
+
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbItems = [{ name: '首页', item: SITE.domain }];
+let currentPath = '';
+pathSegments.forEach((segment, index) => {
+  currentPath += `/${segment}`;
+  breadcrumbItems.push({
+    name: index === pathSegments.length - 1 ? title : (segment.charAt(0).toUpperCase() + segment.slice(1)),
+    item: `${SITE.domain}${currentPath}/`
+  });
+});
+
+const breadcrumbItemsData = breadcrumbs || breadcrumbItems;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItemsData.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.item
+  }))
+};
+
+const finalSchema: any[] = [websiteSchema, orgSchema, breadcrumbSchema];
+if (ogType === 'article') {
+  finalSchema.push(schemaData);
+} else if (ogType !== 'article') {
+  // We already include websiteSchema globally
+}
+
+if (faqs && faqs.length > 0) {
+  finalSchema.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  });
+}
 ---
 
 <!-- Global Metadata -->
@@ -75,12 +148,15 @@ const schemaData = ogType === 'article' ? {
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:locale" content="zh_CN" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={pageTitle} />
 <meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={imageUrl} />
 
 <!-- JSON-LD Structured Data -->
-<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+<script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />

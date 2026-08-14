@@ -3,7 +3,7 @@ export const CATEGORIES = [
     id: '机场推荐',
     name: '机场推荐',
     slug: 'airports',
-    description: '2026年最新最全的科学上网机场推荐及评测',
+    description: '2026年最新最全的跨境网络机场推荐及评测',
     icon: '✈️',
     customHref: '/category/airports/'
   },

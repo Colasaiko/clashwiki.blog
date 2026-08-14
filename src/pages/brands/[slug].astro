@@ -3,6 +3,10 @@ import { getCollection, render } from 'astro:content';
 import LandingLayout from '../../layouts/LandingLayout.astro';
 import CTASection from '../../components/CTASection.astro';
 import FAQ from '../../components/FAQ.astro';
+import BrandScore from '../../components/BrandScore.astro';
+import DataStatus from '../../components/DataStatus.astro';
+import BrandReportCard from '../../components/BrandReportCard.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 
 export async function getStaticPaths() {
   const brands = await getCollection('brands');
@@ -13,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { brand } = Astro.props;
-const { Content } = await render(brand);
+const { Content, headings } = await render(brand);
 
 // Mock FAQ
 const faqs = [
@@ -22,7 +26,7 @@ const faqs = [
   { question: `对新手友好吗？`, answer: '非常友好，提供全平台一键订阅以及详细的图文教程。' }
 ];
 
-const seoKeywords = brand.data.tags ? [...brand.data.tags, "Clash", "便宜机场推荐", "科学上网"].join(", ") : "Clash, 便宜机场推荐, 科学上网";
+const seoKeywords = brand.data.tags ? [...brand.data.tags, "Clash", "便宜机场推荐", "跨境网络"].join(", ") : "Clash, 便宜机场推荐, 跨境网络";
 ---
 
 <LandingLayout 
@@ -31,7 +35,23 @@ const seoKeywords = brand.data.tags ? [...brand.data.tags, "Clash", "便宜机�
   keywords={seoKeywords}
   updatedDate={brand.data.updatedDate}
   brandName={brand.data.name}
+  image={brand.data.image}
 >
+  <div class="max-w-4xl mx-auto px-4 mt-6">
+    <div class="bg-amber-50 rounded-lg border border-amber-200 p-4 mb-6 shadow-sm">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <p class="text-sm text-amber-800 leading-relaxed mb-0">
+          <strong>推荐与商业关系：</strong>本文包含推广链接。我们郑重承诺，推广关系绝不会影响本页面的客观测试评分与优缺点分析。
+        </p>
+      </div>
+    </div>
+  </div>
+  <DataStatus last_checked={brand.data.last_checked} updatedDate={brand.data.updatedDate} />
+  {brand.data.scores && <BrandScore scores={brand.data.scores} />}
+  <BrandReportCard brand={brand} />
+  
+  <TableOfContents headings={headings} />
   <Content />
   
   <FAQ items={faqs} title="关于该品牌的常见问题" />

@@ -4,6 +4,7 @@ import BlogLayout from '../../layouts/BlogLayout.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 import FAQ from '../../components/FAQ.astro';
 import CTASection from '../../components/CTASection.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -14,29 +15,30 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 // Mock related posts
 const allPosts = await getCollection('blog');
 const related = allPosts.filter(p => p.data.category === post.data.category && p.id !== post.id).slice(0, 3);
 const slug = post.id.replace(/\.md$/, '');
 
-let ctaTitle = "获取专属网络加速服务";
-let ctaDesc = "点击下方按钮，寻找最适合您的机场套餐。";
-let btnText = "前往品牌库";
+let ctaTitle = "正在寻找稳定可靠的网络服务？";
+let ctaDesc = "我们深度测试了市面上的主流服务商，为您整理了客观、中立的推荐榜单与评分。";
+let btnText = "查看机场服务商推荐榜单";
 let btnLink = "/brands/";
 
 if (slug.startsWith('seo-brand-')) {
   const brandName = slug.replace('seo-brand-', '');
-  ctaTitle = "准备好体验极速网络了吗？";
-  ctaDesc = "点击下方按钮，即刻前往官网获取专属优惠并开始使用。";
-  btnText = "立即前往购买";
-  btnLink = `/go/${brandName}/`;
+  ctaTitle = "对该品牌感兴趣？";
+  ctaDesc = "查看我们在多维度的详细测试数据、流媒体解锁报告以及最新的可用优惠码。";
+  btnText = "查看完整评测与评分数据";
+  btnLink = `/brands/${brandName}/`;
 }
 ---
 
 <BlogLayout {...post.data}>
   <div slot="article-content">
+    <TableOfContents headings={headings} />
     <Content />
   </div>
   

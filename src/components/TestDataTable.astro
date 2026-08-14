@@ -1,0 +1,104 @@
+---
+import networkTests from '../data/network-tests.json';
+
+// Group by Date for better display
+const groupedByDate = networkTests.reduce((acc, test) => {
+  if (!acc[test.date]) acc[test.date] = [];
+  acc[test.date].push(test);
+  return acc;
+}, {} as Record<string, typeof networkTests>);
+
+const sortedDates = Object.keys(groupedByDate).sort((a, b) => new Date(b).valueOf() - new Date(a).valueOf());
+
+function getLatencyColor(latency: number) {
+  if (latency <= 50) return 'text-emerald-600 bg-emerald-50 border-emerald-200';
+  if (latency <= 150) return 'text-amber-600 bg-amber-50 border-amber-200';
+  return 'text-rose-600 bg-rose-50 border-rose-200';
+}
+
+function getLossColor(loss: number) {
+  if (loss === 0) return 'text-emerald-600';
+  if (loss <= 1) return 'text-amber-600';
+  return 'text-rose-600';
+}
+
+function getSpeedColor(speed: number) {
+  if (speed >= 500) return 'text-emerald-600 font-bold';
+  if (speed >= 200) return 'text-slate-700';
+  return 'text-slate-500';
+}
+---
+
+<div class="space-y-12">
+  {sortedDates.map(date => (
+    <div class="test-batch relative">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 font-mono text-sm font-bold border border-slate-200">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+        </div>
+        <h3 class="text-xl font-heading font-bold text-slate-800 m-0">
+          测试批次：<span class="text-emerald-600">{date}</span>
+        </h3>
+      </div>
+      
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[700px]">
+            <thead>
+              <tr class="bg-slate-50/80 border-b border-slate-200 text-sm text-slate-500 font-medium">
+                <th class="px-6 py-4">服务商</th>
+                <th class="px-6 py-4">测试节点</th>
+                <th class="px-6 py-4">真实延迟 (ms)</th>
+                <th class="px-6 py-4">晚高峰丢包率</th>
+                <th class="px-6 py-4">吞吐速度 (Mbps)</th>
+                <th class="px-6 py-4">综合评级</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              {groupedByDate[date].map(test => (
+                <tr class="hover:bg-slate-50/50 transition-colors group">
+                  <td class="px-6 py-4 font-bold text-slate-800">
+                    <div class="flex items-center gap-2">
+                      <div class="w-2 h-2 rounded-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      {test.brand}
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-slate-600">{test.node}</td>
+                  <td class="px-6 py-4">
+                    <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getLatencyColor(test.latency)}`}>
+                      {test.latency} ms
+                    </span>
+                  </td>
+                  <td class={`px-6 py-4 font-mono font-medium ${getLossColor(test.packetLoss)}`}>
+                    {test.packetLoss}%
+                  </td>
+                  <td class={`px-6 py-4 font-mono ${getSpeedColor(test.speed)}`}>
+                    {test.speed} Mbps
+                  </td>
+                  <td class="px-6 py-4">
+                    {test.status === 'Excellent' && (
+                      <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                        极佳
+                      </span>
+                    )}
+                    {test.status === 'Good' && (
+                      <span class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">
+                        良好
+                      </span>
+                    )}
+                    {test.status === 'Average' && (
+                      <span class="inline-flex items-center gap-1 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-md">
+                        一般
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

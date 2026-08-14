@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+---
+
+<BaseLayout keywords="节点测速, Ping测试, 延迟测试, 骨干网连通性" title="全球延迟测速雷达 (Ping) - ClashWiki" description="免费的浏览器端全球网络延迟测试。一键探测您当前代理节点到全球主要 CDN 和骨干网（Google, Cloudflare, AWS）的真实 HTTP 响应延迟。">
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-12 min-h-[80vh]">
+    <Breadcrumb items={[ { label: '网络工具箱', href: '/tools/' }, { label: '全球延迟测速' } ]} />
+    
+    <div class="mt-8 mb-12">
+      <SectionTitle title="全球骨干网连通性雷达" subtitle="探测当前网络到达全球核心云服务商及 CDN 节点的真实 HTTP 延迟。" align="left" asH1={true} />
+    </div>
+
+    <!-- UI Panel -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <div class="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
+        <h2 class="text-xl font-bold text-slate-800">实时延迟 (Latency)</h2>
+        <button id="start-btn" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm shadow-emerald-500/20">开始雷达扫描</button>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Google -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🌐</span>
+            <div>
+              <p class="font-medium text-slate-800">Google Global</p>
+              <p class="text-xs text-slate-500">Global Anycast</p>
+            </div>
+          </div>
+          <div id="ping-google" class="text-lg font-bold text-slate-400 font-mono">-- ms</div>
+        </div>
+
+        <!-- Cloudflare -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">☁️</span>
+            <div>
+              <p class="font-medium text-slate-800">Cloudflare (1.1.1.1)</p>
+              <p class="text-xs text-slate-500">Global Edge CDN</p>
+            </div>
+          </div>
+          <div id="ping-cf" class="text-lg font-bold text-slate-400 font-mono">-- ms</div>
+        </div>
+
+        <!-- AWS -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">📦</span>
+            <div>
+              <p class="font-medium text-slate-800">AWS (us-east-1)</p>
+              <p class="text-xs text-slate-500">US East (N. Virginia)</p>
+            </div>
+          </div>
+          <div id="ping-aws" class="text-lg font-bold text-slate-400 font-mono">-- ms</div>
+        </div>
+
+        <!-- Apple -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
+          <div class="flex items-center gap-3">
+            <span class="text-xl">🍎</span>
+            <div>
+              <p class="font-medium text-slate-800">Apple Global</p>
+              <p class="text-xs text-slate-500">Akamai CDN</p>
+            </div>
+          </div>
+          <div id="ping-apple" class="text-lg font-bold text-slate-400 font-mono">-- ms</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explainer -->
+    <div class="mt-12 prose-custom max-w-none text-sm text-slate-600 bg-slate-50 rounded-xl p-6">
+      <h3 class="text-base font-bold text-slate-800 mb-2">延迟数据的意义</h3>
+      <p>传统的 ICMP Ping（命令行中的 ping）在现代网络中往往被阻断或优先级极低，且无法真实反映应用层的加载速度。本工具采用 <strong>HTTP 延迟测速 (HTTP Ping)</strong> 机制，通过浏览器实际向各大骨干网发出微小的资源请求，并计算首字节到达时间 (TTFB)。</p>
+      <ul class="mt-2 space-y-1">
+        <li><strong>绿色 (< 100ms)</strong>：骨干网极速连通，极其适合高频交易与竞技游戏。</li>
+        <li><strong>橙色 (100-250ms)</strong>：跨国标准延迟，观看流媒体与日常网页浏览毫无压力。</li>
+        <li><strong>红色 (> 250ms) 或 Timeout</strong>：链路拥堵或路由绕道，可能会出现卡顿。</li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const targets = [
+    { id: 'ping-google', url: 'https://www.google.com/generate_204' },
+    { id: 'ping-cf', url: 'https://1.1.1.1/cdn-cgi/trace' },
+    { id: 'ping-aws', url: 'https://dynamodb.us-east-1.amazonaws.com/ping' },
+    { id: 'ping-apple', url: 'https://www.apple.com/library/test/success.html' }
+  ];
+
+  async function pingTarget(url) {
+    const start = performance.now();
+    try {
+      // Create a unique URL to bust cache
+      const noCacheUrl = url + (url.includes('?') ? '&' : '?') + 'ping_ts=' + new Date().getTime();
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+      
+      await fetch(noCacheUrl, { 
+        mode: 'no-cors', 
+        cache: 'no-cache',
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      
+      const duration = performance.now() - start;
+      return Math.round(duration);
+    } catch (e) {
+      return 'Timeout';
+    }
+  }
+
+  async function startPing() {
+    const btn = document.getElementById('start-btn');
+    btn.disabled = true;
+    btn.innerText = '雷达扫描中...';
+    btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+    for (const target of targets) {
+      const el = document.getElementById(target.id);
+      el.innerHTML = '<span class="animate-pulse text-slate-400">探测中...</span>';
+      
+      const latency = await pingTarget(target.url);
+      
+      if (latency === 'Timeout') {
+        el.className = 'text-lg font-bold text-red-500 font-mono';
+        el.innerText = '超时 / 失败';
+      } else {
+        el.innerText = latency + ' ms';
+        if (latency < 100) el.className = 'text-lg font-bold text-emerald-500 font-mono';
+        else if (latency < 250) el.className = 'text-lg font-bold text-amber-500 font-mono';
+        else el.className = 'text-lg font-bold text-red-500 font-mono';
+      }
+    }
+
+    btn.disabled = false;
+    btn.innerText = '重新扫描';
+    btn.classList.remove('opacity-70', 'cursor-not-allowed');
+  }
+
+  document.getElementById('start-btn')?.addEventListener('click', startPing);
+</script>

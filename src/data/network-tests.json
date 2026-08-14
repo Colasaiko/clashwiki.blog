@@ -1,0 +1,92 @@
+[
+  {
+    "date": "2026-08-13",
+    "brand": "微风网络",
+    "node": "香港 IPLC 专线",
+    "latency": 28,
+    "packetLoss": 0,
+    "speed": 850,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-08-13",
+    "brand": "微风网络",
+    "node": "日本 IEPL 游戏组",
+    "latency": 35,
+    "packetLoss": 0,
+    "speed": 620,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-08-13",
+    "brand": "萤火虫",
+    "node": "新加坡 原生流媒体",
+    "latency": 48,
+    "packetLoss": 0.2,
+    "speed": 550,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-08-13",
+    "brand": "闪跃",
+    "node": "美国 AI 生产力",
+    "latency": 130,
+    "packetLoss": 0.1,
+    "speed": 680,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-08-13",
+    "brand": "闪跃",
+    "node": "英国 跨境专线",
+    "latency": 155,
+    "packetLoss": 0,
+    "speed": 540,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-08-13",
+    "brand": "无忧链接",
+    "node": "香港 IEPL",
+    "latency": 36,
+    "packetLoss": 0.5,
+    "speed": 420,
+    "status": "Good"
+  },
+  {
+    "date": "2026-08-12",
+    "brand": "灵猫",
+    "node": "日本 BGP",
+    "latency": 85,
+    "packetLoss": 1.2,
+    "speed": 210,
+    "status": "Average"
+  },
+  {
+    "date": "2026-08-12",
+    "brand": "灵猫",
+    "node": "美国 优化",
+    "latency": 165,
+    "packetLoss": 1.5,
+    "speed": 180,
+    "status": "Average"
+  },
+  {
+    "date": "2026-08-12",
+    "brand": "跨界云",
+    "node": "香港 BGP",
+    "latency": 55,
+    "packetLoss": 2.5,
+    "speed": 150,
+    "status": "Average"
+  },
+  {
+    "date": "2026-08-12",
+    "brand": "跨界云",
+    "node": "台湾 直连",
+    "latency": 68,
+    "packetLoss": 3.0,
+    "speed": 120,
+    "status": "Average"
+  }
+]

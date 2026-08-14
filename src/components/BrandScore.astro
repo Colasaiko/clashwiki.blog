@@ -1,0 +1,72 @@
+---
+interface Props {
+  scores: {
+    stability: number; // 25%
+    peak_speed: number; // 2< 1%
+    latency: number; // 15%
+    streaming: number; // 1< 1%
+    ai_support: number; // 1< 1%
+    coverage: number; // 1< 1%
+    price: number; // 1< 1%
+  };
+}
+
+const { scores } = Astro.props;
+
+// Calculate weighted score
+const weightedScore = (
+  (scores.stability * 0.25) +
+  (scores.peak_speed * 0.20) +
+  (scores.latency * 0.15) +
+  (scores.streaming * 0.10) +
+  (scores.ai_support * 0.10) +
+  (scores.coverage * 0.10) +
+  (scores.price * 0.10)
+).toFixed(1);
+
+const dimensions = [
+  { label: '稳定性', score: scores.stability, weight: '25%' },
+  { label: '晚高峰', score: scores.peak_speed, weight: '2< 1%' },
+  { label: '延迟', score: scores.latency, weight: '15%' },
+  { label: '流媒体', score: scores.streaming, weight: '1< 1%' },
+  { label: 'AI 服务', score: scores.ai_support, weight: '1< 1%' },
+  { label: '节点覆盖', score: scores.coverage, weight: '1< 1%' },
+  { label: '价格', score: scores.price, weight: '1< 1%' },
+];
+---
+
+<div class="bg-white/80 backdrop-blur-xl p-8 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/40 mb-12 flex flex-col md:flex-row gap-8 items-center md:items-stretch relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 pointer-events-none"></div>
+  
+  <div class="flex-shrink-0 flex flex-col items-center justify-center p-6 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl text-white shadow-lg shadow-emerald-500/30 w-full md:w-48 relative z-10">
+    <div class="text-sm font-medium mb-2 opacity-90 tracking-wider">综合加权评分</div>
+    <div class="flex items-baseline gap-1">
+      <span class="text-5xl font-black font-heading tracking-tighter">{weightedScore}</span>
+      <span class="text-xl font-bold opacity-80">/ 10</span>
+    </div>
+    <div class="mt-4 flex text-amber-300">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg class={`w-5 h-5 ${i < Math.round(Number(weightedScore) / 2) ? 'text-amber-300' : 'text-emerald-700'}`} fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+        </svg>
+      ))}
+    </div>
+  </div>
+
+  <div class="flex-grow w-full relative z-10 flex flex-col justify-center">
+    <h3 class="text-lg font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">评测维度雷达</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+      {dimensions.map((dim) => (
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between items-end text-sm">
+            <span class="font-medium text-slate-700">{dim.label} <span class="text-xs text-slate-400 font-normal ml-1">(权重 {dim.weight})</span></span>
+            <span class="font-bold text-emerald-600">{dim.score}<span class="text-slate-400 font-normal text-xs ml-0.5">/10</span></span>
+          </div>
+          <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-400 to-teal-500 h-1.5 rounded-full" style={`width: ${dim.score * 10}%`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

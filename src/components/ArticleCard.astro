@@ -8,10 +8,8 @@ interface Props {
 }
 
 const { title, description, url, category, pubDate } = Astro.props;
-import CardPeep from './CardPeep.astro';
 ---
 <a href={url} class="tilt-card-3d group block glass-panel p-6 h-full flex flex-col relative transition-all duration-300 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.2)] hover:-translate-y-1 z-10" style="transform-style: preserve-3d;">
-  <CardPeep />
   <div class="absolute inset-0 border-2 border-emerald-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
   <div class="relative z-10 flex flex-col h-full">
     <div class="flex items-center gap-2 mb-4">

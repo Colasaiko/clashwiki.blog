@@ -16,7 +16,7 @@ const { posts } = Astro.props;
         <ArticleCard 
           title={post.data.title}
           description={post.data.description}
-          url={`/blog/${post.slug}/`}
+          url={`/blog/${post.id.replace(/\.md$/, '')}/`}
           category={post.data.category}
           pubDate={post.data.pubDate}
         />
