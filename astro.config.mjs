@@ -27,6 +27,9 @@ const validTagsForSitemap = Object.entries(tagCounts)
   .filter(([tag, count]) => count >= 3)
   .map(([tag]) => encodeURI(tag));
 
+// Nav whitelisted tags MUST be in sitemap regardless of post count
+const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude'];
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.clashwiki.blog',
@@ -37,8 +40,9 @@ export default defineConfig({
       const tagMatch = page.match(/\/tag\/([^\/]+)\/?$/);
       if (tagMatch) {
         const tagInUrl = tagMatch[1]; 
-        // if this encoded tag is not in our valid list, exclude it
-        return validTagsForSitemap.includes(tagInUrl) || validTagsForSitemap.includes(decodeURI(tagInUrl));
+        const isWhitelisted = navWhitelist.includes(tagInUrl) || navWhitelist.includes(decodeURI(tagInUrl));
+        // if this encoded tag is not in our valid list AND not in nav whitelist, exclude it
+        return isWhitelisted || validTagsForSitemap.includes(tagInUrl) || validTagsForSitemap.includes(decodeURI(tagInUrl));
       }
       
       return true;

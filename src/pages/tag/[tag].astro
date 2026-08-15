@@ -21,7 +21,10 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 const { posts, originalName } = Astro.props;
-const shouldIndex = posts.length >= 5;
+
+// Nav whitelisted tags MUST be indexed regardless of post count to satisfy SEO
+const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude'];
+const shouldIndex = posts.length >= 3 || navWhitelist.includes(tag);
 ---
 
 <BaseLayout title={`标签: ${originalName}`} noindex={!shouldIndex}>
