@@ -25,9 +25,11 @@ const { posts, originalName } = Astro.props;
 // Nav whitelisted tags MUST be indexed regardless of post count to satisfy SEO
 const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude'];
 const shouldIndex = posts.length >= 3 || navWhitelist.includes(tag);
+
+const tagDescription = `为您整理了关于 ${originalName} 的最新资讯、配置教程和深度评测。在 ClashWiki 探索更多 ${originalName} 相关的优质网络工具、客户端排障指南及前沿应用技巧。`;
 ---
 
-<BaseLayout title={`标签: ${originalName}`} noindex={!shouldIndex}>
+<BaseLayout title={`标签: ${originalName}`} description={tagDescription} noindex={!shouldIndex}>
   <div class="container mx-auto max-w-6xl px-4 py-12">
     <Breadcrumb items={[{ label: '标签' }, { label: originalName }]} />
     

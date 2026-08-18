@@ -31,7 +31,7 @@ const { category } = Astro.params;
 const { posts, categoryInfo } = Astro.props;
 ---
 
-<BaseLayout title={`${categoryInfo.name} - 分类文章`}>
+<BaseLayout title={`${categoryInfo.name} - 分类文章`} description={categoryInfo.description}>
   <div class="container mx-auto max-w-6xl px-4 py-12">
     <Breadcrumb items={[{ label: '博客', href: '/blog/' }, { label: categoryInfo.name }]} />
     
