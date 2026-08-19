@@ -24,7 +24,7 @@ const posts = getPostsForTopic(topic.data.slug, allBlogPosts)
   .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf());
 ---
 
-<BaseLayout title={`${topic.data.title} 专题`}>
+<BaseLayout title={`${topic.data.title} 专题 - ClashWiki`} description={topic.data.description || `全面汇总关于 ${topic.data.title} 的最新资讯、深度评测与操作指南。`}>
   <div class="container mx-auto max-w-6xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
     <BackButton text="返回首页" fallbackUrl="/" />
     <Breadcrumb items={[{ label: '专题', href: '/topics/' }, { label: topic.data.title }]} />
