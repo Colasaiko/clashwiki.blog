@@ -1,6 +1,6 @@
 ---
 title: "灵猫 (Civet) 机场全面解析：高性价比与流媒体解锁利器"
-description: "灵猫(Civet)机场全面评测：深挖这款2026年最具性价比的中转机场。套餐价格、晚高峰公开数据评估、流媒体解锁实况全揭秘，Clash节点优选方案。"
+description: "灵猫 (Civet) 机场全面客观评测：深度挖掘这家在 2026 年最具性价比优势的中转加速器。全方位揭秘其最新套餐价格、晚高峰公开网络测速表现、原生流媒体解锁实况（Netflix/Disney+），并附带详细的 Clash 与 sing-box 节点优选与订阅配置方案。"
 pubDate: 2026-07-28
 category: "机场推荐"
 image: "/images/banner1.png"

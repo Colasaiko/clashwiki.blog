@@ -1,22 +1,33 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-// 您可以随时在这里更新要推送的 URL
-const URLS_TO_SUBMIT = [
-  'https://www.clashwiki.blog/',
-  'https://www.clashwiki.blog/blog/',
-  // 添加新文章链接，例如:
-  // 'https://www.clashwiki.blog/blog/new-article/',
-];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const HOST = 'www.clashwiki.blog';
-// 请在此填入您从 Bing Webmaster Tools 获取的 API 密钥
-// 获取方式: https://www.bing.com/indexnow
-const KEY = 'YOUR_INDEXNOW_KEY_HERE';
+// 自动生成的专属 Key
+const KEY = 'clashwiki-indexnow-key-2026';
 
 async function submitToIndexNow() {
-  if (KEY === 'YOUR_INDEXNOW_KEY_HERE') {
-    console.error('❌ 错误: 请先在 scripts/indexnow.js 中填入您的 IndexNow API 密钥。');
+  const sitemapPath = path.join(__dirname, '../dist/sitemap-0.xml');
+  
+  if (!fs.existsSync(sitemapPath)) {
+    console.error('❌ 错误: 找不到 dist/sitemap-0.xml，请先运行 npm run build 打包网站。');
+    process.exit(1);
+  }
+
+  const sitemapContent = fs.readFileSync(sitemapPath, 'utf-8');
+  // 提取所有 <loc> 标签中的 URL
+  const urls = [];
+  const regex = /<loc>(.*?)<\/loc>/g;
+  let match;
+  while ((match = regex.exec(sitemapContent)) !== null) {
+    urls.push(match[1]);
+  }
+
+  if (urls.length === 0) {
+    console.error('❌ 错误: 在 Sitemap 中未找到任何 URL。');
     process.exit(1);
   }
 
@@ -24,11 +35,13 @@ async function submitToIndexNow() {
     host: HOST,
     key: KEY,
     keyLocation: `https://${HOST}/${KEY}.txt`,
-    urlList: URLS_TO_SUBMIT
+    urlList: urls
   };
 
   try {
-    console.log(`正在向 IndexNow 推送 ${URLS_TO_SUBMIT.length} 个链接...`);
+    console.log(`📡 正在自动从 Sitemap 中提取 URL... 共发现 ${urls.length} 个页面`);
+    console.log(`🚀 正在向 Bing IndexNow 推送全站链接...`);
+    
     const response = await fetch('https://api.indexnow.org/indexnow', {
       method: 'POST',
       headers: {
@@ -39,7 +52,8 @@ async function submitToIndexNow() {
     });
 
     if (response.ok) {
-      console.log('✅ 推送成功! 搜索引擎已收到 URL 更新通知。');
+      console.log('✅ 推送成功! 搜索引擎已收到您的全站 URL 更新通知。');
+      console.log('提示：这会自动解决 Webmaster Tools 中的 "未提交 IndexNow" 错误。');
     } else {
       console.error(`❌ 推送失败: HTTP 状态码 ${response.status}`);
       const text = await response.text();

@@ -1,6 +1,6 @@
 ---
 title: "Clash全平台配置终极教程：从入门到精通完整指南 (2026版)"
-description: "2026年最新Clash全平台（Windows, Mac, Android, iOS）配置教程。手把手教你如何导入机场订阅、配置规则分流、解决Clash用不了的常见问题。"
+description: "2026年最新全面且深入的 Clash 全平台（Windows, Mac, Android, iOS）配置与使用教程。手把手教您如何高效导入机场订阅链接、配置高级规则分流、选择最优的代理模式，以及完美解决 Clash 用不了、连不上的常见网络诊断问题。"
 pubDate: 2026-07-27
 category: "教程指南"
 tags: ["Clash"]
