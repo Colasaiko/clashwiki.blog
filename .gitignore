@@ -28,6 +28,7 @@ pnpm-debug.log*
 *.txt
 !public/robots.txt
 !public/clashwiki-indexnow-key-2026.txt
+!public/clashwiki-indexnow-key-v2.txt
 *.cjs
 scratch/
 

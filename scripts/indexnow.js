@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const HOST = 'www.clashwiki.blog';
 // 自动生成的专属 Key
-const KEY = 'clashwiki-indexnow-key-2026';
+const KEY = 'clashwiki-indexnow-key-v2';
 
 async function submitToIndexNow() {
   const sitemapPath = path.join(__dirname, '../dist/sitemap-0.xml');
