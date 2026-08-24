@@ -4,6 +4,7 @@ description: "害怕买到跑路机场或遭遇个人隐私信息泄露？ClashW
 slug: "scam-avoidance"
 updatedDate: 2026-07-27
 keywords: "防骗避坑,隐私安全,跑路风险,选购指南"
+tags: ["防骗避坑", "隐私安全", "跑路风险", "选购指南"]
 ---
 
 ## 机场防坑与跑路预警指南：教你识破灰产圈的重重套路

@@ -4,6 +4,7 @@ description: "想要流畅观看 Netflix 或跨区畅玩外服游戏？ClashWiki
 slug: "streaming"
 updatedDate: 2026-07-27
 keywords: "流媒体解锁,跨区优化,IP纯净度,原生节点"
+tags: ["流媒体解锁", "跨区优化", "IP纯净度", "原生节点"]
 ---
 
 ## 全球流媒体解锁完全指南：2026年如何稳定观看Netflix与Disney+
