@@ -1,11 +1,12 @@
 ---
-title: "Clash 客户端下载与项目介绍：全平台网络代理核心工具"
-description: "深入了解 Clash 项目的起源与核心架构，获取安全可靠的全平台 Clash 客户端下载渠道与项目分支介绍。"
+title: "2026最新 Clash 全平台客户端下载与指引 | 网络代理 - ClashWiki"
+description: "不知去哪下载安全无毒的代理软件？ClashWiki 汇集 Windows、Mac 等全平台 Clash 官方纯净版资源，点击获取最新安装包与极简配置教程。"
 pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash"]
 updatedDate: 2026-08-13
+keywords: "Clash下载,全平台客户端,网络代理,纯净版"
 ---
 
 Clash 是一款基于 Go 语言开发的强大网络代理核心程序。自开源以来，它凭借极高的稳定性、丰富的协议支持（如 Shadowsocks、Vmess、Trojan 等）以及灵活的分流规则，迅速成为广大网络技术爱好者优化网络环境、加速跨地域数据传输的首选工具。

@@ -1,12 +1,13 @@
 ---
-title: "sing-box 路由规则 (Routing) 终极配置教程：精细化流量分流"
-description: "深入浅出解析 sing-box 的 route 路由模块。教你如何编写分流规则，实现国内外流量完美分流、特定 App 走代理、去广告等高级玩法。"
+title: "sing-box 复杂路由分流规则编写进阶教程 | 代理进阶 - ClashWiki"
+description: "想要实现国内外流量精准分流并完美接管特定 App？ClashWiki 深入解析 sing-box 路由模块的匹配逻辑与自定义规则写法，点击定制属于您的极客网络分流方案。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "分流规则", "实用教程"]
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "精准分流,匹配逻辑,自定义规则,进阶教程"
 ---
 
 对于追求极致网络体验的玩家来说，将所有流量一股脑地塞进代理节点并不是最聪明的做法。这不仅浪费节点流量，还会导致国内网站访问速度下降。

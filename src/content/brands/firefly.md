@@ -1,6 +1,6 @@
 ---
 name: "萤火虫"
-description: "提供超大流量包的平价机场，看视频、下载大文件无负担，量大管饱。"
+description: "流萤云的平价线路能否在晚高峰保持不卡顿？ClashWiki 详尽剖析其全球节点覆盖与协议支持情况，附带长周期网络监控测速结果，点击查阅这款代理品牌的真实实力。"
 category: "机场推荐"
 tags: ["大流量", "便宜机场", "性价比"]
 image: "/images/brand_power.jpg"
@@ -55,6 +55,8 @@ audience:
     - 需要多地区影视资源的影视解说
   - unsuitable:
     - 对延迟要求苛刻的电竞玩家
+title: "流萤云(Firefly)优质节点服务商最新深度测评 | 品牌库 - ClashWiki"
+keywords: "流萤云,全球节点覆盖,网络监控测速,深度测评"
 ---
 
 ## 1. 前言

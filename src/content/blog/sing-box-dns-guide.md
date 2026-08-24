@@ -1,12 +1,13 @@
 ---
-title: "sing-box DNS 配置教程：彻底解决 DNS 泄露与污染"
-description: "sing-box 的 DNS 模块是其最强大的核心之一。本文将教您如何配置 fakeip、远程 DNS 解析以及防泄露规则，优化网络请求速度。"
+title: "sing-box 防 DNS 泄露与解析优化进阶教程 | 代理进阶 - ClashWiki"
+description: "代理速度慢或者无法访问某些受限网站？可能是您的 DNS 设置出了问题！ClashWiki 深度剖析 sing-box 远程与本地 DNS 分流策略，点击打造无死角的纯净网络。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "配置文件", "网络安全", "实用教程"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "DNS泄露,解析优化,分流策略,进阶教程"
 ---
 
 在跨境网络的过程中，**DNS 泄露**（DNS Leak）和**DNS 污染**是导致网页打不开、加载缓慢、甚至 IP 封锁的罪魁祸首。

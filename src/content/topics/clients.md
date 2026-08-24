@@ -1,8 +1,9 @@
 ---
-title: "客户端配置大全"
-description: "覆盖Windows, Mac, iOS, Android全平台的代理客户端终极图文指南。深度解析Clash Verge, Shadowrocket等主流软件的高级配置技巧。"
+title: "主流网络代理客户端测评与多平台对比指南 | 专题 - ClashWiki"
+description: "不知道自己究竟适合哪一款网络代理客户端软件？ClashWiki 横向测评 Clash Verge、sing-box、v2rayN 等全明星工具的核心资源占用与易用性，点击获取选型建议。"
 slug: "clients"
 updatedDate: 2026-07-27
+keywords: "客户端测评,平台对比,软件选型,资源占用"
 ---
 
 ## 跨境网络客户端全平台配置宝典：从入门到精通

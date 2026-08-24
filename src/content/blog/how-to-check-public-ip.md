@@ -1,12 +1,13 @@
 ---
-title: "如何查询自己的公网 IP？全面解析 IPv4, IPv6 与 ASN 基础知识"
-description: "还在为查不到真实网络出口发愁？一文看懂公网 IP、IPv6、ISP 与 ASN 的核心概念，并教您如何使用专业工具一键反查 IP 归属地与防欺诈评分。"
+title: "如何准确查询公网 IP 与代理生效状态 | 网络诊断 - ClashWiki"
+description: "挂了代理却不确定自己的真实网络位置是否隐藏？ClashWiki 教您使用专业测试工具验证 IP 泄露与 DNS 分配状况，点击排查网络安全隐患并确保配置生效。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["网络诊断", "IP查询", "网络安全", "实用教程"]
 image: "/og/network-tools-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "公网IP查询,网络诊断,防泄露测试,代理状态"
 ---
 
 在当今复杂的互联网环境中，了解自己当前的网络出口状态是每一位极客和注重隐私的用户的必备技能。无论是排查家庭宽带问题，还是验证代理节点是否真正生效，第一步往往都是：**查询自己的公网 IP**。

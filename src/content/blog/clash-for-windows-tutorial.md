@@ -1,12 +1,13 @@
 ---
-title: "Windows Clash 教程：Clash Verge 安装与配置保姆级指南"
-description: "本文整理了 Windows 平台下 Clash Verge 的详细图文配置流程。从下载、安装到订阅导入，适合新手用户快速上手。"
+title: "Clash for Windows 电脑端最新进阶教程 | 桌面代理 - ClashWiki"
+description: "Windows 系统如何实现丝滑的跨境网络访问？ClashWiki 奉上零基础到精通的 CFW 详细配置图文指南，涵盖分流与 TUN 模式，点击开启全网高速冲浪。"
 pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash", "Windows", "Clash Verge"]
 image: "/og/clash-theme.jpg"
 updatedDate: 2026-08-13
+keywords: "Windows代理,CFW配置,TUN模式,进阶教程"
 ---
 
 在 Windows 平台上，曾经最辉煌的客户端是 Clash for Windows (CFW)。但随着 CFW 停止更新，基于全新架构开发的 **Clash Verge (Rev)** 凭借更低的内存占用、更美观的界面以及原生集成 Meta 内核，已经成为目前 Windows 平台上的最优解。

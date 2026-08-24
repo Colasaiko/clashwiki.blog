@@ -1,6 +1,6 @@
 ---
 name: "跨界云"
-description: "全球原生IP节点，流媒体与部分 AI 服务兼容性表现较好，适合外贸及专业用户。"
+description: "跨界网络是否值得成为您的主力跨网工具？ClashWiki 通过严苛的高负载测试检验其大带宽承诺，全面评估流媒体支持与晚高峰连通表现，点击获取 2026 最新测评。"
 category: "机场推荐"
 tags: ["原生IP", "AI解锁", "全球覆盖"]
 image: "/images/brand_globe.jpg"
@@ -55,6 +55,8 @@ audience:
     - 纯粹的“大流量下载”垃圾佬
   - unsuitable:
     - 把它当做唯一主力使用的任何人
+title: "跨界(Kuajie)大带宽节点服务商最新深度测评 | 品牌库 - ClashWiki"
+keywords: "跨界网络,高负载测试,流媒体支持,深度测评"
 ---
 
 ## 1. 前言

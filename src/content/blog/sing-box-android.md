@@ -1,12 +1,13 @@
 ---
-title: "sing-box Android 客户端图文教程：SFA 与 Hiddify 安卓版"
-description: "安卓手机如何配置 sing-box？一文看懂官方客户端 SFA (Sing-box for Android) 和 Hiddify 安卓版的使用方法与订阅导入。"
+title: "sing-box 安卓手机版配置与订阅进阶教程 | 移动代理 - ClashWiki"
+description: "想在安卓系统上体验更新一代的轻量化代理内核？ClashWiki 为您提供 sing-box 客户端保姆级安装及规则配置指南，点击告别繁琐设置，畅享极速网络优化。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Android", "安卓教程", "客户端教程"]
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "安卓代理工具,轻量化内核,配置指南,进阶教程"
 ---
 
 在安卓生态中，曾经统治地位的是 Clash for Android (CFA) 和 v2rayNG。然而，随着新型协议（如 Hysteria 2、VLESS Reality）的普及，老款客户端已经无法胜任。

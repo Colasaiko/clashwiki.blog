@@ -1,12 +1,13 @@
 ---
-title: "Android Clash 教程：安卓手机跨境网络配置大全"
-description: "安卓手机如何畅享无阻网络？一文看懂 Clash for Android (CFA) 与 Surfboard 的安装、节点订阅与日常使用技巧。"
+title: "Clash for Android 安卓版零门槛进阶教程 | 移动代理 - ClashWiki"
+description: "安卓手机如何优雅地进行网络优化？ClashWiki 手把手教您在 Android 设备上安装并配置 Clash 客户端，轻松导入订阅，点击掌握移动端网络提速技巧。"
 pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash", "Android"]
 updatedDate: 2026-08-13
 image: "/og/clash-theme.jpg"
+keywords: "安卓代理,Clash配置,移动端网络,进阶教程"
 ---
 
 由于安卓系统极高的开放性，在 Android 设备上运行代理工具不仅稳定，还能实现极其精细的应用级别分流（例如只让 Telegram 走代理，微信走直连）。

@@ -1,12 +1,13 @@
 ---
-title: "Perplexity AI 深度体验：颠覆 Google 的新一代 AI 搜索引擎"
-description: "传统搜索引擎正在死去。本文带你了解并掌握 Perplexity AI 搜索的高阶技巧，一键获取精准、带引用来源的答案。"
+title: "Perplexity AI 智能搜索极简上手进阶教程 | AI工具 - ClashWiki"
+description: "想拥有查资料自带参考文献引用的高阶搜索体验？ClashWiki 解析 Perplexity 的核心工作流与跨网络使用技巧，点击探索这款颠覆性知识获取神器的魅力。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["AI 搜索", "AI 工具", "实用教程"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "智能搜索,知识获取,文献引用,进阶教程"
 ---
 
 > [!NOTE]

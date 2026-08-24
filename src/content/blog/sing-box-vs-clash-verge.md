@@ -1,12 +1,13 @@
 ---
-title: "sing-box 与 Clash Verge 深度对比：2026年该选谁？"
-description: "从内核性能、协议支持 (Hysteria 2/VLESS)、内存占用与 GUI 易用性，全面对比目前最火的两大代理工具 sing-box 与 Clash Verge。"
+title: "sing-box 与 Clash Verge 性能对比深度测评 | 客户端测评 - ClashWiki"
+description: "面对两大主流现代网络代理客户端，到底该怎么选？ClashWiki 对比其内核资源占用、界面易用性及配置灵活性，通过真实数据帮您做出决策，点击查看终极横向测评。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Clash Verge", "Clash", "代理协议", "实用教程"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "性能对比,资源占用,界面易用性,深度测评"
 ---
 
 在 Clash 删库事件之后，跨境网络的客户端生态迎来了大洗牌。目前，市场上的核心玩家基本分为了两大阵营：一个是基于 Clash.Meta (Mihomo) 内核的 **Clash Verge Rev**，另一个则是强势崛起的纯血新星 **sing-box**。

@@ -1,12 +1,13 @@
 ---
-title: "sing-box JSON 配置文件编写教程：从零掌握路由与出入站"
-description: "硬核极客专属。深度解析 sing-box 配置文件结构，手把手教您编写 inbounds, outbounds 和 routing 规则，彻底掌握自定义分流。"
+title: "2026最新 sing-box 配置文件手写进阶教程 | 代理进阶 - ClashWiki"
+description: "不想依赖订阅转换，打算自己定制强大的分流规则？ClashWiki 深入拆解 sing-box 的标准 JSON 配置结构，带您掌握出入站路由的高阶写法，点击成为配置达人。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "配置文件", "分流规则"]
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "手写配置,分流规则,JSON结构,进阶教程"
 ---
 
 如果您对网络代理的理解还停留在“一键导入订阅链接”，那么 sing-box 可能会让您望而生畏。但如果您是一名追求极致控制权的极客，渴望精准掌控每一条网络请求的流向，那么 sing-box 的 JSON 配置文件将为您打开一扇新世界的大门。

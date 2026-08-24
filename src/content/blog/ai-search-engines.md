@@ -1,11 +1,12 @@
 ---
-title: "AI 搜索引擎推荐：Perplexity 与 Google SGE 体验指南"
-description: "告别传统搜索，探索基于大语言模型的 AI 搜索引擎如何改变信息获取的方式。"
+title: "2026最新 AI 智能搜索引擎上手进阶教程 | 工具推荐 - ClashWiki"
+description: "厌倦了传统搜索引擎的广告堆砌？ClashWiki 全面解析 Perplexity 等新一代 AI 搜索神器，提供流畅跨网访问技巧，点击开启极速精准获取信息的体验。"
 pubDate: 2026-08-13
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["AI 工具", "AI 搜索", "实用教程"]
 updatedDate: 2026-08-13
+keywords: "AI搜索,Perplexity,智能问答,工具测评"
 ---
 
 传统的关键字搜索正在被自然语言对话式的 AI 搜索所取代。

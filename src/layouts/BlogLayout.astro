@@ -8,6 +8,7 @@ import { slugifyTag } from '../utils/tagMapping';
 interface Props {
   title: string;
   description: string;
+  keywords?: string;
   pubDate: Date;
   updatedDate?: Date;
   category: string;
@@ -17,7 +18,7 @@ interface Props {
   changelog?: { date: string; desc: string; }[];
 }
 
-const { title, description, pubDate, updatedDate, category, tags, author = 'Clash Wiki 编辑组', image, changelog: manualChangelog } = Astro.props;
+const { title, description, keywords, pubDate, updatedDate, category, tags, author = 'Clash Wiki 编辑组', image, changelog: manualChangelog } = Astro.props;
 const catObj = CATEGORIES.find(c => c.name === category);
 const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.slug}/` : `/category/${category}/`);
 
@@ -34,7 +35,7 @@ const changelog = manualChangelog || (() => {
 })();
 
 // Dynamically generate SEO keywords based on article tags, plus forced global keywords
-const seoKeywords = [...tags, "Clash", "便宜机场推荐", "跨境网络"].join(", ");
+const seoKeywords = keywords || [...tags, "Clash", "便宜机场推荐", "跨境网络"].join(", ");
 
 const breadcrumbsData = [
   { name: '首页', item: 'https://clashwiki.blog/' },

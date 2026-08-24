@@ -1,12 +1,13 @@
 ---
-title: "Clash Verge 与 Clash for Windows 深度对比：哪个更适合你？"
-description: "在后 CFW 时代，Clash Verge 凭借其现代化的 UI 和强大的 Meta 内核迅速崛起。本文为您深度对比两者的优缺点，助您选择最适合的跨境网络客户端。"
+title: "Clash Verge 与 CFW 客户端深度测评对比 | 网络代理 - ClashWiki"
+description: "不知道该用老牌 CFW 还是新兴的 Clash Verge？ClashWiki 从内核性能、界面交互及功能特性进行多维度深度比拼，点击帮您选出最称手的网络代理兵器。"
 pubDate: 2026-07-27
 updatedDate: 2026-08-13
 category: "教程指南"
 tags: ["Clash", "Clash Verge"]
 author: "Clash Wiki 编辑组"
 image: "/og/clash-theme.jpg"
+keywords: "客户端测评,内核性能,界面交互,网络工具"
 ---
 
 ## 时代的眼泪：Clash for Windows (CFW) 的落幕

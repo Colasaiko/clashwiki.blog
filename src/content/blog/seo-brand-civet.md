@@ -1,12 +1,13 @@
 ---
-title: "灵猫 (Civet) 机场全面解析：高性价比与流媒体解锁利器"
-description: "灵猫 (Civet) 机场全面客观评测：深度挖掘这家在 2026 年最具性价比优势的中转加速器。全方位揭秘其最新套餐价格、晚高峰公开网络测速表现、原生流媒体解锁实况（Netflix/Disney+），并附带详细的 Clash 与 sing-box 节点优选与订阅配置方案。"
+title: "灵猫云(Civet)流媒体解锁与速度深度测评 | 节点推荐 - ClashWiki"
+description: "灵猫云在跨区流媒体观影上究竟表现如何？ClashWiki 通过严苛的千兆带宽环境实测其全节点连通率与延迟，为您呈现最真实的晚高峰数据，点击查看深度报告。"
 pubDate: 2026-07-28
 category: "机场推荐"
 image: "/images/banner1.png"
 tags: []
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "灵猫云测评,流媒体解锁,节点连通率,网络服务商"
 ---
 
 ## 1. 核心数据速览 (Quick Facts)

@@ -1,6 +1,6 @@
 ---
 name: "闪跃机场"
-description: "追求极致速度的电竞级专线，提供超低延迟的 V2ray/Trojan 游戏加速体验。"
+description: "闪转网络宣称的高端企业级专线实际体验如何？ClashWiki 针对高标准需求用户深入测试其网络抖动与丢包率，为您提供极具参考价值的性能报告，点击阅读权威解析。"
 category: "机场推荐"
 tags: ["极速", "游戏加速", "V2ray"]
 image: "/images/brand_speed.jpg"
@@ -55,6 +55,8 @@ audience:
     - 需要干净 IP 进行跨境电商的人士
   - unsuitable:
     - 纯粹的亚太区追剧党
+title: "闪转(Flashleap)专线网络服务商最新深度测评 | 品牌库 - ClashWiki"
+keywords: "闪转网络,企业级专线,网络抖动测试,深度测评"
 ---
 
 ## 1. 前言

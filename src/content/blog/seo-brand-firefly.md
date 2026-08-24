@@ -1,12 +1,13 @@
 ---
-title: "Firefly 萤火虫机场深度体验：2026大流量跨境网络性价比首选"
-description: "萤火虫(Firefly)深度体验报告，月付15元享受超大流量带宽。真实节点表现预估、延迟丢包分析及流媒体解锁综合评估，高性价比网络节点选购必看。"
+title: "流萤云(Firefly)高性价比节点体验深度测评 | 节点推荐 - ClashWiki"
+description: "平价套餐的流萤云能否保障稳定的晚高峰网速？ClashWiki 跟踪测试其跨境专线的丢包率及带宽极值，结合多终端客户端兼容性分析，点击获取详尽性价比评估。"
 pubDate: 2026-07-28
 category: "机场推荐"
 image: "/images/banner1.png"
 tags: ["机场推荐"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "流萤云测评,高性价比,专线丢包率,节点推荐"
 ---
 
 ## 1. 核心数据速览 (Quick Facts)

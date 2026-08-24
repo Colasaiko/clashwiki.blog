@@ -1,12 +1,13 @@
 ---
-title: "机场加速原理深度剖析：为什么你的 Clash 节点总是卡顿？"
-description: "买了贵的机场，Clash节点还是卡顿、断流？本文为您深度剖析跨境网络和机场加速的底层原理。从 DNS 泄露、协议开销到路由拥堵，手把手教你排查网速慢的根本原因。"
+title: "网络代理加速原理与节点协议深度剖析 | 进阶教程 - ClashWiki"
+description: "搞不懂各种代理协议之间的性能差异？ClashWiki 用通俗易懂的方式为您拆解跨境网络优化底层逻辑，涵盖专线与公网传输分析，点击洞悉网络提速的核心密码。"
 pubDate: 2026-07-27
 category: "教程指南"
 tags: ["Clash", "网络诊断", "节点排查"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 image: "/og/network-test-theme.jpg"
+keywords: "网络加速原理,代理协议,节点专线,网络工具"
 ---
 
 ## 引子：钱花了，网速为什么还是慢？

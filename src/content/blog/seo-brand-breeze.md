@@ -1,12 +1,13 @@
 ---
-title: "微风网络 (Breeze) 2026最新评测：稳定IEPL专线与解锁能力详解"
-description: "本文测试了微风网络(Breeze)的晚高峰线路速度表现，并整理了原生 IP 解锁情况。适合寻找稳定高性价比节点的用户参考。"
+title: "微风网络(Breeze)全面解析与长周期深度测评 | 节点推荐 - ClashWiki"
+description: "微风网络能否满足您全天候的高速冲浪需求？ClashWiki 汇总其节点覆盖、流媒体解锁表现及晚高峰抗压测试数据，点击阅读 2026 最新客观中立的服务商评测。"
 pubDate: 2026-07-28
 category: "机场推荐"
 image: "/images/banner1.png"
 tags: ["专线", "游戏加速"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "微风网络,节点覆盖,抗压测试,深度测评"
 ---
 
 ## 1. 核心数据速览 (Quick Facts)

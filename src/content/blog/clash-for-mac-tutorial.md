@@ -1,12 +1,13 @@
 ---
-title: "macOS Clash 教程：苹果电脑跨境网络快速上手指引"
-description: "苹果 Mac 用户如何配置高速稳定的跨境代理环境？本文为您提供 2026 年最新版的 ClashX 与跨平台新星 Clash Verge for Mac 的详细安装指南、一键订阅导入教程及常见问题排障策略。让您轻松解锁流媒体与前沿 AI 工具。"
+title: "Clash for Mac 苹果电脑版配置深度指南 | 桌面代理 - ClashWiki"
+description: "Mac 电脑如何设置稳定不漏由的网络代理？ClashWiki 为您梳理 macOS 专属客户端的内核选择与增强模式配置，点击阅读专业图文教程，彻底打通系统网络。"
 pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Clash", "macOS", "ClashX"]
 updatedDate: 2026-08-13
 image: "/og/clash-theme.jpg"
+keywords: "Mac代理工具,网络配置,内核选择,进阶教程"
 ---
 
 得益于 macOS 优雅的系统环境与权限管理，在 Mac 上配置代理工具通常比其他平台更加省心。目前在 macOS 上主流的选择有经典开源的 **ClashX** 以及跨平台的新星 **Clash Verge (Rev)**。

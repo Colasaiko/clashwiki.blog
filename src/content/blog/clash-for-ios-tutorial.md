@@ -1,12 +1,13 @@
 ---
-title: "iOS 客户端教程：苹果手机使用 Shadowrocket 等工具指南"
-description: "由于 App Store 政策限制，iOS 端并无官方 Clash 应用。本文教您如何通过外区 Apple ID 安装 Shadowrocket、Stash 等平替神器。"
+title: "苹果 iOS 设备 Clash 兼容客户端进阶教程 | 移动代理 - ClashWiki"
+description: "iPhone 或 iPad 应该如何配置代理节点？ClashWiki 深度解析 iOS 平台主流网络优化工具的订阅与分流设置，点击获取流畅稳定的苹果端跨网体验。"
 pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["iOS", "Shadowrocket"]
 updatedDate: 2026-08-13
 image: "/og/clash-theme.jpg"
+keywords: "iOS代理,苹果手机网络,节点订阅,进阶教程"
 ---
 
 在 iOS (iPhone / iPad) 平台上，由于政策原因您在 App Store 里是**搜索不到官方名为 Clash 的应用程序的**。但不用担心，iOS 生态拥有极为丰富的替代方案，其中最著名的是 **Shadowrocket (小火箭)** 和 **Stash**。

@@ -1,12 +1,13 @@
 ---
-title: "sing-box Windows 客户端图文教程：GUI.for.SingBox 与 Hiddify"
-description: "在 Windows 系统上如何使用 sing-box？本文为您提供最详尽的 GUI.for.SingBox 以及 Hiddify 客户端下载、安装与订阅导入指南。"
+title: "sing-box Windows 电脑版快速配置进阶教程 | 桌面代理 - ClashWiki"
+description: "Windows 用户如何快速部署轻量高效的 sing-box 代理？ClashWiki 提供从内核下载到图形化客户端搭配的完整避坑教程，点击开启极低资源占用的跨境网络体验。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Windows", "Hiddify", "客户端教程"]
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "Windows客户端,极低资源占用,图形化配置,进阶教程"
 ---
 
 对于 Windows 用户来说，随着 Clash for Windows 的停更，寻找一个强大且持续更新的替代品成为了当务之急。而以 sing-box 为内核的图形化客户端，正是完美的接班人。

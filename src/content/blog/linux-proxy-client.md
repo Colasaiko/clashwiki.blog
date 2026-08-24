@@ -1,11 +1,12 @@
 ---
-title: "Linux 代理客户端推荐与配置指南"
-description: "盘点 Linux 系统下好用的网络代理客户端，包括 Clash Verge Rev、v2rayA 及命令行配置教程。"
+title: "Linux 系统网络代理工具配置与进阶教程 | 桌面代理 - ClashWiki"
+description: "在 Linux 命令行环境下无法顺畅访问国际网络？ClashWiki 为开发者量身定制基于 Clash 内核的终端配置与开机自启方案，点击快速打通服务器底层网络。"
 pubDate: 2026-08-13
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["Linux", "客户端教程"]
 updatedDate: 2026-08-13
+keywords: "Linux代理,命令行配置,终端网络,进阶教程"
 ---
 
 在 Linux 系统下，配置代理往往比 Windows 和 macOS 复杂。但开源社区提供了许多优秀的解决方案。

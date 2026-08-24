@@ -1,12 +1,13 @@
 ---
-title: "ChatGPT 进阶提问指南：如何写出高质量的 Prompt？"
-description: "告别低效提问。本文教你掌握结构化提示词（Prompt Engineering）的核心技巧，让 ChatGPT 真正成为你的超级助理。"
+title: "ChatGPT 高效提示词进阶教程与实战演练 | AI工具 - ClashWiki"
+description: "AI 回答总是达不到预期效果？ClashWiki 总结了一套高阶 Prompt 提示词工程公式，助您精准调教 ChatGPT，点击掌握倍增生产力的对话技巧。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["ChatGPT", "AI 工具", "实用教程"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "ChatGPT教程,提示词工程,AI问答,高效工作"
 ---
 
 许多人在第一次使用 ChatGPT 时，常常会觉得“它很笨”，或者“写出来的东西太像机器了”。

@@ -1,12 +1,13 @@
 ---
-title: "sing-box 与 v2rayN 对比评测：老牌王者与新锐黑马"
-description: "v2rayN 已经陪伴我们多年，但新锐 sing-box 正在崛起。本文对比两者的核心架构、Windows 端的表现以及各自的适用人群。"
+title: "sing-box 与老牌 v2rayN 功能对比深度测评 | 客户端测评 - ClashWiki"
+description: "新型通用平台能否全面替代经典老将 v2rayN？ClashWiki 从协议兼容度、新手上手门槛及高级路由功能切入，为您全方位剖析两者的优劣，点击获取客观选型建议。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "v2rayN", "V2Ray", "客户端教程", "Windows"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "功能对比,协议兼容度,上手门槛,深度测评"
 ---
 
 在 Windows 平台上，提到跨境网络工具，绕不开的两座大山就是 Clash 和 V2Ray。而作为 Xray/V2Ray 内核最著名的图形化客户端，**v2rayN** 拥有极其庞大的用户基础。

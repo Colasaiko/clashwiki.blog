@@ -1,12 +1,13 @@
 ---
-title: "2026年跨境访问与跨境网络必看：主流协议对比与选择 (SSR/V2ray/Trojan)"
-description: "还在用SS/SSR？本文为您详细图解2026年跨境网络主流协议演进史。深度对比V2ray, Trojan, Hysteria 2及TUIC等新一代高兼容性网络协议，教您如何选择最适合的节点。"
+title: "2026最新主流网络代理协议横向深度测评 | 进阶教程 - ClashWiki"
+description: "SS、Vmess、Trojan 到底哪个速度更快更隐蔽？ClashWiki 对比最新一代代理协议的加密机制与防封锁能力，提供详实的性能跑分数据，点击了解网络底层真相。"
 pubDate: 2026-07-27
 category: "教程指南"
 tags: ["V2Ray", "Trojan", "Hysteria 2"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 image: "/og/network-tools-theme.jpg"
+keywords: "代理协议测评,加密机制,防封锁技术,网络底层"
 ---
 
 ## 协议演进史：从猫鼠游戏到隐形伪装

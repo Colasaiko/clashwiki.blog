@@ -1,12 +1,13 @@
 ---
-title: "Clash全平台配置终极教程：从入门到精通完整指南 (2026版)"
-description: "2026年最新全面且深入的 Clash 全平台（Windows, Mac, Android, iOS）配置与使用教程。手把手教您如何高效导入机场订阅链接、配置高级规则分流、选择最优的代理模式，以及完美解决 Clash 用不了、连不上的常见网络诊断问题。"
+title: "2026最新 Clash 全能深度配置与排障指南 | 代理进阶 - ClashWiki"
+description: "还在被复杂的代理规则和节点报错折磨？ClashWiki 重磅推出全平台通用进阶教程，包含订阅转换、自定义规则与常见网络诊断，点击成为网络优化高手。"
 pubDate: 2026-07-27
 category: "教程指南"
 tags: ["Clash"]
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 image: "/og/clash-theme.jpg"
+keywords: "全能配置,排障指南,自定义规则,进阶教程"
 ---
 
 ## 引言：为什么在2026年依然首选 Clash？

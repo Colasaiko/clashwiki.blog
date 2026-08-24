@@ -1,12 +1,13 @@
 ---
-title: "sing-box 配置文件常见错误与排查指南：为什么你的节点连不上？"
-description: "盘点 sing-box 配置文件 (config.json) 中最常见的语法错误、节点无法连通、路由失效等问题，并提供保姆级排查与解决教程。"
+title: "sing-box 常见配置报错诊断与深度修复教程 | 网络排查 - ClashWiki"
+description: "启动 sing-box 时遇到令人头疼的 JSON 语法错误？ClashWiki 整理了最全面的核心报错日志分析与对应解决方案，点击查收这份专业的代理客户端排障自救手册。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "配置文件", "节点排查", "实用教程"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "配置报错,日志分析,代理客户端排障,网络排查"
 ---
 
 对于刚刚从 Clash 迁移到 sing-box 的用户来说，面对庞大的 `config.json` 往往会感到无从下手。sing-box 的强项在于它的高自由度，但代价则是极其严格的 JSON 语法规范。

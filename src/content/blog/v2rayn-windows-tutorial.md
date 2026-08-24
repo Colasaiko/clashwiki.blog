@@ -1,12 +1,13 @@
 ---
-title: "v2rayN 安装与配置入门图文教程"
-description: "Windows 平台上老牌经典的 v2rayN 客户端配置指南。一步步教您导入节点并启动代理。"
+title: "经典 v2rayN 客户端 Windows 端配置进阶教程 | 桌面代理 - ClashWiki"
+description: "依然钟情于老牌稳定的代理工具？ClashWiki 为您更新 2026 版 v2rayN 最全配置指南，涵盖核心下发、节点导入与路由设置，点击查收这份历久弥新的网络优化手册。"
 pubDate: 2026-08-13
 author: "Clash Wiki 编辑组"
 category: "教程指南"
 tags: ["v2rayN", "Windows", "客户端教程"]
 updatedDate: 2026-08-13
 image: "/og/network-tools-theme.jpg"
+keywords: "经典客户端,节点导入,路由设置,进阶教程"
 ---
 
 v2rayN 是一款在 Windows 平台上历史悠久、功能强大的网络代理客户端，支持 Vmess, Vless, Shadowsocks, Trojan 等多种协议。

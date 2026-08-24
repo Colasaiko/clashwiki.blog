@@ -1,12 +1,13 @@
 ---
-title: "Cursor + AI 编程初学者指南：如何用自然语言写代码？"
-description: "零基础如何开始 AI 编程？全面解析爆火的 Cursor 编辑器，带你体验“用嘴写代码”的次世代开发流。"
+title: "Cursor 智能代码编辑器最新上手进阶教程 | 开发提效 - ClashWiki"
+description: "如何利用 AI 大幅提升日常写代码的速度？ClashWiki 深入浅出解析 Cursor 编辑器的核心功能与快捷网络配置，点击学习这款革命性开发工具的深度玩法。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["AI 编程", "AI 工具", "实用教程"]
 image: "/og/ai-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "代码编辑器,开发提效,智能编程,进阶教程"
 ---
 
 > [!NOTE]

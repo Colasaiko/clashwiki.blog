@@ -1,12 +1,13 @@
 ---
-title: "为什么你的 ChatGPT/Claude 总是被封号？最全稳定连接与节点排查指南"
-description: "解析 OpenAI 与 Anthropic 严苛的风控策略。教你如何通过选择纯净 IP、规避滥用等方式保护你宝贵的 AI 账号。"
+title: "最新 AI 账号防封锁与网络代理进阶教程 | 跨境网络 - ClashWiki"
+description: "经常遭遇 ChatGPT 等 AI 工具账号被封禁？ClashWiki 独家揭秘风控原理，手把手教您配置纯净原生节点与合规代理规则，点击阅读深度防封指南。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["ChatGPT", "Claude", "节点排查", "网络安全", "实用教程"]
 image: "/og/ai-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "AI工具,账号防封,原生节点,跨境网络优化"
 ---
 
 对于国内的 AI 用户来说，最痛苦的往往不是大模型写出来的代码有 Bug，而是某天早晨醒来，发现自己刚刚充值了 20 美元的 ChatGPT Plus 或 Claude Pro 账号突然被封禁（Banned），甚至申诉无门。

@@ -1,12 +1,13 @@
 ---
-title: "sing-box 是什么？下一代通用网络代理平台，与 Clash 到底有何区别？"
-description: "全面解析新一代万能代理核心 sing-box。了解它支持的 Hysteria 2、VLESS 协议，对比 Clash 的优劣势，以及适合小白与极客的入门指南。"
+title: "sing-box 代理平台核心优势与生态深度测评 | 网络代理 - ClashWiki"
+description: "为什么要从传统客户端迁移到新兴的 sing-box 生态？ClashWiki 全面解析这款全能网络代理平台的底层架构、多协议支持与性能表现，点击了解下一代网络利器。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "Clash", "代理协议", "实用教程", "Hysteria 2", "VLESS"]
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "生态解析,底层架构,多协议支持,网络代理"
 ---
 
 在网络代理圈子中，如果说前几年是 Shadowsocks 和 V2Ray 的天下，近两年是 Clash 的鼎盛时期，那么现在和未来，相对属于一个名为 **sing-box** 的新星。

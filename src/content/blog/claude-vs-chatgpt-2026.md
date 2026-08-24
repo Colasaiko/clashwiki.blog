@@ -1,12 +1,13 @@
 ---
-title: "Claude 与 ChatGPT 深度对比：2026 谁才是最强 AI？"
-description: "全面客观对比目前两款最优质的 AI 模型，从逻辑推理、代码编写、长文本处理及节点要求四个维度进行深度评测。"
+title: "2026最新 Claude 与 ChatGPT 深度测评对比 | AI工具 - ClashWiki"
+description: "不知道该选哪款 AI 工具作为日常生产力？ClashWiki 对比两大语言模型在编程、写作与逻辑推理上的实战表现，点击查看深度横评报告，找到您的最佳搭档。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["Claude", "ChatGPT", "AI 工具"]
 image: "/og/ai-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "模型测评,生产力工具,AI横评,逻辑推理"
 ---
 
 > [!NOTE]

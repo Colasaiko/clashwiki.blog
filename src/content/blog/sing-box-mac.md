@@ -1,12 +1,13 @@
 ---
-title: "sing-box macOS 客户端图文教程：在苹果电脑上优雅地上网"
-description: "在 Mac 上如何使用 sing-box？本文为您提供 macOS 平台上最优秀的 sing-box 客户端推荐与图文配置指南。"
+title: "sing-box 苹果 Mac 电脑端安装配置进阶教程 | 桌面代理 - ClashWiki"
+description: "如何在 macOS 上优雅地运行 sing-box 实现系统级代理？ClashWiki 提供包括 TUN 模式提权在内的详尽图文配置指南，点击获取最流畅的苹果端跨网冲浪体验。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "macOS", "客户端教程", "苹果教程"]
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "Mac代理配置,TUN模式,系统级提权,进阶教程"
 ---
 
 苹果 Mac 电脑由于系统的封闭性，优秀的代理客户端相对较少。过去大家普遍使用 ClashX，但随着旧版协议的淘汰，我们需要为 Mac 寻找更现代的解决方案。

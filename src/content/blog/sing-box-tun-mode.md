@@ -1,12 +1,13 @@
 ---
-title: "sing-box TUN 模式开启教程：实现全局虚拟网卡接管"
-description: "什么是 TUN 模式？如何在 Windows 和 macOS 上为 sing-box 开启 TUN 虚拟网卡模式，实现 UWP 应用及游戏客户端的全局代理接管。"
+title: "sing-box TUN 虚拟网卡接管模式进阶教程 | 代理进阶 - ClashWiki"
+description: "普通系统代理无法覆盖游戏客户端或命令行工具？ClashWiki 手把手教您开启 sing-box 的 TUN 真全局模式，解决所有网络穿透难题，点击阅读权威操作指南。"
 pubDate: "2026-08-13"
 category: "tutorials"
 tags: ["sing-box", "游戏加速", "实用教程", "Windows", "macOS"]
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
+keywords: "TUN模式,虚拟网卡接管,真全局代理,进阶教程"
 ---
 
 对于经常打跨服游戏、或者需要使用 Windows UWP 微软商店应用的用户来说，普通的 System Proxy (系统代理) 往往无法接管这部分流量。此时，您需要开启 sing-box 的“杀手锏”功能：**TUN 模式**。
