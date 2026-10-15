@@ -7,15 +7,10 @@ interface Props {
 }
 const { brandCount = 6 } = Astro.props;
 
-// Overwrite the static stat with dynamic stat
-const dynamicStats = HOMEPAGE_DATA.stats.map(stat => {
-  if (stat.label === '已深度收录') {
-    return { label: '已深度收录', value: `${brandCount} 家` };
-  }
-  return stat;
-});
+// Use stats from homepage.ts
+const dynamicStats = HOMEPAGE_DATA.stats;
 ---
-<section class="relative pt-24 pb-8 md:pt-32 md:pb-12 overflow-hidden border-b border-slate-200/50 min-h-[500px] flex items-center">
+<section class="relative pt-24 pb-8 md:pt-32 md:pb-12 overflow-hidden border-b border-slate-700/50 min-h-[500px] flex items-center">
   <!-- Full-width Background Image -->
   <div class="absolute inset-0 z-0">
     <img src="/hero_anime.jpg" alt="Anime girl under tree with WiFi" width="1920" height="1080" class="w-full h-full object-cover object-center" />
@@ -32,7 +27,7 @@ const dynamicStats = HOMEPAGE_DATA.stats.map(stat => {
     <div class="w-full flex justify-end">
       <div class="max-w-2xl w-full flex flex-col items-start text-left pt-10">
         
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm text-emerald-600 text-sm font-medium mb-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-sm shadow-sm text-emerald-600 text-sm font-medium mb-6">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -40,12 +35,12 @@ const dynamicStats = HOMEPAGE_DATA.stats.map(stat => {
           2026 最新表现参考数据已更新
         </div>
         
-        <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold font-heading text-slate-900 mb-6 tracking-tight leading-tight drop-shadow-md">
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold font-heading text-slate-100 mb-6 tracking-tight leading-tight drop-shadow-md">
           构建专业稳定的<br/>
           <span class="text-emerald-600 drop-shadow-sm">跨境网络环境</span>
         </h1>
         
-        <p class="text-lg md:text-xl text-slate-800 max-w-lg mb-10 leading-relaxed font-semibold drop-shadow-sm">
+        <p class="text-lg md:text-xl text-slate-200 max-w-lg mb-10 leading-relaxed font-semibold drop-shadow-sm">
           {HOMEPAGE_DATA.hero.subtitle}
         </p>
         
@@ -53,7 +48,7 @@ const dynamicStats = HOMEPAGE_DATA.stats.map(stat => {
           <a href={HOMEPAGE_DATA.hero.primaryCta.href} class="btn-primary w-full sm:w-auto text-center text-lg px-8 py-3.5 shadow-lg shadow-emerald-500/30 hover:-translate-y-1 transition-transform">
             {HOMEPAGE_DATA.hero.primaryCta.label}
           </a>
-          <a href={HOMEPAGE_DATA.hero.secondaryCta.href} class="btn-secondary w-full sm:w-auto text-center text-lg px-8 py-3.5 bg-white/70 backdrop-blur-md hover:bg-white border-white/50 shadow-md">
+          <a href={HOMEPAGE_DATA.hero.secondaryCta.href} class="btn-secondary w-full sm:w-auto text-center text-lg px-8 py-3.5 bg-slate-900/70 backdrop-blur-md hover:bg-slate-900 border-white/50 shadow-md">
             {HOMEPAGE_DATA.hero.secondaryCta.label}
           </a>
         </div>

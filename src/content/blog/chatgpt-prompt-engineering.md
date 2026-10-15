@@ -1,16 +1,16 @@
 ---
-title: "ChatGPT 高效提示词进阶教程与实战演练 | AI工具 - ClashWiki"
+title: "ChatGPT高效提示词教程与实战演练指南"
 description: "AI 回答总是达不到预期效果？ClashWiki 总结了一套高阶 Prompt 提示词工程公式，助您精准调教 ChatGPT，点击掌握倍增生产力的对话技巧。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["ChatGPT", "AI 工具", "实用教程"]
+category: "AI 工具"
+tags: ['ChatGPT', 'AI 工具', '客户端教程']
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "ChatGPT教程,提示词工程,AI问答,高效工作"
 ---
 
-许多人在第一次使用 ChatGPT 时，常常会觉得“它很笨”，或者“写出来的东西太像机器了”。
+许多人在第一次使用 [ChatGPT](/tag/chatgpt/) 时，常常会觉得“它很笨”，或者“写出来的东西太像机器了”。
 
 其实，AI 的能力上限往往取决于使用者的提问水平。在 AI 圈子里，写出高质量的问题被称为 **Prompt Engineering（提示词工程）**。掌握了这门技术，你能让 AI 输出的质量提升十倍以上。
 
@@ -92,3 +92,6 @@ keywords: "ChatGPT教程,提示词工程,AI问答,高效工作"
 
 写 Prompt 就像是在指挥一个绝顶聪明、但没有任何社会常识的实习生。
 不要指望它能“心领神会”，把目标拆碎、把规则定死、把背景交待清楚，你就能收获一个拥有超级大脑的生产力引擎。
+
+
+> **探索更多 AI 效率工具、编程助手与网络防封锁技巧，请前往 [AI工具知识中心](/tag/ai-tools/)。**

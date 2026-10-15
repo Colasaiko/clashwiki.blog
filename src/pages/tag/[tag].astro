@@ -3,8 +3,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import PageHeroNav from '../../components/PageHeroNav.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { slugifyTag } from '../../utils/tagMapping';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -23,19 +26,24 @@ const { tag } = Astro.params;
 const { posts, originalName } = Astro.props;
 
 // Nav whitelisted tags MUST be indexed regardless of post count to satisfy SEO
-const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude'];
+const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude', 'vpn'];
 const shouldIndex = posts.length >= 3 || navWhitelist.includes(tag);
 
 const tagDescription = `为您整理了关于 ${originalName} 的最新资讯、配置教程和深度评测。在 ClashWiki 探索更多 ${originalName} 相关的优质网络工具、客户端排障指南及前沿应用技巧。`;
 ---
 
-<BaseLayout title={`标签: ${originalName}`} description={tagDescription} noindex={!shouldIndex}>
+<BaseLayout title={`标签: ${originalName}`} description={tagDescription}>
   <div class="container mx-auto max-w-6xl px-4 py-12">
     <Breadcrumb items={[{ label: '标签' }, { label: originalName }]} />
     
-    <div class="mt-8 mb-16">
-      <SectionTitle title={`# ${originalName}`} subtitle={`与 "${originalName}" 深度相关的文章教程、评测数据及技术资料汇总。`} align="left" asH1={true} />
+    <div class="mt-8 mb-4">
+      <SectionTitle title={`关于 ${originalName} 的深度指南`} subtitle={`在此探索与 "${originalName}" 相关的核心文章、评测数据及技术教程。`} align="center" asH1={true} />
     </div>
+
+    <PageQuickRead />
+
+
+    <PageHeroNav description={tagDescription} categoryName={`标签: ${originalName}`} />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
       {posts.map(post => (
@@ -48,5 +56,6 @@ const tagDescription = `为您整理了关于 ${originalName} 的最新资讯、
         />
       ))}
     </div>
+    <HubFooterLinks />
   </div>
 </BaseLayout>

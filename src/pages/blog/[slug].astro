@@ -54,9 +54,16 @@ if (slug.startsWith('seo-brand-')) {
 }
 ---
 
-<BlogLayout {...post.data}>
-  <div slot="article-content">
+<BlogLayout 
+  {...post.data} 
+  headings={headings}
+  aff_brands={post.data.aff_brands}
+>
+  <div slot="sidebar">
     <TableOfContents headings={headings} />
+  </div>
+
+  <div slot="article-content">
     <Content />
   </div>
   

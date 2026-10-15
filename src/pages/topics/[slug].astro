@@ -5,6 +5,7 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import BackButton from '../../components/BackButton.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import AffCard from '../../components/AffCard.astro';
 
 export async function getStaticPaths() {
   const topics = await getCollection('topics');
@@ -15,6 +16,8 @@ export async function getStaticPaths() {
 }
 
 import { getPostsForTopic } from '../../utils/topics';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
 
 const { topic } = Astro.props;
 const { Content } = await render(topic);
@@ -24,7 +27,7 @@ const posts = getPostsForTopic(topic.data.slug, allBlogPosts)
   .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf());
 ---
 
-<BaseLayout title={`${topic.data.title} 专题 - ClashWiki`} description={topic.data.description || `全面汇总关于 ${topic.data.title} 的最新资讯、深度评测与操作指南。`}>
+<BaseLayout title={`${topic.data.title}${topic.data.title.includes('专题') ? '' : ' 专题'} | ClashWiki`} description={topic.data.description || `全面汇总关于 ${topic.data.title} 的最新资讯、深度评测与操作指南。`}>
   <div class="container mx-auto max-w-6xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
     <BackButton text="返回首页" fallbackUrl="/" />
     <Breadcrumb items={[{ label: '专题', href: '/topics/' }, { label: topic.data.title }]} />
@@ -33,11 +36,55 @@ const posts = getPostsForTopic(topic.data.slug, allBlogPosts)
       <SectionTitle title={topic.data.title} subtitle={topic.data.description} align="left" asH1={true} />
     </div>
 
+    <PageQuickRead />
+
+
     <div class="prose-custom max-w-3xl mb-12">
       <Content />
     </div>
 
-    <h3 class="text-2xl font-heading font-bold text-slate-900  mb-6 pt-8 border-t border-slate-200 ">该专题下的文章</h3>
+    {topic.data.aff_brands && topic.data.aff_brands.length > 0 && (
+      <div class="mb-12">
+        <h3 class="text-2xl font-heading font-bold text-slate-100 mb-6 pt-8 border-t border-slate-700">推荐服务商</h3>
+        
+        <!-- ClashWiki 站点通知 -->
+        <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-5 mb-5 shadow-sm backdrop-blur-sm">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5 font-bold">
+              📢
+            </div>
+            <div class="space-y-2 text-sm">
+              <h4 class="text-emerald-400 font-bold text-base m-0">ClashWiki 站点通知</h4>
+              <p class="text-slate-300 leading-relaxed m-0">
+                近期因服务器偶尔出现连接不稳定的情况，部分访客可能遇到页面暂时无法访问。为了方便大家及时获取机场资讯、优惠信息及最新动态，建议收藏我们的【 <a href="https://t.me/clashwiki_blog" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2">Telegram 频道</a> 】，或保存【 <a href="https://colasaiko.github.io/Home/" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 font-semibold underline underline-offset-2">备用导航入口</a> 】，以便需要时快速访问。<strong>本站内容依然会照常保持高频更新</strong>，Telegram 频道与备用导航仅为大家在突发打不开主站时提供应急防失联保障。
+              </p>
+              <div class="flex flex-wrap items-center gap-3 pt-1 text-xs">
+                <a href="https://t.me/clashwiki_blog" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition-colors font-medium">
+                  <span>✈️</span> 【Telegram 频道】
+                </a>
+                <a href="https://colasaiko.github.io/Home/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/60 transition-colors font-medium">
+                  <span>🧭</span> 【备用导航】
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 rounded-lg border border-amber-200 p-4 mb-6 shadow-sm">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p class="text-sm text-amber-800 leading-relaxed mb-0">
+              <strong>Affiliate 提示：</strong>本文部分链接可能为联盟推广链接。如果你通过这些链接购买服务，ClashWiki 可能获得佣金，且不会额外增加你的购买成本。该佣金不会改变本文的事实信息或评测标准。
+            </p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          {topic.data.aff_brands.map((brand: string) => <AffCard brand={brand} linkStyle="review" />)}
+        </div>
+      </div>
+    )}
+
+    <h3 class="text-2xl font-heading font-bold text-slate-100 mb-6 pt-8 border-t border-slate-700 ">该专题下的文章</h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {posts.map(post => (
         <ArticleCard 
@@ -49,5 +96,6 @@ const posts = getPostsForTopic(topic.data.slug, allBlogPosts)
         />
       ))}
     </div>
+    <HubFooterLinks />
   </div>
 </BaseLayout>

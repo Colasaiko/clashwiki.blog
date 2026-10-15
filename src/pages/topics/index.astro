@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
 
 const hubCategories = [
   {
@@ -9,13 +10,13 @@ const hubCategories = [
     icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", // Info/Core
     color: "rose",
     links: [
+      { text: "Clash 全站枢纽", url: "/tag/clash/" },
+      { text: "v2rayN 全站枢纽", url: "/tag/v2rayn/" },
+      { text: "sing-box 全站枢纽", url: "/tag/sing-box/" },
       { text: "新手入门指南", url: "/topics/beginners/" },
       { text: "Clash / sing-box / v2rayN 三者区别", url: "/blog/proxy-protocols-comparison-2026/" },
       { text: "如何选择网络服务", url: "/blog/2026-airport-recommendation-guide/" },
-      { text: "网络服务测试方法", url: "/methodology/" },
-      { text: "常见连接问题排查", url: "/tag/troubleshooting/" },
-      { text: "下载安全指南", url: "/tag/cyber-security/" },
-      { text: "服务商跑路/诈骗识别指南", url: "/topics/scam-avoidance/" }
+      { text: "常见连接问题排查", url: "/tag/troubleshooting/" }
     ]
   },
   {
@@ -27,8 +28,9 @@ const hubCategories = [
       { text: "Android 完整教程", url: "/blog/clash-for-android-tutorial/" },
       { text: "macOS 完整教程", url: "/blog/clash-for-mac-tutorial/" },
       { text: "iOS 完整教程", url: "/blog/clash-for-ios-tutorial/" },
-      { text: "DNS / TUN / Routing 系列", url: "/tag/routing-rules/" },
-      { text: "IP / DNS / WebRTC 检测", url: "/tools/" }
+      { text: "网络安全与下载指南", url: "/tag/cyber-security/" },
+      { text: "IP / DNS / WebRTC 检测", url: "/tools/" },
+      { text: "服务商防坑防骗指南", url: "/topics/scam-avoidance/" }
     ]
   },
   {
@@ -36,12 +38,11 @@ const hubCategories = [
     icon: "M13 10V3L4 14h7v7l9-11h-7z", // Lightning/AI
     color: "emerald",
     links: [
-      { text: "AI 工具系列", url: "/tag/ai-tools/" },
-      { text: "ChatGPT 使用教程", url: "/tag/chatgpt/" },
-      { text: "Claude 使用教程", url: "/tag/claude/" },
-      { text: "Cursor", url: "/blog/cursor-ai-programming-guide/" },
-      { text: "Perplexity", url: "/blog/perplexity-ai-search-tutorial/" },
-      { text: "AI 编程", url: "/tag/ai-programming/" }
+      { text: "AI 工具全生态", url: "/tag/ai-tools/" },
+      { text: "ChatGPT 使用指南", url: "/tag/chatgpt/" },
+      { text: "Claude 使用指南", url: "/tag/claude/" },
+      { text: "Cursor AI 编程", url: "/blog/cursor-ai-programming-guide/" },
+      { text: "Perplexity AI 搜索", url: "/blog/perplexity-ai-search-tutorial/" }
     ]
   }
 ];
@@ -63,9 +64,9 @@ const hubCategories = [
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
       {hubCategories.map((category) => {
         let colorClasses = {
-          bg: 'bg-slate-50',
-          text: 'text-slate-600',
-          hoverText: 'hover:text-slate-600',
+          bg: 'bg-slate-800',
+          text: 'text-slate-400',
+          hoverText: 'hover:text-slate-400',
           groupHoverBg: 'group-hover:bg-slate-500'
         };
         
@@ -78,20 +79,20 @@ const hubCategories = [
         }
 
         return (
-        <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-          <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
+        <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-800">
             <div class={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${colorClasses.bg} ${colorClasses.text}`}>
               <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d={category.icon} />
               </svg>
             </div>
-            <h2 class="text-2xl font-bold text-slate-800">{category.title}</h2>
+            <h2 class="text-2xl font-bold text-slate-200">{category.title}</h2>
           </div>
           
           <ul class="space-y-4">
             {category.links.map((link) => (
               <li>
-                <a href={link.url} class={`group flex items-center gap-3 text-slate-600 transition-colors ${colorClasses.hoverText}`}>
+                <a href={link.url} class={`group flex items-center gap-3 text-slate-400 transition-colors ${colorClasses.hoverText}`}>
                   <span class={`w-2 h-2 bg-slate-200 rounded-full transition-colors ${colorClasses.groupHoverBg}`}></span>
                   <span class="font-medium text-lg">{link.text}</span>
                   <svg class={`w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all ${colorClasses.text}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,5 +105,6 @@ const hubCategories = [
         </div>
       )})}
     </div>
+    <HubFooterLinks />
   </div>
 </BaseLayout>

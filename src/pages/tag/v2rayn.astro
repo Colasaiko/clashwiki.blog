@@ -1,0 +1,354 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
+
+// 获取所有文章，按时间倒序
+const allPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 按照规则筛选文章分类并格式化属性
+const getSlug = (p) => p.slug || p.id.replace(/\.md$/, '');
+const formatPost = (p) => ({
+  title: p.data.title,
+  description: p.data.description,
+  url: `/blog/${getSlug(p)}/`,
+  category: p.data.category || 'v2rayN',
+  pubDate: p.data.pubDate || new Date('2026-01-01')
+});
+
+const v2raynBeginnerPosts = allPosts.filter(p => ['v2rayn-windows-tutorial', 'vpn-vs-proxy-explained', 'can-i-use-vpn-in-china'].includes(getSlug(p))).map(formatPost);
+const v2raynClientPosts = allPosts.filter(p => ['v2rayn-windows-tutorial', 'sing-box-vs-v2rayn', 'proxy-clients-comparison'].includes(getSlug(p))).map(formatPost);
+const airportPosts = allPosts.filter(p => ['2026-airport-recommendation-guide', 'budget-friendly-airport-2026'].includes(getSlug(p))).map(formatPost);
+const troubleshootingPosts = allPosts.filter(p => ['clash-timeout-troubleshooting', 'how-to-check-public-ip'].includes(getSlug(p))).map(formatPost);
+
+// 热门 v2rayN FAQ 数据
+const v2raynFaqs = [
+  { q: "v2rayN是什么？", a: "v2rayN 是 Windows 平台上最经典的开源代理客户端之一。它可以管理多种代理协议节点（如 VMess、VLESS、Trojan 等），通过系统代理或路由规则实现科学上网。" },
+  { q: "v2rayN怎么安装？", a: "前往官方 GitHub Release 页面，下载带有 'Core' 字样的压缩包（如 v2rayN-Core.zip），解压到没有中文的路径下，双击运行 v2rayN.exe 即可。" },
+  { q: "v2rayN怎么使用？", a: "基础流程为：下载解压软件 -> 从机场复制订阅链接 -> 在 v2rayN 中点击“订阅”->“订阅设置”添加链接并更新 -> 选中节点按 Enter -> 底部状态栏开启系统代理和路由。" },
+  { q: "v2rayN怎么导入机场订阅？", a: "在顶部菜单栏点击「订阅」-「订阅设置」，点击添加，输入备注并粘贴机场提供的 v2ray/v2rayN 订阅链接，保存。然后再点击「订阅」-「更新订阅」即可拉取节点。" },
+  { q: "v2rayN订阅怎么更新？", a: "在软件主界面，点击上方菜单的「订阅」，选择「更新订阅」。建议定期更新以同步机场最新的节点 IP 和状态。" },
+  { q: "v2rayN节点怎么添加？", a: "除了通过订阅批量添加外，你也可以复制单个节点的分享链接（如 vmess:// 或 trojan:// 开头），然后在 v2rayN 界面按 Ctrl+V，或者点击「服务器」-「从剪贴板导入批量URL」。" },
+  { q: "v2rayN节点怎么删除？", a: "在节点列表中选中你不需要的节点（可按住 Ctrl 或 Shift 多选），然后按下键盘上的 Delete 键，或者右键选择“删除服务器”。" },
+  { q: "v2rayN怎么选择节点？", a: "在节点列表中，选中想要使用的节点，按下回车键（Enter），或者右键该节点选择“设为活动服务器”。选中后该节点文字通常会变色或有勾选标记。" },
+  { q: "v2rayN节点为什么Timeout？", a: "Timeout 代表无法连接。常见原因是节点 IP 被墙拦截、机场服务器宕机或本地网络限制。请先尝试更新订阅获取最新节点，如果依然 Timeout 请检查宽带是否正常。" },
+  { q: "v2rayN节点为什么连接失败？", a: "可能是你的电脑时间不准（V2Ray 协议对时间敏感，误差不能超过90秒），或者本地有杀毒软件/防火墙拦截了 v2rayN 的内核运行。" },
+  { q: "v2rayN节点为什么速度慢？", a: "速度慢通常是节点本身的带宽不够或者被运营商限速，也可能是你选择了距离过远（如欧洲）的节点。尝试更换到香港或日本节点并重新测试。" },
+  { q: "v2rayN晚上为什么变慢？", a: "晚上 8:00 - 11:00 是网络晚高峰，国际出口带宽拥堵。如果机场使用的是普通公网线路，就会受到严重干扰。此时建议切换到 IPLC/IEPL 专线节点。" },
+  { q: "v2rayN白天快晚上慢怎么办？", a: "这是典型的“公网直连”节点特征。解决方法是向机场客服确认是否包含“专线”（IPLC/IEPL），或者更换一家主打晚高峰稳定的中高端机场。" },
+  { q: "v2rayN怎么设置系统代理？", a: "在软件最底部的状态栏，找到“系统代理”图标，点击它切换为“自动配置系统代理”。此时软件图标会变成红色，表示已接管系统浏览器流量。" },
+  { q: "v2rayN怎么关闭系统代理？", a: "在软件底部的状态栏，点击“系统代理”图标切换回“清除系统代理”即可。关闭后，浏览器恢复直连状态，不再经过代理节点。" },
+  { q: "v2rayN连接成功但打不开网页怎么办？", a: "可能的原因：1. 路由规则选成了“全局直连”；2. 浏览器安装了冲突的代理插件（如 SwitchyOmega）；3. 节点本身已连通但没有实际带宽。请尝试更换节点或检查路由设置。" },
+  { q: "v2rayN只有部分网站打不开怎么办？", a: "这通常是因为目标网站被节点服务商屏蔽（如 BT 种子网站、暗网），或者是你的路由规则设置错误，导致该网站没有走代理。" },
+  { q: "v2rayN DNS怎么设置？", a: "在「设置」-「参数设置」-「Core:基础设置」中可以配置本地和远程 DNS。通常保持默认即可，除非你的运营商存在严重的 DNS 劫持导致无法解析节点域名。" },
+  { q: "v2rayN规则怎么设置？", a: "底部状态栏的“路由”项通常选择“绕过大陆(Whitelist)”。这样能保证访问国内网站直连，访问国外网站走代理，实现速度与体验的最佳平衡。" },
+  { q: "v2rayN如何选择代理节点？", a: "按 Ctrl+A 全选节点，右键选择“测试服务器真连接延迟”。测试完成后，点击顶部的“真连接延迟”表头进行排序，选择延迟数值较低的节点即可。" },
+  { q: "v2rayN支持哪些协议？", a: "v2rayN 是一个通用客户端，通过调用不同的 Core（如 Xray-core、sing-box），它可以支持 VMess、VLESS、Shadowsocks、Trojan、Hysteria 2、TUIC、Reality 等众多协议。" },
+  { q: "v2rayN和Clash有什么区别？", a: "Clash 更侧重于通过 YAML 配置文件进行复杂的策略组分流（如自动切换、负载均衡）；而 v2rayN 界面更传统直观，侧重于单纯的节点列表管理和基础路由。" },
+  { q: "v2rayN和sing-box有什么区别？", a: "sing-box 是较新的下一代代理内核，跨平台性能更强。v2rayN 可以作为一个外壳（GUI）去调用 sing-box 内核来运行现代协议，两者并不是完全对立的。" },
+  { q: "v2rayN和Clash Verge有什么区别？", a: "Clash Verge 是基于 Clash Meta 内核的现代化 GUI 客户端。Verge 界面更美观、分流功能更强大，而 v2rayN 则更为轻量、老牌，很多老手习惯了其界面。" },
+  { q: "v2rayN适合什么用户？", a: "适合习惯传统 Windows 软件界面、主要依靠列表点选节点、不需要复杂分流策略（如不同网站走不同国家节点）、以及喜欢使用最新前沿小众协议的用户。" },
+  { q: "v2rayN机场怎么选？", a: "几乎所有机场都提供 v2ray 或 v2rayN 订阅格式。建议重点关注机场是否提供专线（应对晚高峰）、流媒体解锁情况以及节点是否频繁超时即可。" },
+  { q: "v2rayN机场推荐怎么看？", a: "看测评时，主要关注其“晚高峰测速图”是否呈现大面积的绿色（高带宽高连通率）。只发白天测速图的测评往往参考价值不大。" },
+  { q: "v2rayN机场订阅怎么更新？", a: "当节点突然全部 Timeout 时，最快的方法就是在 v2rayN 主界面点击「订阅」-「更新订阅」，以获取机场最新的节点 IP 和备用域名。" },
+  { q: "v2rayN新手最容易踩什么坑？", a: "新手最容易犯的错误有三个：1. 下载了不带 Core 的版本导致无法运行；2. 忘记在底部开启系统代理；3. 电脑时间不准导致 V2Ray 协议校验失败无法连接。" }
+];
+
+// Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.clashwiki.blog/" },
+    { "@type": "ListItem", "position": 2, "name": "专题", "item": "https://www.clashwiki.blog/topics/" },
+    { "@type": "ListItem", "position": 3, "name": "关于 v2rayN 的深度指南", "item": "https://www.clashwiki.blog/tag/v2rayn/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": v2raynFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+---
+
+<BaseLayout 
+  title="v2rayN 教程与机场节点指南｜订阅、配置、协议与常见问题 - ClashWiki" 
+  description="v2rayN 使用教程与完整指南，整理机场订阅、节点配置、系统代理、常见协议、故障排查以及 v2rayN 与 Clash、sing-box 等客户端的区别。" 
+  keywords="v2rayN,v2rayN教程,v2rayN配置,v2rayN节点,v2rayN客户端"
+>
+  <!-- Schema 注入 -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <div class="container mx-auto max-w-7xl px-4 pt-28 pb-10">
+    <Breadcrumb items={[{ label: '专题', href: '/topics/' }, { label: 'v2rayN指南' }]} />
+    
+    <!-- Hero Section -->
+    <div class="mt-8 mb-16 relative bg-slate-900 border border-slate-800 rounded-3xl p-10 overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
+      <div class="relative z-10 max-w-3xl">
+        <h1 class="text-3xl md:text-5xl font-heading font-black text-slate-100 mb-6 leading-tight">
+          关于 <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">v2rayN</span> 的深度指南
+        </h1>
+        <p class="text-xl text-slate-300 font-medium mb-4 leading-relaxed">
+          从 v2rayN 入门、机场订阅、节点配置，到协议、代理规则与常见故障，系统了解 Windows 平台上的 v2rayN 使用方法。
+        </p>
+        <p class="text-slate-400 leading-relaxed text-sm">
+          v2rayN 是 Windows 平台常见的网络代理客户端之一，可以管理多种代理协议和节点配置。本专题整理 v2rayN 的安装、订阅、节点、配置、协议、排障以及与其他客户端的区别。
+        </p>
+      </div>
+    </div>
+
+    <PageQuickRead />
+
+    <!-- v2rayN 快速导航 -->
+    <div class="mb-16 sticky top-24 z-40 bg-slate-900/80 backdrop-blur-xl border border-slate-800 shadow-2xl rounded-2xl p-4">
+      <div class="flex items-center gap-4">
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider shrink-0 hidden md:block">v2rayN 快速导航</h2>
+        <div class="flex overflow-x-auto gap-3 items-center no-scrollbar pb-1">
+          {['入门', '安装', '订阅', '节点', '配置', '协议', '排障', '机场', '客户端对比', '常见问题'].map(item => (
+            <a href={`#v2rayn-${item}`} class="shrink-0 px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-xl hover:border-emerald-500 hover:text-emerald-400 hover:bg-slate-900 transition-colors font-medium shadow-sm hover:shadow-emerald-500/10 text-sm">
+              v2rayN {item}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 文章区域：核心内容 -->
+    <div class="mb-20 scroll-mt-48" id="v2rayn-入门">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">v2rayN 入门与基础</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {v2raynBeginnerPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <!-- 为了防止产生空 URL，我们将安装/订阅/节点/配置锚点聚合并在此处保留占位，或用作导航标记 -->
+    <div id="v2rayn-安装" class="scroll-mt-48"></div>
+    <div id="v2rayn-订阅" class="scroll-mt-48"></div>
+    <div id="v2rayn-节点" class="scroll-mt-48"></div>
+    <div id="v2rayn-配置" class="scroll-mt-48"></div>
+
+    <!-- v2rayN 支持的常见协议 -->
+    <div class="mb-20 scroll-mt-48" id="v2rayn-协议">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">v2rayN 支持的常见协议</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { name: 'VLESS', desc: 'V2Ray 推出的轻量级协议，无握手特征，是目前防封锁的主流选择。' },
+          { name: 'VMess', desc: 'V2Ray 经典的加密协议，目前特征较为明显，在敏感时期容易被阻断。' },
+          { name: 'Trojan', desc: '模仿 HTTPS 流量的代理协议，通过伪装成正常网页浏览来欺骗防火墙。' },
+          { name: 'Shadowsocks', desc: '历史悠久的轻量级代理协议，目前多配合混淆插件或在专线机场中使用。' },
+          { name: 'Hysteria 2', desc: '基于 UDP 的暴力发包协议，极其擅长拯救被限速的垃圾线路。' },
+          { name: 'Reality', desc: 'VLESS 的安全扩展，通过借用真实大型网站的 TLS 证书来实现完美伪装。' },
+          { name: 'Xray', desc: '这是代理核心（Core）而非单一协议，v2rayN 内部正是调用它来支持 VLESS/Reality。' },
+          { name: 'sing-box', desc: '新一代多协议通用代理内核，v2rayN 也可以配置调用 sing-box 核心。' }
+        ].map(proto => (
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/30 transition-colors">
+            <h3 class="text-xl font-bold text-emerald-400 mb-3">{proto.name}</h3>
+            <p class="text-slate-400 text-sm mb-4">{proto.desc}</p>
+            <a href="/tag/proxy-protocols/" class="text-sm text-emerald-500 hover:text-emerald-400 font-medium">查看相关教程 &rarr;</a>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- v2rayN机场 -->
+    <div class="mb-20 bg-slate-900 border border-emerald-500/30 rounded-3xl p-8 lg:p-12 shadow-xl scroll-mt-48" id="v2rayn-机场">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="text-4xl">✈️</span>
+        <h2 class="text-3xl font-heading font-bold text-emerald-400">v2rayN 机场专区</h2>
+      </div>
+      <p class="text-slate-300 leading-relaxed mb-8 max-w-4xl text-lg">
+        v2rayN 可以与部分提供兼容订阅格式的代理服务配合使用。选择服务时，需要关注订阅格式、协议支持、节点质量、流量、价格以及服务政策。
+      </p>
+      <div class="flex flex-wrap gap-4 mb-10">
+        <a href="/topics/airport-recommendation/" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-medium transition-colors shadow-lg shadow-emerald-600/30">v2rayN机场推荐</a>
+        <a href="/brands/" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl font-medium transition-colors">v2rayN机场怎么选？</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {airportPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <!-- v2rayN 适合什么场景 -->
+    <div class="mb-20 scroll-mt-48">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">v2rayN 适合什么场景？</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: '🌐', title: '日常浏览', desc: '满足网页浏览、社交媒体和资料搜索等基础轻度翻墙需求。' },
+          { icon: '🤖', title: 'AI工具', desc: 'v2rayN 可以管理多个节点，用户可以根据网络环境选择不同节点访问 ChatGPT/Claude。' },
+          { icon: '🎬', title: '流媒体', desc: '通过切换原生 IP 节点，解锁 Netflix、Disney+、HBO 等海外版权视频。' },
+          { icon: '💻', title: 'Windows电脑', desc: '作为原生 Windows C# 应用，轻量且符合传统 Windows 用户的交互习惯。' },
+          { icon: '🗂️', title: '多节点管理', desc: '方便导入大量机场节点订阅，支持延迟测速和批量管理删除。' },
+          { icon: '🛠️', title: '开发测试', desc: '配合系统代理和局域网共享，方便开发者在本地测试 API 和网络爬虫。' },
+          { icon: '🚀', title: '高级网络配置', desc: '支持自定义路由规则，实现国内外流量分流，节省代理流量。' },
+          { icon: '🧪', title: '前沿协议尝鲜', desc: '通过更新 Core 内核，可第一时间体验 Reality、Hysteria 2 等最新防封锁协议。' }
+        ].map(scene => (
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/30 transition-colors">
+            <div class="text-3xl mb-4">{scene.icon}</div>
+            <h3 class="text-slate-100 font-bold mb-2">{scene.title}</h3>
+            <p class="text-slate-400 text-xs leading-relaxed">{scene.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- v2rayN故障排查 -->
+    <div class="mb-20 scroll-mt-48" id="v2rayn-排障">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">v2rayN 故障排查</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {[
+          { q: '节点Timeout', reason: '节点被墙、机场服务器挂了、或本地宽带断网。', sol: '尝试更新订阅获取最新 IP，或切换其他国家节点。' },
+          { q: '订阅更新失败', reason: '机场订阅域名被墙，或者你处于未联网状态。', sol: '前往机场官网获取最新备用订阅地址替换原有链接。' },
+          { q: '节点连接失败', reason: '电脑时间不准导致 V2Ray 协议校验失败。', sol: '在 Windows 设置中同步系统时间，误差不能超 90 秒。' },
+          { q: '连接成功但无法打开网页', reason: '系统代理未接管，或浏览器安装了冲突代理插件。', sol: '底部开启系统代理，关闭浏览器 SwitchyOmega 插件。' },
+          { q: '系统代理没有生效', reason: '部分软件（如游戏/终端）不走系统代理。', sol: '如果是终端，需手动设置 set http_proxy；游戏建议用 TUN。' },
+          { q: '部分网站打不开', reason: '机场审计规则屏蔽（BT/暗网）或路由规则错误。', sol: '检查底部路由规则是否选成了“绕过大陆”或“全局”。' }
+        ].map(t => (
+          <div class="bg-red-950/20 border border-red-900/30 p-6 rounded-2xl">
+            <h3 class="text-red-400 font-bold mb-3">{t.q}</h3>
+            <p class="text-slate-300 text-sm mb-2"><span class="text-slate-500">可能原因：</span>{t.reason}</p>
+            <p class="text-slate-300 text-sm mb-4"><span class="text-slate-500">解决方向：</span>{t.sol}</p>
+            <a href="/tag/troubleshooting/" class="text-sm text-red-400 hover:text-red-300 font-medium">查看完整教程 &rarr;</a>
+          </div>
+        ))}
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {troubleshootingPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <!-- 为什么 v2rayN 晚上速度变慢？ -->
+    <div class="mb-20 bg-slate-900/50 border border-slate-800 rounded-3xl p-8 lg:p-10 relative overflow-hidden scroll-mt-48">
+      <div class="absolute right-0 bottom-0 opacity-10">
+        <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div class="relative z-10">
+        <h2 class="text-2xl font-heading font-bold text-slate-100 mb-4">为什么 v2rayN 晚上速度变慢？</h2>
+        <p class="text-slate-300 leading-relaxed mb-6">
+          很多用户发现 v2rayN <strong>白天速度正常，但一到晚上晚高峰（8:00 - 11:00）延迟就会飙升、速度下降</strong>。这并不是 v2rayN 软件本身的问题。v2rayN 只是一个本地客户端程序，实际网络表现取决于你的<strong>节点线路、服务器负载、以及本地运营商网络</strong>。晚上由于国际出口带宽拥塞，普通公网线路（如直连）就会受到严重干扰。
+        </p>
+        <div class="flex gap-4">
+          <a href="/topics/airport-recommendation/" class="text-emerald-400 hover:text-emerald-300 font-medium">了解：机场测评为什么应该测试晚高峰？ &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- v2rayN与其他客户端对比 -->
+    <div class="mb-20 scroll-mt-48" id="v2rayn-客户端对比">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">v2rayN 与其他客户端对比</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { name: 'v2rayN vs Clash', platform: 'Windows', feature: '配置简单 vs 复杂分流', target: '传统用户 vs 策略分流用户' },
+          { name: 'v2rayN vs Clash Verge', platform: 'Windows', feature: '经典轻量 vs 现代 UI 强大内核', target: '老派极客 vs 追求美观现代的用户' },
+          { name: 'v2rayN vs sing-box', platform: '跨平台', feature: 'GUI 外壳 vs 核心协议内核', target: '桌面点击操作 vs 高级手写配置' },
+          { name: 'v2rayN vs Shadowrocket', platform: 'Windows vs iOS', feature: '免费开源桌面端 vs 苹果手机付费神器', target: 'PC 用户 vs 苹果手机用户' },
+          { name: 'v2rayN vs Stash', platform: 'Windows vs Mac/iOS', feature: 'V2Ray 体系 vs Clash 规则体系', target: 'PC 用户 vs 苹果全家桶用户' },
+          { name: 'v2rayN vs Quantumult X', platform: 'Windows vs iOS', feature: '纯粹代理 vs 强力脚本重写', target: '科学上网需求 vs 折腾脚本去广告玩家' }
+        ].map(c => (
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/30 transition-colors">
+            <h3 class="text-lg font-bold text-slate-100 mb-4">{c.name}</h3>
+            <ul class="space-y-2 mb-4 text-sm text-slate-400">
+              <li><span class="text-slate-500">适合平台：</span> {c.platform}</li>
+              <li><span class="text-slate-500">主要特点：</span> {c.feature}</li>
+              <li><span class="text-slate-500">适合用户：</span> {c.target}</li>
+            </ul>
+            <a href="/topics/clients/" class="text-sm text-emerald-500 hover:text-emerald-400 font-medium">详细对比 &rarr;</a>
+          </div>
+        ))}
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        {v2raynClientPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <!-- v2rayN新手使用路线 -->
+    <div class="mb-20 bg-slate-900 border border-slate-800 p-8 lg:p-12 rounded-3xl shadow-xl scroll-mt-48" id="v2rayn-路线">
+      <h2 class="text-3xl font-heading font-bold text-slate-100 mb-10 text-center">v2rayN 新手使用路线</h2>
+      <div class="relative">
+        <div class="absolute left-[27px] top-4 bottom-4 w-0.5 bg-slate-800"></div>
+        <div class="space-y-8 relative">
+          {[
+            { num: '01', title: '下载并安装 v2rayN', desc: '前往 GitHub 官方库，下载带有 Core 字样的发行版压缩包并解压。', link: '/downloads/' },
+            { num: '02', title: '准备兼容的订阅', desc: '在机场服务商后台，复制适用于 v2ray/v2rayN 格式的订阅链接。', link: '/topics/airport-recommendation/' },
+            { num: '03', title: '导入订阅', desc: '在 v2rayN 顶部菜单进入“订阅设置”，添加备注并粘贴链接保存。', link: '/blog/v2rayn-windows-tutorial/' },
+            { num: '04', title: '更新节点', desc: '点击顶部菜单“订阅” -> “更新订阅”，此时软件会拉取几百个节点列表。', link: '/blog/v2rayn-windows-tutorial/' },
+            { num: '05', title: '测试并选择节点', desc: '全选节点测速（真连接延迟），选中延迟低的节点并按回车键（Enter）。', link: '/blog/v2rayn-windows-tutorial/' },
+            { num: '06', title: '根据需求调整路由', desc: '在底部状态栏确保路由选为“绕过大陆(Whitelist)”以兼顾国内外访问。', link: '/blog/v2rayn-windows-tutorial/' },
+            { num: '07', title: '设置系统代理', desc: '在底部状态栏将系统代理开启，此时系统流量正式被接管。', link: '/blog/v2rayn-windows-tutorial/' },
+            { num: '08', title: '遇到问题进行排障', desc: '如遇无法上网，使用检测工具排查 IP 泄漏或 DNS 污染。', link: '/tag/troubleshooting/' }
+          ].map(step => (
+            <div class="flex items-start gap-6 group">
+              <div class="w-14 h-14 rounded-2xl bg-slate-950 border border-slate-700 flex items-center justify-center font-bold text-emerald-400 shrink-0 group-hover:border-emerald-500 group-hover:bg-emerald-950/30 transition-colors relative z-10 shadow-lg">
+                {step.num}
+              </div>
+              <div class="pt-2">
+                <h3 class="text-xl font-bold text-slate-200 mb-2">{step.title}</h3>
+                <p class="text-slate-400 text-sm mb-2">{step.desc}</p>
+                <a href={step.link} class="text-sm text-emerald-500 hover:text-emerald-400">查看相关教程 &rarr;</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 热门 v2rayN 问题 FAQ -->
+    <div class="mb-20 scroll-mt-48" id="v2rayn-常见问题">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">v2rayN 常见问题解答</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {v2raynFaqs.map(faq => (
+          <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-emerald-500/30 transition-colors">
+            <h3 class="text-slate-100 font-bold mb-3 leading-snug">{faq.q}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 推荐阅读 (取前 6 篇) -->
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-2xl font-heading font-bold text-slate-100">精选推荐阅读</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allPosts.slice(0, 6).map(post => <ArticleCard {...formatPost(post)} />)}
+      </div>
+    </div>
+
+    <!-- 所有 v2rayN 相关文章 -->
+    <div class="mb-20 scroll-mt-48" id="v2rayn-all">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">所有 v2rayN 教程与资源</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allPosts.filter(p => p.data.tags && p.data.tags.includes('v2rayN')).map(post => <ArticleCard {...formatPost(post)} />)}
+      </div>
+    </div>
+
+    <HubFooterLinks />
+  </div>
+</BaseLayout>

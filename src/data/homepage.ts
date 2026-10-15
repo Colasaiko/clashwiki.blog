@@ -3,13 +3,13 @@ export const HOMEPAGE_DATA = {
     title: '构建客观专业的网络工具百科',
     subtitle: '基于深度的资料整理、详尽的体验数据与全平台教程，打造客观的网络与 AI 工具资料库。',
     primaryCta: { label: '查看评测数据', href: '/brands/' },
-    secondaryCta: { label: '工具配置指南', href: '/category/tutorials/' }
+    secondaryCta: { label: '工具配置指南', href: '/category/beginners/' }
   },
   stats: [
-    { label: '评测维度', value: '10+' },
-    { label: '已深度收录', value: '6 家' },
-    { label: '数据状态', value: '持续更新' },
-    { label: '教程分类', value: '8大类' }
+    { label: '已深度收录', value: '25+ 家' },
+    { label: '深度教程', value: '50+ 篇' },
+    { label: '知识库 FAQ', value: '50+ 项' },
+    { label: '评测维度', value: '10+ 项' }
   ],
   networkTools: [
     { title: 'Clash 专区', description: 'Windows / Mac / Android / iOS 客户端下载与使用指南', icon: 'shield', href: '/tag/Clash/' },

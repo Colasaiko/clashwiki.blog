@@ -1,172 +1,459 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import StatsStrip from '../components/StatsStrip.astro';
-import SectionTitle from '../components/SectionTitle.astro';
-import FeatureCard from '../components/FeatureCard.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import BannerArticleCard from '../components/BannerArticleCard.astro';
-import TopicCluster from '../components/TopicCluster.astro';
 import BrandCard from '../components/BrandCard.astro';
-
+import FeatureCard from '../components/FeatureCard.astro';
 import FAQ from '../components/FAQ.astro';
-import CTASection from '../components/CTASection.astro';
-import { HOMEPAGE_DATA } from '../data/homepage';
 import { getCollection } from 'astro:content';
-import { getPostsForTopic } from '../utils/topics';
 
+// Fetch ALL posts
 const allBlogPosts = await getCollection('blog');
-const latestPosts = allBlogPosts
-  .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf())
-  .slice(0, 6)
-  .map(post => {
-    return {
-      title: post.data.title,
-      description: post.data.description,
-      url: `/blog/${post.slug || post.id.replace(/\.md$/, '')}/`,
-      category: post.data.category,
-      pubDate: new Date(post.data.pubDate || new Date()),
-      image: post.data.image
-    };
-  });
 
-const rawTopicsData = [
-  { title: '新手小白必看', description: '从零开始的跨境网络配置指南', slug: 'beginners', url: '/topics/beginners/' },
-  { title: '流媒体解锁', description: 'Netflix, Disney+, YouTube Premium 解锁评测', slug: 'streaming', url: '/topics/streaming/' },
-  { title: '性价比之选', description: '月均 15 元以下的高质量平价机场', slug: 'budget', url: '/topics/budget/' },
-  { title: '客户端配置大全', description: '各平台代理软件下载与实操图文指南', slug: 'clients', url: '/topics/clients/' },
-  { title: '避坑指南', description: '揭秘机场圈套路，教你如何辨别劣质与跑路机场', slug: 'scam-avoidance', url: '/topics/scam-avoidance/' },
-  { title: '进阶玩法', description: '分流规则配置、自建节点与底层协议深度解析', slug: 'advanced', url: '/topics/advanced/' },
+// 2. VPN 指南
+const vpnPosts = allBlogPosts
+  .filter(post => post.data.tags?.includes('vpn'))
+  .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf())
+  .slice(0, 4)
+  .map(post => ({
+    title: post.data.title,
+    description: post.data.description,
+    url: `/blog/${post.slug || post.id.replace(/\.md$/, '')}/`,
+    category: post.data.category || 'VPN',
+    pubDate: new Date(post.data.pubDate || new Date())
+  }));
+
+// 4. 实用工具 (Tools)
+const toolsData = [
+  { title: 'Clash 配置大全', description: 'Windows, Mac, Android, iOS 全平台使用教程。', icon: 'lightning', url: '/tag/clash/' },
+  { title: 'IP 与归属查询', description: '查看您的真实出口 IP 地址及归属地信息。', icon: 'globe', url: '/tools/ip/' },
+  { title: 'DNS 泄露测试', description: '检测您的网络请求是否存在 DNS 泄露风险。', icon: 'shield', url: '/tools/dns-leak/' },
+  { title: 'WebRTC 泄露检测', description: '检查浏览器是否通过 WebRTC 泄露真实 IP。', icon: 'lock', url: '/tools/webrtc/' }
 ];
 
-const topicsData = rawTopicsData.map(topic => ({
-  ...topic,
-  count: getPostsForTopic(topic.slug, allBlogPosts).length
-}));
+// 5. AI 工具
+const aiPosts = allBlogPosts
+  .filter(post => post.data.tags?.includes('ai-tools') || post.data.tags?.includes('chatgpt') || post.data.tags?.includes('claude'))
+  .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf())
+  .slice(0, 4)
+  .map(post => ({
+    title: post.data.title,
+    description: post.data.description,
+    url: `/blog/${post.slug || post.id.replace(/\.md$/, '')}/`,
+    category: post.data.category || 'AI 工具',
+    pubDate: new Date(post.data.pubDate || new Date())
+  }));
 
-const allBrandsData = await getCollection('brands');
-const brandsData = allBrandsData.map(b => ({
-  name: b.data.name,
-  description: b.data.description,
-  url: `/brands/${b.id.replace(/\.md$/, '')}/`,
-  buyUrl: `/go/${b.id.replace(/\.md$/, '')}`,
-  tags: b.data.tags || [],
-  image: b.data.image,
-  scores: b.data.scores
-}));
+// 6. 最新教程
+const latestPosts = allBlogPosts
+  .filter(post => !post.data.tags?.includes('vpn') && !post.data.tags?.includes('ai-tools'))
+  .sort((a, b) => new Date(b.data.pubDate || new Date()).valueOf() - new Date(a.data.pubDate || new Date()).valueOf())
+  .slice(0, 4)
+  .map(post => ({
+    title: post.data.title,
+    description: post.data.description,
+    url: `/blog/${post.slug || post.id.replace(/\.md$/, '')}/`,
+    category: post.data.category || '文章',
+    pubDate: new Date(post.data.pubDate || new Date())
+  }));
+
+const homeFaqs = [
+  {
+    question: 'VPN 与专线有什么区别？',
+    answer: 'VPN (虚拟专用网络) 注重隐私加密，通过专门的协议保护数据安全；专线 (代理服务) 通常基于 Shadowsocks、Vmess、Trojan 等协议，主要侧重于跨境访问的速度与流媒体解锁。'
+  },
+  {
+    question: '新手应该怎么选择？',
+    answer: '如果您是初学者，仅需要流畅访问海外网站和观看流媒体，直接选择优质的“专线”服务最具性价比；如果您有极高的隐私保护需求或企业合规要求，请选择老牌的 VPN。'
+  },
+  {
+    question: '这里的评测数据客观吗？',
+    answer: '我们的评测数据均来源于独立的千兆环境测速和长期的稳定性监控。虽然部分评测可能包含商业推广链接，但我们严格遵循数据真实性原则，绝不伪造测速图表或虚构评价。'
+  }
+];
 ---
 
-<BaseLayout title="2026最新高性价比网络代理商推荐 | 网络诊断 - ClashWiki" description="不知道如何挑选稳定高速的网络代理？ClashWiki 呈现全网最新高性价比机场横评、晚高峰节点跑速公开数据以及全平台图文配置指南，点击开启极速网络优化体验。" keywords="网络代理,机场横评,晚高峰跑速,配置指南" >
-  <Hero brandCount={allBrandsData.length} />
+<BaseLayout 
+  title="VPN、专线与网络工具指南 - ClashWiki" 
+  description="专业的 VPN 与跨境网络工具指南。提供详尽的专线评测对比、网络诊断知识，以及 Clash、sing-box 等客户端配置教程。"
+>
+  <Hero />
   
-  <div class="container mx-auto max-w-6xl px-4 mt-8">
+  <div class="container mx-auto max-w-6xl px-4 py-16 space-y-24">
     
-    <!-- 1. Network Tools -->
-    <section id="network-tools" class="py-16 flex flex-col justify-center scroll-mt-0">
-      <div class="w-full mb-12">
-        <SectionTitle title="网络工具导航" subtitle="涵盖主流代理内核与全平台客户端的详尽配置指南。" align="left" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-12 mt-4">
-        {HOMEPAGE_DATA.networkTools.map(feat => (
-          <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
-        ))}
-      </div>
-    </section>
-
-    <!-- 2. Diagnostics -->
-    <section id="diagnostics" class="py-16 flex flex-col justify-center scroll-mt-0 border-t border-slate-100">
-      <div class="w-full mb-12">
-        <SectionTitle title="网络诊断工具箱" subtitle="快速检测您的出口 IP 纯净度、DNS 泄露及节点真实延迟。" align="left" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-12 mt-4">
-        {HOMEPAGE_DATA.diagnostics.map(feat => (
-          <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
-        ))}
+    <!-- 温馨提示 -->
+    <section>
+      <div class="bg-amber-900/10 border border-amber-900/30 rounded-xl p-4 flex items-start gap-4">
+        <span class="text-amber-500 text-xl shrink-0 mt-0.5">⚠️</span>
+        <div>
+          <h3 class="text-amber-400 font-medium mb-1">温馨提示</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            请遵守所在国家和地区的法律法规，科学上网仅用于学习、科研及正规的跨境工作。切勿将网络代理用于任何违法违规用途。
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- 3. AI Tools -->
-    <section id="ai-tools" class="py-16 flex flex-col justify-center scroll-mt-0 border-t border-slate-100">
-      <div class="w-full mb-12">
-        <SectionTitle title="AI 生产力工具专区" subtitle="ChatGPT、Claude 等前沿 AI 工具的注册、解锁与原生 IP 验证指南。" align="left" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 gap-y-12 mt-4">
-        {HOMEPAGE_DATA.aiTools.map(feat => (
-          <FeatureCard title={feat.title} description={feat.description} icon={feat.icon} href={feat.href} />
-        ))}
+    <!-- 热门入口 (Quick Links) -->
+    <section>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        <a href="/tag/vpn/" class="flex flex-col items-center justify-center p-6 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-blue-500/50 transition-colors group">
+          <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🔐</span>
+          <span class="font-medium text-slate-200">VPN 指南</span>
+        </a>
+        <a href="/category/airports/" class="flex flex-col items-center justify-center p-6 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-blue-500/50 transition-colors group">
+          <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">✈️</span>
+          <span class="font-medium text-slate-200">专线推荐</span>
+        </a>
+        <a href="/tools/" class="flex flex-col items-center justify-center p-6 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-blue-500/50 transition-colors group">
+          <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🛠️</span>
+          <span class="font-medium text-slate-200">网络工具</span>
+        </a>
+        <a href="/tag/ai-tools/" class="flex flex-col items-center justify-center p-6 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-blue-500/50 transition-colors group">
+          <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🤖</span>
+          <span class="font-medium text-slate-200">AI 工具</span>
+        </a>
+        <a href="/blog/" class="flex flex-col items-center justify-center p-6 bg-slate-900 border border-slate-800 rounded-xl hover:bg-slate-800 hover:border-blue-500/50 transition-colors group">
+          <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">📚</span>
+          <span class="font-medium text-slate-200">最新博客</span>
+        </a>
       </div>
     </section>
 
-  </div>
-
-  <!-- 4. Latest Posts -->
-  <section id="latest-posts" class="py-12 md:py-16 scroll-mt-0 relative overflow-hidden">
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <img src="/background2.png" alt="ClashWiki 2026 Background Theme" width="1920" height="1080" class="w-full h-full object-cover object-right-top" />
-      <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
-    </div>
-    <div class="relative z-10 container mx-auto max-w-7xl px-4">
-      <div class="w-full flex justify-between items-end mb-8">
-        <SectionTitle title="实用教程与最新内容" align="left" />
-        <a href="/blog/" class="hidden md:inline-block text-emerald-600 font-medium hover:text-emerald-700 mb-6 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all">查看全部文章 &rarr;</a>
+    <!-- 🔰 新手教学 -->
+    <section>
+      <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold font-heading text-slate-100 flex items-center gap-2">
+          <span class="text-blue-500">🔰</span> 新手教学入门
+        </h2>
+        <a href="/topics/beginners/" class="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">查看新手百科 &rarr;</a>
       </div>
-      <div class="grid grid-cols-1 gap-y-6 mt-6 w-full max-w-5xl mx-auto">
-        {latestPosts.map(post => (
-          <BannerArticleCard {...post} />
-        ))}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">网络优化基础扫盲</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/vpn-guide-placeholder/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">为什么国内上不了外网？ &rarr;</span>
+            </a>
+            <a href="/blog/proxy-protocols-comparison-2026/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">VPN 和 专线 有什么区别？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">第一步：选软件</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/sing-box-vs-clash-verge/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">新手该用什么代理客户端？ &rarr;</span>
+            </a>
+            <a href="/topics/clients/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">全平台正版软件下载大全 &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">第二步：找节点</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/is-free-vpn-safe/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">免费节点好用、安全吗？ &rarr;</span>
+            </a>
+            <a href="/blog/2026-airport-recommendation-guide/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">怎么购买人生第一个专线？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">常见问题解答</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/tag/clash/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">节点买好了怎么导入软件？ &rarr;</span>
+            </a>
+            <a href="/blog/airport-timeout-fix/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">连接成功但上不了网怎么办？ &rarr;</span>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="mt-8 text-center md:hidden">
-        <a href="/blog/" class="btn-secondary inline-block">查看全部文章</a>
-      </div>
-    </div>
-  </section>
-
-  <div class="container mx-auto max-w-6xl px-4">
-    <!-- Topic Clusters -->
-    <section id="topics" class="py-16 scroll-mt-0">
-      <SectionTitle title="热门专题聚合" subtitle="按您的核心需求快速定位教程库" />
-      <TopicCluster topics={topicsData} />
     </section>
 
-    <!-- SEO Content Placeholder -->
-    <section class="py-16 prose-custom max-w-4xl mx-auto border-t border-slate-100 mt-8">
-      <h2>专业的网络与 AI 工具体验数据库</h2>
-      <p>在寻找<strong>前沿生产力工具</strong>的过程中，很多用户往往被华丽的广告词误导。为此我们通过搜集、整理公开信息和官方资料，建立了涵盖节点表现预估、流媒体解锁状态及性价比分析的综合数据库。无论您是寻找<strong>高性价比网络优化服务</strong>，还是对连通性要求极高的<strong>企业级网络专线</strong>，都能在这里找到客观的数据支撑。</p>
-      <h3>为什么需要客观的网络体验数据库？</h3>
-      <p>随着国际互联网环境的复杂化，传统的直连方式常常面临严重的路由绕道甚至 IP 阻断。高质量的 <strong>跨境网络优化服务</strong>能够提供更稳定的内网传输，有效保障跨国视频会议、海外开发与外贸业务的流畅度。</p>
+    <!-- 🔐 VPN 知识与推荐 -->
+    <section>
+      <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold font-heading text-slate-100 flex items-center gap-2">
+          <span class="text-blue-500">🔐</span> VPN 知识与推荐
+        </h2>
+        <a href="/tag/vpn/" class="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">浏览全部 &rarr;</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">VPN 基础入门</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/vpn-guide-placeholder/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">什么是 VPN 的用处？ &rarr;</span>
+            </a>
+            <a href="/blog/can-i-use-vpn-in-china/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">除了VPN还有什么快速网络优化？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">节点与代理协议</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/proxy-protocols-comparison-2026/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">Trojan与Vmess的区别？ &rarr;</span>
+            </a>
+            <a href="/blog/is-free-vpn-safe/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">免费节点安全吗？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">专线推荐与挑选</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/2026-airport-recommendation-guide/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">如何挑选适合自己的专线？ &rarr;</span>
+            </a>
+            <a href="/category/airports/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">2026高性价比专线榜单 &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">客户端配置</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/tag/clash/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">Clash各平台配置教程 &rarr;</span>
+            </a>
+            <a href="/tag/sing-box/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">sing-box基础防坑指南 &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🛠️ 实用网络工具 -->
+    <section>
+      <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold font-heading text-slate-100 flex items-center gap-2">
+          <span class="text-blue-500">🛠️</span> 实用网络工具
+        </h2>
+        <a href="/tools/" class="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">更多工具 &rarr;</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">DNS 与泄露检测</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/tools/dns-leak/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">如何测试DNS是否泄露？ &rarr;</span>
+            </a>
+            <a href="/tools/webrtc/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">什么是WebRTC泄露？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">IP 归属查询</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/tools/ip/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">如何查询当前IP归属地？ &rarr;</span>
+            </a>
+            <a href="/tools/ip/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">怎么看是否原生解锁IP？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">节点延迟诊断</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/airport-timeout-fix/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">节点全部Timeout怎么办？ &rarr;</span>
+            </a>
+            <a href="/tools/ping/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">Ping值低代表网速快吗？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">网络异常排查</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/tools/dns-leak/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">网络可能被劫持了吗？ &rarr;</span>
+            </a>
+            <a href="/blog/airport-timeout-fix/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">测速快但开网页慢为何？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🤖 AI 工具 -->
+    {aiPosts.length > 0 && (
+      <section>
+        <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-bold font-heading text-slate-100 flex items-center gap-2">
+            <span class="text-blue-500">🤖</span> AI 生产力指南
+          </h2>
+          <a href="/tag/ai-tools/" class="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">探索更多 &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {aiPosts.map(post => <ArticleCard {...post} />)}
+        </div>
+      </section>
+    )}
+
+    <!-- 📚 综合网络教程 -->
+    <section>
+      <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold font-heading text-slate-100 flex items-center gap-2">
+          <span class="text-blue-500">📚</span> 综合网络教程
+        </h2>
+        <a href="/blog/" class="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">进入知识库 &rarr;</a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">AI 工具解锁</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/chatgpt-unblock-guide/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">连代理后ChatGPT拒访？ &rarr;</span>
+            </a>
+            <a href="/blog/claude-registration-guide/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">如何防Claude账号被封？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">高级路由设置</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/sing-box-vs-clash-verge/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">Clash与sing-box谁更好？ &rarr;</span>
+            </a>
+            <a href="/tag/routing-rules/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">如何给应用设置分流？ &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">客户端进阶</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/clash-verge-vs-clash-for-windows/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">Verge 和 CFW 的区别？ &rarr;</span>
+            </a>
+            <a href="/blog/v2rayn-windows-tutorial/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">v2rayN电脑版进阶指南 &rarr;</span>
+            </a>
+          </div>
+        </div>
+        <div class="aspect-square p-5 md:p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col justify-center shadow-sm hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-slate-100 mb-4 text-center">安全与防骗</h3>
+          <div class="flex flex-col gap-3 w-full text-sm">
+            <a href="/blog/2026-airport-recommendation-guide/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">如何避开易跑路专线？ &rarr;</span>
+            </a>
+            <a href="/topics/scam-avoidance/" class="text-slate-400 hover:text-blue-400 transition-colors text-left flex items-start gap-1">
+              <span class="text-blue-500 shrink-0 mt-0.5">-</span> 
+              <span class="leading-snug">购买梯子常见骗局曝光 &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于我们 & 热门导航 -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 border-t border-slate-800 pt-16">
+      <!-- 关于 ClashWiki -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-colors pointer-events-none"></div>
+        <h2 class="text-2xl font-bold font-heading text-slate-100 mb-4 flex items-center gap-2 relative z-10">
+          <span class="text-blue-500">📖</span> 关于 ClashWiki
+        </h2>
+        <p class="text-slate-400 leading-relaxed mb-6 relative z-10">
+          ClashWiki 是一个专注网络工具、跨境访问、以及 AI 生产力的中立型维基百科。我们致力于提供客观、真实、无偏见的 VPN 与专线评测数据，帮助中文用户打破信息茧房，安全探索数字世界。
+        </p>
+        <div class="flex items-center gap-4 relative z-10">
+          <a href="/about/" class="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors bg-blue-500/10 hover:bg-blue-500/20 px-4 py-2 rounded-lg">了解我们的使命 &rarr;</a>
+          <a href="/disclaimer/" class="text-sm font-medium text-slate-400 hover:text-slate-300 transition-colors">免责声明</a>
+        </div>
+      </div>
+
+      <!-- 热门资源导航 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2">
+          <span class="text-amber-500">🔥</span> 热门资源导航
+        </h2>
+        <div class="grid grid-cols-2 gap-4">
+          <a href="/category/airports/" class="flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-800 rounded-xl transition-colors group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">✈️</span>
+            <div>
+              <div class="font-bold text-slate-200">专线推荐榜单</div>
+              <div class="text-xs text-slate-400 mt-1">独家测速与跑路风险评估</div>
+            </div>
+          </a>
+          <a href="/tag/ai-tools/" class="flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-800 rounded-xl transition-colors group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">🤖</span>
+            <div>
+              <div class="font-bold text-slate-200">AI 工具导航</div>
+              <div class="text-xs text-slate-400 mt-1">ChatGPT/Claude 解锁教程</div>
+            </div>
+          </a>
+          <a href="/tools/" class="flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-800 rounded-xl transition-colors group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">🔧</span>
+            <div>
+              <div class="font-bold text-slate-200">在线网络测试</div>
+              <div class="text-xs text-slate-400 mt-1">DNS泄露、IP归属地查询</div>
+            </div>
+          </a>
+          <a href="/topics/clients/" class="flex items-center gap-3 p-4 bg-slate-800/50 hover:bg-slate-800 rounded-xl transition-colors group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">📥</span>
+            <div>
+              <div class="font-bold text-slate-200">客户端下载大全</div>
+              <div class="text-xs text-slate-400 mt-1">Windows/Mac/iOS/Android</div>
+            </div>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faqs" class="py-16">
-      <FAQ items={HOMEPAGE_DATA.faqs} />
+    <section class="pt-16">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl md:text-3xl font-bold font-heading text-slate-100 mb-4">常见问题解答</h2>
+        <p class="text-slate-400">帮助您更好地理解基础网络知识</p>
+      </div>
+      <FAQ items={homeFaqs} />
     </section>
-  </div>
 
-  <!-- 5. Brands (Moved to the bottom, before CTA) -->
-  <section id="brands" class="py-24 scroll-mt-0 relative overflow-hidden mt-12 mb-12">
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <img src="/background3.png" alt="ClashWiki Airport Review Background" width="1920" height="1080" class="w-full h-full object-cover object-center" />
-      <div class="absolute inset-0 bg-white/40 backdrop-blur-[2px]"></div>
-    </div>
-    <div class="relative z-10 container mx-auto max-w-6xl px-4">
-      <div class="mb-8">
-        <SectionTitle title="网络服务商综合榜单" subtitle="基于全网公开资料与服务商基础数据汇总的优质节点推荐榜单，客观呈现各家特色。" align="left" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-32 mt-32">
-        {brandsData.map(brand => (
-          <BrandCard {...brand} />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <div class="container mx-auto max-w-6xl px-4 mb-20">
-    <CTASection 
-      title="准备好搭建您的专属网络环境了吗？" 
-      description="查看我们最新更新的 2026 节点表现预估榜单与详尽配置指南。" 
-      buttonText="查看公开数据评估榜单" 
-      buttonLink="/category/airports/" 
-    />
   </div>
 </BaseLayout>

@@ -1,0 +1,475 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const categories = [
+  {
+    "id": "clients",
+    "title": "客户端与使用教程 FAQ",
+    "faqs": [
+      {
+        "q": "v2rayN 是什么？怎么使用？",
+        "a": "v2rayN 是 Windows 平台上最经典的 v2ray 图形客户端。你只需要下载免安装包，复制机场提供的订阅链接，在软件中点击“订阅” -> “更新订阅”即可拉取节点。详情请查看 <a href='/tag/v2rayn/' class='text-emerald-500 hover:underline'>v2rayN 教程</a>。"
+      },
+      {
+        "q": "Clash 是什么？怎么导入订阅？",
+        "a": "Clash 是跨平台规则代理内核。导入订阅通常是在客户端（如 Clash Verge）的配置页面，粘贴订阅链接并点击下载即可。详情请参考 <a href='/tag/clash/' class='text-emerald-500 hover:underline'>Clash 指南</a>。"
+      },
+      {
+        "q": "sing-box 是什么？和 Clash 有什么区别？",
+        "a": "sing-box 是新一代通用代理平台内核，支持如 Hysteria 2 等前沿协议。它比 Clash 性能更好且内存占用更小，但目前配置以 JSON 为主，门槛稍高。详情查阅 <a href='/tag/sing-box/' class='text-emerald-500 hover:underline'>sing-box 教程</a>。"
+      },
+      {
+        "q": "Shadowrocket (小火箭) 怎么导入订阅？",
+        "a": "在 iOS 端打开 Shadowrocket，点击右上角的“+”号，类型选择“Subscribe (订阅)”，粘贴机场链接并保存，软件会自动下载节点。如需进阶排障，可参考 <a href='/tag/shadowrocket/' class='text-emerald-500 hover:underline'>Shadowrocket 教程</a>。"
+      },
+      {
+        "q": "Stash 是什么？",
+        "a": "Stash 是 iOS 平台上的原生 Clash 规则兼容客户端，完全支持 Clash 的 YAML 配置和策略组，被认为是 iOS 上的完美 Clash 替代方案。"
+      },
+      {
+        "q": "Quantumult X 是什么？适合新手吗？",
+        "a": "Quantumult X (圈X) 是一款极其强大的 iOS 代理和网络请求重写工具。由于其丰富的自定义脚本功能，门槛较高，建议有一定折腾基础的高级用户使用。"
+      },
+      {
+        "q": "Windows 系统代理怎么设置？",
+        "a": "在使用 Clash 或 v2rayN 时，通常只需开启软件内的“系统代理 (System Proxy)”开关，软件会自动修改 Windows 的代理设置。"
+      },
+      {
+        "q": "Mac 节点怎么选择？",
+        "a": "在 macOS 的客户端（如 ClashX 或 Clash Verge）中，通过展开状态栏的图标，点击延迟数值较低的节点即可。建议选择“自动测速”代理组。"
+      },
+      {
+        "q": "Android 怎么导入机场订阅？",
+        "a": "安卓用户可下载 Clash Meta for Android，在“配置”页面点击“+”号，选择从 URL 导入，粘贴机场链接即可。建议参考 <a href='/tag/client-tutorials/' class='text-emerald-500 hover:underline'>安卓客户端教程</a>。"
+      },
+      {
+        "q": "节点连接失败、Timeout 是怎么回事？",
+        "a": "Timeout 通常是由于节点被封锁、机场服务器维护或你的本地网络限制导致。请先尝试在客户端更新订阅，或参考 <a href='/tag/troubleshooting/' class='text-emerald-500 hover:underline'>网络连接排障指南</a>。"
+      },
+      {
+        "q": "为什么速度慢？怎么解决？",
+        "a": "速度慢可能是选错了远距离节点或遭遇晚高峰拥堵。请尝试切换到延迟更低的香港/日本节点，或者重启客户端强制刷新路由表。"
+      },
+      {
+        "q": "TUN 模式是什么？",
+        "a": "TUN 虚拟网卡模式可以接管电脑上所有软件的流量（包括游戏和命令行工具），解决普通系统代理无法覆盖所有网络请求的问题。"
+      }
+    ]
+  },
+  {
+    "id": "airport",
+    "title": "机场与选购 FAQ",
+    "faqs": [
+      {
+        "q": "机场是什么？",
+        "a": "机场是提供批量海外代理服务器节点的服务商的总称。因为早期的 Shadowsocks 客户端图标是一个纸飞机，后来大家就把提供节点的服务商称为“机场”。"
+      },
+      {
+        "q": "2026机场推荐应该关注什么？",
+        "a": "在 2026 年，选购机场应重点关注服务商是否具备抗封锁的 IEPL/IPLC 专线、晚高峰的真实测速表现，以及对新兴协议的支持程度。详情参考 <a href='/blog/2026-airport-recommendation-guide/' class='text-emerald-500 hover:underline'>2026机场推荐</a>。"
+      },
+      {
+        "q": "机场测评应该测试什么？",
+        "a": "真实的机场测评不应只看白天的瞬间网速，而应该重点测试晚上 9 点以后的晚高峰抗压能力、丢包率以及主流流媒体的解锁稳定性。"
+      },
+      {
+        "q": "便宜机场值得买吗？",
+        "a": "便宜机场适合预算有限或作为备用节点的轻度用户，但通常由于成本限制，晚高峰可能会比较拥堵，不建议重度流媒体和外服游戏玩家购买。"
+      },
+      {
+        "q": "月付机场适合什么人？",
+        "a": "月付机场非常适合新手试错以及对服务商稳定性存疑的用户。月付能够最大程度降低被“跑路”的风险。"
+      },
+      {
+        "q": "季付或年付机场有什么风险？",
+        "a": "年付套餐虽然单价更便宜，但面临服务商中途关停（跑路）或线路质量大幅下降的风险。建议在使用月付确认稳定后，再考虑季付或年付。"
+      },
+      {
+        "q": "不限时机场是什么意思？",
+        "a": "不限时机场是指你购买的流量包没有过期时间（用到耗尽为止），适合平时极少使用、只在关键时刻查阅资料的轻度用户。"
+      },
+      {
+        "q": "机场试用应该测试什么？",
+        "a": "试用期间务必在晚上 20:00 - 23:00 测试其 YouTube 4K 播放流畅度以及 Netflix 的解锁情况，不要被白天的测速数据迷惑。"
+      },
+      {
+        "q": "机场官网打不开怎么办？",
+        "a": "机场的官网域名经常受到污染和封锁。通常服务商会通过官方 Telegram 群组发布最新的备用网址，或者你可以尝试挂全局代理访问旧网址获取跳转。"
+      },
+      {
+        "q": "机场跑路前有什么迹象？",
+        "a": "常见的迹象包括：客服长时间不回复、节点大面积超时几天不修复、官网突然推出极其夸张的超低价年付活动等。"
+      },
+      {
+        "q": "机场订阅或者节点全部失效怎么办？",
+        "a": "首先检查套餐是否过期、流量是否耗尽。如果不是，可能是机场更换了订阅域名，请登录官网重新复制最新的订阅链接并更新。"
+      },
+      {
+        "q": "为什么需要准备备用机场？",
+        "a": "由于网络封锁存在突发性，主力机场可能会在敏感时期全线崩溃。准备一个按量付费或便宜的月付机场作为备用，可以确保关键时刻不失联。"
+      }
+    ]
+  },
+  {
+    "id": "nodes_faq",
+    "title": "节点与网络延迟 FAQ",
+    "faqs": [
+      {
+        "q": "节点是什么？",
+        "a": "节点就是位于海外的一台代理服务器。你的所有网络请求都会先发送到这个节点，再由它转发到目标网站，从而实现突破网络封锁的效果。"
+      },
+      {
+        "q": "节点延迟和速度怎么看？",
+        "a": "客户端中的延迟 (Ping/Timeout) 数值越小代表响应越快，适合游戏和网页秒开；速度 (带宽) 决定了你下载文件和看高画质视频的流畅度。"
+      },
+      {
+        "q": "为什么节点白天快晚上变慢？",
+        "a": "晚高峰（20:00 - 23:00）是网络使用高峰，不仅国际出口带宽拥堵，机场本身的服务器负载也会拉满。普通公网中转节点极易在这个时段出现卡顿。"
+      },
+      {
+        "q": "香港节点适合什么场景？",
+        "a": "香港节点物理距离大陆最近，延迟最低，非常适合日常网页浏览、外贸办公以及外服游戏加速。"
+      },
+      {
+        "q": "日本节点适合什么场景？",
+        "a": "日本节点国际出口带宽巨大，非常适合用来跑大流量下载、观看超高清视频以及访问日区限定的流媒体服务。"
+      },
+      {
+        "q": "新加坡节点适合什么场景？",
+        "a": "新加坡节点资源丰富，是解锁东南亚区流媒体版权内容的优质选择，同时也是许多原生纯净 IP 的集中地。"
+      },
+      {
+        "q": "美国节点适合什么场景？",
+        "a": "美国节点物理距离远，延迟较高，但它是访问 ChatGPT、Claude 等严格风控的北美本地服务的最佳选择。"
+      },
+      {
+        "q": "欧洲节点适合什么场景？",
+        "a": "主要用于访问受特定隐私法规（如 GDPR）保护的欧洲本土网站，或注册需要欧洲 IP 的专属跨国账号服务。"
+      },
+      {
+        "q": "不同地区节点适合玩游戏吗？",
+        "a": "外服游戏要求极致的低延迟和零丢包。通常只有香港和日本的物理专线（IPLC / IEPL）节点才适合玩游戏，普通中转节点不推荐。"
+      }
+    ]
+  },
+  {
+    "id": "streaming",
+    "title": "流媒体解锁 FAQ",
+    "faqs": [
+      {
+        "q": "Netflix 为什么打不开或提示检测到代理？",
+        "a": "Netflix 拥有严苛的 IP 库检测机制。如果你使用的节点 IP 被标记为代理服务器，就无法观看。请切换到机场标注为“解锁流媒体”的原生节点。"
+      },
+      {
+        "q": "为什么视频画质下降、速度正常但一直在缓冲？",
+        "a": "测速正常但视频卡顿，通常是因为流媒体平台的 CDN 服务器与你当前节点的路由不佳。尝试切换到同地区的其他备用节点。"
+      },
+      {
+        "q": "Disney+ 为什么地区不正确？",
+        "a": "Disney+ 会严格校验访问 IP 所在的物理地区。如果你的代理没有正确配置全局路由，或者节点被识别为广播 IP，就会发生区域漂移错误。"
+      },
+      {
+        "q": "不同节点对流媒体有什么影响？",
+        "a": "不同节点不仅影响版权库的内容（例如香港节点看不了台湾限定的动漫），还会直接决定能否解锁 4K 高清画质。流媒体重度用户需要根据实际节点测试选择。"
+      },
+      {
+        "q": "TikTok 为什么黑屏无视频？",
+        "a": "TikTok 屏蔽了国内运营商信息。除了拔掉国内 SIM 卡，你还必须使用目标国家的高质量节点并开启全局代理，否则会被识别并拦截流量。"
+      }
+    ]
+  },
+  {
+    "id": "ai_tools",
+    "title": "AI 工具网络环境 FAQ",
+    "faqs": [
+      {
+        "q": "为什么 ChatGPT 打不开或登录异常？",
+        "a": "这是因为 OpenAI 对大陆和部分高风险机房 IP 进行了封锁（Access Denied）。你必须使用纯净度高的原生美国、日本或台湾等支持地区的节点，并开启全局代理。"
+      },
+      {
+        "q": "为什么 Claude 账号容易被封禁？",
+        "a": "Anthropic 公司的风控极为严格。如果频繁在不同的国家节点之间跳跃，或者使用了廉价的万人骑共享 IP 机场，极易触发封号机制。详情查看 <a href='/blog/ai-account-ban-prevention/' class='text-emerald-500 hover:underline'>AI 账号防封指南</a>。"
+      },
+      {
+        "q": "为什么 AI 助手响应慢？",
+        "a": "除了模型自身的推理时间外，节点到 AI 服务器的物理延迟以及丢包率都会导致打字一卡一卡。建议使用高质量的企业级专线节点。"
+      },
+      {
+        "q": "不同 AI 工具使用场景有什么区别？",
+        "a": "ChatGPT 是最全能的日常助手；Claude 在编程辅助和长文本阅读上表现惊艳；Gemini 原生多模态适合多媒体；而 Cursor 则是专为程序员打造的开发利器。详情查看 <a href='/tag/ai-tools/' class='text-emerald-500 hover:underline'>AI工具知识中心</a>。"
+      },
+      {
+        "q": "AI 工具免费版能用吗？",
+        "a": "能用。绝大多数如 ChatGPT、Claude 都提供免费基础版，适合轻度体验。但遇到复杂编程或需要大流量对话时，由于限制严重，推荐升级付费版或使用 API。"
+      }
+    ]
+  },
+  {
+    "id": "community",
+    "title": "GitHub 与 Reddit 评价 FAQ",
+    "faqs": [
+      {
+        "q": "机场推荐 GitHub 上的列表是否可靠？",
+        "a": "GitHub 上有很多开源的机场推荐列表，但部分库可能混杂了利益相关的推广。建议交叉对比多个信源，不要盲目迷信单一列表。"
+      },
+      {
+        "q": "GitHub 上的节点信息应该怎么看？",
+        "a": "开源的节点项目适合应急测试和极客尝鲜，但由于公开抓取，存活时间通常极短，不适合需要长期稳定使用的普通用户。"
+      },
+      {
+        "q": "Reddit 机场推荐值得参考吗？",
+        "a": "Reddit 上有许多真实的海外华人评测，用户评价较为中立，但也可能存在商家水军。请重点查看长期活跃账号的负面反馈和拔草评价。"
+      },
+      {
+        "q": "社区评价与真实测速有什么区别？",
+        "a": "社区评价带有主观色彩且因个人本地网络而异，而公开探针测速是客观机器数据。最稳妥的方式是结合两者的意见再做决定。"
+      }
+    ]
+  },
+  {
+    "id": "beginners",
+    "title": "新手入坑防骗 FAQ",
+    "faqs": [
+      {
+        "q": "新手第一次买机场应该注意什么？",
+        "a": "不要贪图便宜买几十元一年的所谓“跑路专属套餐”，优先购买支持按月支付、拥有官方电报群、且能提供主流节点配置教程的老牌服务商。"
+      },
+      {
+        "q": "为什么不能只看测速？",
+        "a": "白天的爆发测速极具欺骗性。一时的百兆测速并不代表晚高峰不会断流。稳定性、晚高峰丢包率以及客服响应速度，比单次测速重要得多。"
+      },
+      {
+        "q": "为什么价格便宜不代表一定好？",
+        "a": "国际宽带是硬成本。极度便宜的机场必然通过极其严重的超售来维持利润，这就注定了在用网高峰期体验会断崖式下跌。"
+      },
+      {
+        "q": "为什么节点数量多不代表速度快？",
+        "a": "有些机场通过复用同一台物理服务器生成几百个虚假节点，数量虽多但总带宽不变。优质的机场通常节点不多，但都是真实的独享物理带宽。"
+      },
+      {
+        "q": "如何判断一个测评是否真实？",
+        "a": "真实的测评通常会放出晚高峰的测速对比图，客观指出该机场的优缺点（尤其是丢包情况和协议限制），而不是通篇无脑吹捧。"
+      },
+      {
+        "q": "更多详细评测怎么找？",
+        "a": "如果您需要深入对比各大品牌的真实性价比，欢迎前往查看我们精心编排的 <a href='/compare/' class='text-emerald-500 hover:underline'>品牌收录与精选大全</a>，获取最客观的选购建议。"
+      }
+    ]
+  }
+];
+
+
+// Generate FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": categories.flatMap(category => 
+    category.faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  )
+};
+
+---
+
+<BaseLayout 
+  title="常见FAQ知识库：节点与全局 | ClashWiki" 
+  description="ClashWiki 知识库与常见问题解答。涵盖从 Clash 基础配置、节点导入、全局与规则模式的区别，到高级网速排障的权威指南、流媒体解锁(Netflix/YouTube)、AI工具(ChatGPT/Claude)及排障的新手避坑与常见网络问题解答。"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Schema.org JSON-LD FAQ -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": categories.flatMap(cat => cat.faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a.replace(/<[^>]*>?/gm, '') // Strip HTML tags for Schema
+      }
+    })))
+  })} />
+
+  <div class="container mx-auto max-w-7xl px-4 pt-28 pb-20 min-h-[85vh]">
+    <Breadcrumb items={[{ label: '终极 FAQ 知识库' }]} />
+    
+    <!-- 标题区域：强制大标题和副标题都在 H1 内 -->
+    <div class="mt-8 mb-12 text-center">
+      <h1 class="font-heading text-slate-100 flex flex-col items-center justify-center gap-4">
+        <span class="text-4xl md:text-5xl font-extrabold tracking-tight">终极 FAQ 知识库</span>
+        <span class="text-lg md:text-xl text-slate-400 font-medium max-w-3xl">涵盖所有代理软件、网络排障、流媒体解锁及 2026 年机场选择的核心问题。所有答案直接展示，无需点击展开。</span>
+      </h1>
+    </div>
+
+    <!-- 30秒小白速读模块 -->
+    <div class="max-w-4xl mx-auto mb-16 relative group">
+      <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+      <div class="relative bg-slate-900 border border-slate-700/50 rounded-3xl p-8 md:p-10 shadow-2xl">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold font-heading text-slate-100">30 秒小白速读</h2>
+        </div>
+        <div class="prose-custom text-slate-300">
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-emerald-500 mt-1 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <span><strong>机场与节点是什么？</strong> 提供跨境网络线路的服务商，搭配 Clash 等软件可以让你更稳更快地翻墙，远胜传统 VPN。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-emerald-500 mt-1 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <span><strong>如何解锁流媒体与AI？</strong> 访问 Netflix 或 ChatGPT 时报错，代表 IP 纯净度不够。请购买支持原生解锁的高端节点，不要用便宜的大众机房。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-emerald-500 mt-1 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <span><strong>为什么白天快晚上慢？</strong> 晚高峰公网拥堵严重，便宜节点必卡。要想稳定游戏或看视频，请务必认准包含 IPLC/IEPL 物理专线的套餐。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-emerald-500 mt-1 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              <span><strong>怎么买最防骗？</strong> 新手坚决不要买年付盲盒，先买最便宜的月付套餐试用，重点测晚高峰和流媒体，好用再续费。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 搜索栏区域 -->
+    <div class="max-w-2xl mx-auto mb-16 relative sticky top-24 z-40">
+      <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+        <svg class="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <input 
+        type="text" 
+        id="faq-search-input" 
+        class="block w-full pl-14 pr-4 py-5 bg-slate-900 border-2 border-slate-700 rounded-2xl text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-xl text-lg font-medium" 
+        placeholder="搜索你遇到的问题 (共检索 337 个核心解答)..."
+      />
+      <div id="faq-no-results" class="hidden text-center text-slate-400 mt-6 pb-6 text-lg font-medium">
+        哎呀，没有找到完全匹配的解答，换个关键词试试？比如：Netflix, 延迟, iOS, Shadowrocket
+      </div>
+    </div>
+
+    <!-- 按分类展示 FAQ 矩阵 -->
+    <div id="faq-container">
+      {categories.map((category) => (
+        <div class="faq-category-section mb-20" data-cat={category.id}>
+          <!-- 分类标题 -->
+          <div class="flex items-center gap-4 mb-8 pb-4 border-b border-slate-800">
+            <h2 class="text-3xl font-heading font-bold text-emerald-400">{category.title}</h2>
+            <span class="px-3 py-1 bg-slate-800 text-slate-400 text-sm font-medium rounded-full">{category.faqs.length} 个解答</span>
+          </div>
+
+          <!-- 采用 Grid 布局，生成正方形/长方形的卡片，直接阅读 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {category.faqs.map((faq) => (
+              <div class="faq-card bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-emerald-500/50 hover:bg-slate-800/80 transition-all shadow-lg flex flex-col h-full relative overflow-hidden group hover:-translate-y-1" data-search={`${faq.q} ${faq.a}`.toLowerCase()}>
+                
+                <!-- 装饰图标 -->
+                <div class="text-emerald-500 mb-5 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all origin-left">
+                  <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+
+                <!-- 主题 (强制使用 H3 语义化，样式维持 H2 大小) -->
+                <h3 class="text-lg font-bold text-slate-100 mb-4 leading-snug">
+                  {faq.q}
+                </h3>
+                
+                <!-- 分割线 -->
+                <div class="w-12 h-1 bg-emerald-500/30 rounded-full mb-5 group-hover:bg-emerald-500/80 transition-colors"></div>
+                
+                <!-- 内容区：不限制高度，自适应填充，正常输出给 HTML -->
+                <p class="text-slate-400 text-[15px] leading-relaxed flex-grow font-normal" set:html={faq.a}></p>
+
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- 底部推荐 CTA 模块 -->
+    <div class="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-3xl p-8 md:p-14 text-center shadow-2xl relative overflow-hidden mt-8">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"></div>
+        <h2 class="text-3xl md:text-4xl font-bold font-heading text-white mb-6">还不知道怎么选择机场？</h2>
+        <p class="text-slate-400 mb-10 max-w-2xl mx-auto text-lg leading-relaxed">
+            如果你正在寻找优质的 2026年机场推荐，或者想横向对比各大商家的套餐价格、专线质量与实际测速表现，请立即前往我们的专业测评聚合中心。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-5 justify-center">
+            <a href="/topics/airport-recommendation/" class="inline-flex items-center justify-center px-10 py-4 bg-emerald-600 hover:bg-emerald-500 text-white text-lg font-bold rounded-2xl transition-all shadow-lg shadow-emerald-600/30 hover:scale-105">
+                前往 2026 机场推荐指南
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+            <a href="/brands/" class="inline-flex items-center justify-center px-10 py-4 bg-slate-700 hover:bg-slate-600 text-white text-lg font-bold rounded-2xl transition-all shadow-lg hover:scale-105">
+                进入品牌详细测评库
+            </a>
+        </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  // 客户端高级搜索与分类联动逻辑
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('faq-search-input');
+    const cards = document.querySelectorAll('.faq-card');
+    const sections = document.querySelectorAll('.faq-category-section');
+    const noResults = document.getElementById('faq-no-results');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        let totalVisible = 0;
+
+        // 重置或者按关键字过滤
+        sections.forEach(section => {
+          let sectionHasVisibleCard = false;
+          const sectionCards = section.querySelectorAll('.faq-card');
+
+          sectionCards.forEach(card => {
+            const searchableText = card.getAttribute('data-search') || '';
+            if (searchableText.includes(searchTerm)) {
+              card.style.display = 'flex';
+              sectionHasVisibleCard = true;
+              totalVisible++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          // 如果该分类下没有可见卡片，隐藏整个分类标题区域
+          if (sectionHasVisibleCard) {
+            section.style.display = 'block';
+          } else {
+            section.style.display = 'none';
+          }
+        });
+
+        // 控制"无结果"提示
+        if (totalVisible === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
+

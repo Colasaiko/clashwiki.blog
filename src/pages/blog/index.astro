@@ -6,11 +6,10 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import CategoryNav from '../../components/CategoryNav.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackButton from '../../components/BackButton.astro';
+import PageHeroNav from '../../components/PageHeroNav.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
 
 const posts = (await getCollection('blog')).sort((a, b) => {
-  const aIsBrand = a.id.startsWith('seo-brand-') ? 1 : 0;
-  const bIsBrand = b.id.startsWith('seo-brand-') ? 1 : 0;
-  if (aIsBrand !== bIsBrand) return bIsBrand - aIsBrand;
   return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
 });
 ---
@@ -20,9 +19,13 @@ const posts = (await getCollection('blog')).sort((a, b) => {
     <Breadcrumb items={[{ label: '博客文章' }]} />
     
     <!-- 头部标题区 -->
-    <div class="mt-8 mb-16">
-      <SectionTitle title="博客与教程" subtitle="探索网络代理工具、AI 生产力工具以及各类客户端的详细配置指南与公开评测数据汇总。" align="left" asH1={true} />
+    <div class="mt-8 mb-4">
+      <SectionTitle title="博客与教程" subtitle="探索网络代理工具、AI 生产力工具以及各类客户端的详细配置指南与公开评测数据汇总。" align="center" asH1={true} />
     </div>
+
+    <PageQuickRead />
+
+    <PageHeroNav description="为您提供网络代理客户端的配置教程、AI 工具的使用指南，以及客观的网络体验评测数据库。" categoryName="全部教程博客" />
 
     <CategoryNav />
 

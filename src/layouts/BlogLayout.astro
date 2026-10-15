@@ -4,6 +4,9 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import BackButton from '../components/BackButton.astro';
 import { CATEGORIES } from '../data/categories';
 import { slugifyTag } from '../utils/tagMapping';
+import AffCard from '../components/AffCard.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
+import BrandCompareTable from '../components/BrandCompareTable.astro';
 
 interface Props {
   title: string;
@@ -18,7 +21,7 @@ interface Props {
   changelog?: { date: string; desc: string; }[];
 }
 
-const { title, description, keywords, pubDate, updatedDate, category, tags, author = 'Clash Wiki 编辑组', image, changelog: manualChangelog } = Astro.props;
+const { title, description, keywords, pubDate, updatedDate, category, tags, author = 'Clash Wiki 编辑组', image, changelog: manualChangelog, aff_brands = [] } = Astro.props;
 const catObj = CATEGORIES.find(c => c.name === category);
 const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.slug}/` : `/category/${category}/`);
 
@@ -34,13 +37,13 @@ const changelog = manualChangelog || (() => {
   return logs;
 })();
 
-// Dynamically generate SEO keywords based on article tags, plus forced global keywords
-const seoKeywords = keywords || [...tags, "Clash", "便宜机场推荐", "跨境网络"].join(", ");
+// Dynamically generate SEO keywords based on article tags
+const seoKeywords = keywords || tags.slice(0, 5).join(",");
 
 const breadcrumbsData = [
-  { name: '首页', item: 'https://clashwiki.blog/' },
-  { name: '博客', item: 'https://clashwiki.blog/blog/' },
-  { name: category, item: `https://clashwiki.blog${categoryUrl}` },
+  { name: '首页', item: 'https://www.clashwiki.blog/' },
+  { name: '博客', item: 'https://www.clashwiki.blog/blog/' },
+  { name: category, item: `https://www.clashwiki.blog${categoryUrl}` },
   { name: title, item: Astro.url.href }
 ];
 
@@ -56,146 +59,204 @@ const displayUpdateDate = updatedDate ? updatedDate.toISOString().slice(0, 10) :
       { label: category, href: categoryUrl },
       { label: title }
     ]} />
-    
-    <header class="mb-10 mt-6 text-center">
-      <div class="mb-6 flex justify-center">
-        <a href={categoryUrl} class="px-3 py-1 bg-emerald-50  text-emerald-600  rounded-full text-sm font-medium hover:bg-emerald-100 transition-colors">
-          {category}
-        </a>
-      </div>
-      
-      <h1 class="text-3xl md:text-5xl font-bold font-heading text-slate-900  mb-6 leading-tight">
-        {title}
-      </h1>
-      
-      <div class="max-w-2xl mx-auto bg-slate-50 rounded-xl border border-slate-100 p-5 mt-8 text-left shadow-sm">
-        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2 border-b border-slate-200 pb-2">
-          <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          本文信息
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm text-slate-600">
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">📅</span>
-            <span>首次发布：<time datetime={pubDate.toISOString()}>{pubDate.toISOString().slice(0, 10)}</time></span>
-          </div>
-          {updatedDate ? (
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">🔄</span>
-            <span>最后更新：<time datetime={updatedDate.toISOString()}>{updatedDate.toISOString().slice(0, 10)}</time></span>
-          </div>
-          ) : (
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">🔄</span>
-            <span>最后更新：同首次发布</span>
-          </div>
-          )}
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">👤</span>
-            <span>作者：{author}</span>
-          </div>
-          <div class="flex items-center gap-2" id="reading-time-container" style="display: none;">
-            <span class="text-slate-400">⏱</span>
-            <span id="reading-time-text"></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">🧪</span>
-            <span class="truncate" title="测试环境：标准千兆终端 / 最新内核">测试环境：标准千兆终端 / 最新内核</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">📌</span>
-            <span>内容类型：{category}</span>
-          </div>
-        </div>
-      </div>
-      
-      {changelog && changelog.length > 0 && (
-        <div class="max-w-2xl mx-auto bg-white rounded-xl border border-slate-100 p-5 mt-4 text-left shadow-sm">
-          <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2 border-b border-slate-100 pb-2">
-            <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            内容更新记录
-          </h3>
-          <ul class="relative border-l border-slate-200 ml-2 space-y-4 pt-1 pb-1">
-            {changelog.map((log) => (
-              <li class="pl-5 relative">
-                <div class="absolute w-2 h-2 bg-emerald-400 rounded-full -left-[4.5px] top-1.5 ring-2 ring-white"></div>
-                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm">
-                  <time class="text-slate-500 font-mono text-xs bg-slate-50 px-1.5 py-0.5 rounded border border-slate-100">{log.date}</time>
-                  <span class="text-slate-700">{log.desc}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      
-      {category === '机场推荐' && (
-        <div class="max-w-2xl mx-auto bg-amber-50 rounded-xl border border-amber-200 p-5 mt-4 text-left shadow-sm">
-          <div class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <p class="text-sm text-amber-800 leading-relaxed mb-0">
-              <strong>推荐与商业关系：</strong>本文包含推广链接。我们郑重承诺，推广关系绝不会影响本文的客观测试评分与优缺点分析。
-            </p>
-          </div>
-        </div>
-      )}
-    </header>
 
-    <div class="prose-custom mx-auto mb-16 relative">
-      {isAiArticle && (
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded-r-lg not-prose shadow-sm">
-          <div class="flex items-start">
-            <div class="flex-shrink-0">
-              <svg class="h-5 w-5 text-blue-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+    {aff_brands && aff_brands.length > 0 && (
+      <div class="bg-amber-50 rounded-lg border border-amber-200 p-4 mt-6 shadow-sm">
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <p class="text-sm text-amber-800 leading-relaxed mb-0">
+            <strong>Affiliate 提示：</strong>本文部分链接可能为联盟推广链接。如果你通过这些链接购买服务，ClashWiki 可能获得佣金，且不会额外增加你的购买成本。该佣金不会改变本文的事实信息或评测标准。
+          </p>
+        </div>
+      </div>
+    )}
+    
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 md:p-10 lg:p-12 shadow-2xl mt-6 mb-10">
+      <header class="mb-10 text-center">
+        <div class="mb-6 flex justify-center">
+          <a href={categoryUrl} class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-sm font-medium hover:bg-emerald-100 transition-colors">
+            {category}
+          </a>
+        </div>
+        
+        <h1 class="text-3xl md:text-5xl font-bold font-heading text-slate-100 mb-6 leading-tight">
+          {title}
+        </h1>
+        
+        <div class="max-w-2xl mx-auto bg-slate-800/80 rounded-xl border border-slate-700 p-5 mt-8 text-left shadow-sm">
+          <h3 class="text-sm font-bold text-slate-200 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            本文信息
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 text-sm text-slate-400">
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">📅</span>
+              <span>首次发布：<time datetime={pubDate.toISOString()}>{pubDate.toISOString().slice(0, 10)}</time></span>
             </div>
-            <div class="ml-3">
-              <h3 class="text-sm font-bold text-blue-800 m-0">信息时效性提示</h3>
-              <div class="mt-1 text-sm text-blue-700">
-                <p class="m-0">AI 领域的产品功能、注册政策与风控规则变化极快。<strong>本文信息更新时间：{displayUpdateDate}</strong>。</p>
+            {updatedDate ? (
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">🔄</span>
+              <span>最后更新：<time datetime={updatedDate.toISOString()}>{updatedDate.toISOString().slice(0, 10)}</time></span>
+            </div>
+            ) : (
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">🔄</span>
+              <span>最后更新：同首次发布</span>
+            </div>
+            )}
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">👤</span>
+              <span>作者：{author}</span>
+            </div>
+            <div class="flex items-center gap-2" id="reading-time-container" style="display: none;">
+              <span class="text-slate-400">⏱</span>
+              <span id="reading-time-text"></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">🧪</span>
+              <span class="truncate" title="测试环境：标准千兆终端 / 最新内核">测试环境：标准千兆终端 / 最新内核</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400">📌</span>
+              <span>内容类型：{category}</span>
+            </div>
+          </div>
+        </div>
+        
+        {changelog && changelog.length > 0 && (
+          <div class="max-w-2xl mx-auto bg-slate-900/80 rounded-xl border border-slate-700 p-5 mt-4 text-left shadow-sm">
+            <h3 class="text-sm font-bold text-slate-200 mb-3 flex items-center gap-2 border-b border-slate-700 pb-2">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              内容更新记录
+            </h3>
+            <ul class="relative border-l border-slate-700 ml-2 space-y-4 pt-1 pb-1">
+              {changelog.map((log) => (
+                <li class="pl-5 relative">
+                  <div class="absolute w-2 h-2 bg-emerald-400 rounded-full -left-[4.5px] top-1.5 ring-2 ring-white"></div>
+                  <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm">
+                    <time class="text-slate-400 font-mono text-xs bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700">{log.date}</time>
+                    <span class="text-slate-300">{log.desc}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {category === '机场推荐' && (
+          <div class="max-w-2xl mx-auto bg-amber-50 rounded-xl border border-amber-200 p-5 mt-4 text-left shadow-sm">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <p class="text-sm text-amber-800 leading-relaxed mb-0">
+                <strong>Affiliate 提示：</strong>本文部分链接可能为联盟推广链接。如果你通过这些链接购买服务，ClashWiki 可能获得佣金。该佣金不会额外增加你的购买成本。我们郑重承诺，推广关系绝不会影响本文的客观测试评分与优缺点分析。
+              </p>
+            </div>
+          </div>
+        )}
+      </header>
+
+      <div class="prose-custom mx-auto relative">
+        {isAiArticle && (
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded-r-lg not-prose shadow-sm">
+            <div class="flex items-start">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-blue-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-bold text-blue-800 m-0">信息时效性提示</h3>
+                <div class="mt-1 text-sm text-blue-700">
+                  <p class="m-0">AI 领域的产品功能、注册政策与风控规则变化极快。<strong>本文信息更新时间：{displayUpdateDate}</strong>。</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-      <slot name="article-content" />
-      
-      {isAiArticle && (
-        <div class="mt-12 p-4 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-500 italic text-center not-prose">
-          注：本文会根据相关 AI 的服务政策和产品功能变化进行持续更新。
-        </div>
-      )}
+        )}
+
+        {aff_brands && aff_brands.length >= 4 && (
+          <BrandCompareTable brandIds={aff_brands} />
+        )}
+
+        <slot name="article-content" />
+
+        {aff_brands && aff_brands.length > 0 && (
+          <div class="mt-12 pt-8 border-t border-slate-700 border-dashed">
+            <h3 class="text-xl font-bold text-slate-100 mb-2 flex items-center gap-2">
+              <span class="text-amber-500">🏆</span> 优质服务商推荐
+            </h3>
+            <p class="text-sm text-slate-400 mb-6">如果你正在寻找稳定可靠的解决方案，不妨查看本站深度评测过的这些优质服务：</p>
+            {aff_brands.map(brand => <AffCard brand={brand} />)}
+            <div class="mt-4 bg-slate-800/50 rounded-lg p-3 text-xs text-slate-500 flex items-start gap-2 border border-slate-700">
+              <svg class="w-4 h-4 text-amber-500/70 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              <p class="mb-0 leading-relaxed">
+                <strong>Affiliate 提示：</strong>上方部分链接可能为联盟推广链接。如果你通过这些链接购买服务，ClashWiki 可能获得佣金。该佣金不会额外增加你的购买成本。我们郑重承诺，推广关系绝不会影响本站的客观评测。
+              </p>
+            </div>
+          </div>
+        )}
+
+        {(!aff_brands || aff_brands.length === 0) && (
+          <div class="mt-12 pt-8 border-t border-slate-700 border-dashed">
+            <div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-6 relative overflow-hidden">
+              <div class="absolute top-0 right-0 p-4 opacity-10">
+                <svg class="w-24 h-24 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+              </div>
+              <div class="relative z-10">
+                <h3 class="text-lg font-bold text-slate-100 mb-2 flex items-center gap-2">
+                  <span class="text-blue-400">⚡</span> 遇到网络或节点问题？
+                </h3>
+                <p class="text-[15px] text-slate-300 mb-5 leading-relaxed">
+                  如果您已经确认是网络环境或节点本身不稳定导致频繁 Timeout（超时）或卡顿，我们建议尝试更优质的专线或中转服务。可以查看 ClashWiki 为您精心收录与持续监测的服务商评测：
+                </p>
+                <a href="/topics/airport-recommendation/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors shadow-lg shadow-blue-500/20">
+                  查看 2026 最新机场推荐
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {isAiArticle && (
+          <div class="mt-12 p-4 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-400 italic text-center not-prose">
+            注：本文会根据相关 AI 的服务政策和产品功能变化进行持续更新。
+          </div>
+        )}
+      </div>
     </div>
 
-    <div class="bg-slate-50 rounded-2xl p-6 md:p-8 mb-10 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
+    <div class="bg-slate-800 rounded-2xl p-6 md:p-8 mb-10 border border-slate-800 shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
       <div class="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
         <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
       </div>
       <div class="flex-1">
         <div class="flex flex-wrap items-center gap-3 mb-2">
-          <h3 class="text-lg font-bold text-slate-800 m-0">编辑团队：{author}</h3>
+          <h3 class="text-lg font-bold text-slate-200 m-0">编辑团队：{author}</h3>
           <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded flex items-center gap-1">
             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             本文由编辑组审核
           </span>
         </div>
-        <p class="text-sm text-slate-600 leading-relaxed mb-0">
+        <p class="text-sm text-slate-400 leading-relaxed mb-0">
           专注网络工具、客户端配置、AI 工具与跨境网络体验研究。<br/>
           为保证内容的准确性与时效性，我们会定期对文中的配置步骤与评估数据进行重新验证。本站所有教程与评测均基于结构化评估模型与真实物理环境搭建。
         </p>
       </div>
     </div>
 
-    <div class="border-t border-slate-200  pt-8 pb-4 mb-16">
+    <div class="border-t border-slate-700  pt-8 pb-4 mb-16">
       <div class="flex flex-wrap gap-2">
-        <span class="text-sm font-medium text-slate-500  py-1 mr-2">相关标签:</span>
+        <span class="text-sm font-medium text-slate-400  py-1 mr-2">相关标签:</span>
         {tags.map(tag => (
-          <a href={`/tag/${slugifyTag(tag)}/`} class="px-3 py-1 bg-slate-100  text-slate-600  rounded-md text-sm hover:bg-emerald-100 hover:text-emerald-600 transition-colors">
+          <a href={`/tag/${slugifyTag(tag)}/`} class="px-3 py-1 bg-slate-800  text-slate-400  rounded-md text-sm hover:bg-emerald-100 hover:text-emerald-600 transition-colors">
             #{tag}
           </a>
         ))}
       </div>
     </div>
+
+    <RelatedPosts tags={tags} currentSlug={Astro.url.pathname.split('/').filter(Boolean).pop() || ''} />
 
     <slot name="after-article" />
   </article>

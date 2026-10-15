@@ -5,8 +5,14 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import BrandCard from '../../components/BrandCard.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackButton from '../../components/BackButton.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
 
-const brands = await getCollection('brands');
+const brands = (await getCollection('brands')).sort((a, b) => {
+  const orderA = a.data.sortOrder ?? 999;
+  const orderB = b.data.sortOrder ?? 999;
+  return orderA - orderB;
+});
 ---
 
 <BaseLayout title="2026最新优选网络代理品牌口碑精选库 | 节点服务商 - ClashWiki" description="面对全网纷繁复杂的机场服务商不知如何挑选？ClashWiki 独家甄录大带宽、低延迟、长周期稳定抗压的口碑强本领节点品牌，为您排雷避坑，点击进入白金优选榜单。" keywords="品牌口碑,优选节点,长周期稳定,避坑榜单" >
@@ -18,20 +24,23 @@ const brands = await getCollection('brands');
       <SectionTitle title="优质跨境网络机场品牌库" subtitle="收录2026年极速、优质、长寿不跑路的大牌与新锐性价比优良专线，全站数据真综合评估压一箭直触。" align="left" asH1={true} />
     </div>
 
+    <PageQuickRead />
+
+
     <!-- 筛选与排序控制面板 (Control Panel) -->
-    <div class="mb-8 p-6 bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/60 shadow-sm flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+    <div class="mb-8 p-6 bg-slate-900/80 backdrop-blur-md rounded-2xl border border-slate-700/60 shadow-sm flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
       
       <!-- 标签筛选器 -->
       <div class="flex-1 w-full">
         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">场景筛选</h4>
         <div class="flex flex-wrap gap-2" id="filter-buttons">
           <button class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium bg-emerald-500 text-white shadow-md shadow-emerald-500/20 transition-all" data-filter="all">全部</button>
-          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="低价">低价</button>
-          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="专线">专线</button>
-          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="大流量">大流量</button>
-          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="流媒体">流媒体</button>
-          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="电竞">游戏</button>
-          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="AI">AI</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-all" data-filter="低价">低价</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-all" data-filter="专线">专线</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-all" data-filter="大流量">大流量</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-all" data-filter="流媒体">流媒体</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-all" data-filter="电竞">游戏</button>
+          <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-all" data-filter="AI">AI</button>
         </div>
       </div>
 
@@ -39,12 +48,11 @@ const brands = await getCollection('brands');
       <div class="shrink-0 w-full md:w-auto">
         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">排序方式</h4>
         <div class="relative">
-          <select id="sort-select" class="appearance-none w-full md:w-48 bg-slate-50 border border-slate-200 text-slate-700 py-2 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 font-medium shadow-sm transition-all cursor-pointer">
-            <option value="default">默认推荐</option>
-            <option value="score-desc">综合评分 (由高到低)</option>
+          <select id="sort-select" class="appearance-none w-full md:w-48 bg-slate-800 border border-slate-700 text-slate-300 py-2 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 font-medium shadow-sm transition-all cursor-pointer">
+            <option value="default">默认推荐排序</option>
             <option value="price-desc">性价比分 (由高到低)</option>
           </select>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
           </div>
         </div>
@@ -53,12 +61,12 @@ const brands = await getCollection('brands');
     </div>
 
     <!-- 无结果提示 -->
-    <div id="no-results" class="hidden text-center py-16 bg-white/50 backdrop-blur-sm rounded-2xl border border-slate-200/50">
+    <div id="no-results" class="hidden text-center py-16 bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50">
       <div class="text-slate-400 mb-2">
         <svg class="w-12 h-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
       </div>
-      <h3 class="text-lg font-bold text-slate-700">没有找到匹配的服务商</h3>
-      <p class="text-slate-500 text-sm mt-1">请尝试选择其他标签。</p>
+      <h3 class="text-lg font-bold text-slate-300">没有找到匹配的服务商</h3>
+      <p class="text-slate-400 text-sm mt-1">请尝试选择其他标签。</p>
     </div>
 
     <!-- 品牌网格 -->
@@ -70,10 +78,13 @@ const brands = await getCollection('brands');
           url={`/brands/${brand.id.replace(/\.md$/, '')}/`}
           buyUrl={`/go/${brand.id.replace(/\.md$/, '')}`}
           tags={brand.data.tags}
+          price_info={brand.data.price_info}
+          speed_info={brand.data.speed_info}
           scores={brand.data.scores}
         />
       ))}
     </div>
+    <HubFooterLinks />
   </div>
 
   <script>
@@ -103,7 +114,7 @@ const brands = await getCollection('brands');
           const tagsStr = item.dataset.tags || '';
           const tagsArray = tagsStr.split(',').map(t => t.trim()).filter(Boolean);
           
-          if (currentFilter === 'all' || tagsArray.includes(currentFilter)) {
+          if (currentFilter === 'all' || tagsArray.some(t => t.includes(currentFilter))) {
             item.style.display = ''; // Let CSS handle the display type
             visibleCount++;
           } else {
@@ -148,9 +159,9 @@ const brands = await getCollection('brands');
           // Update button styles
           filterBtns.forEach(b => {
             b.classList.remove('bg-emerald-500', 'text-white', 'shadow-md', 'shadow-emerald-500/20');
-            b.classList.add('bg-slate-100', 'text-slate-600');
+            b.classList.add('bg-slate-800', 'text-slate-400');
           });
-          target.classList.remove('bg-slate-100', 'text-slate-600');
+          target.classList.remove('bg-slate-800', 'text-slate-400');
           target.classList.add('bg-emerald-500', 'text-white', 'shadow-md', 'shadow-emerald-500/20');
 
           updateGrid();

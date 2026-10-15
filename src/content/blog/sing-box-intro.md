@@ -1,16 +1,16 @@
 ---
-title: "sing-box 代理平台核心优势与生态深度测评 | 网络代理 - ClashWiki"
-description: "为什么要从传统客户端迁移到新兴的 sing-box 生态？ClashWiki 全面解析这款全能网络代理平台的底层架构、多协议支持与性能表现，点击了解下一代网络利器。"
+title: "sing-box 代理平台核心优势与生态全面评测"
+description: "为何要从传统客户端迁移到新兴的 sing-box 生态？ClashWiki 全面解析这款网络代理平台的底层架构、多协议支持与性能表现，点击了解下一代网络利器。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "Clash", "代理协议", "实用教程", "Hysteria 2", "VLESS"]
+category: "客户端教程"
+tags: ['sing-box', 'Clash', '代理协议', '客户端教程', 'Hysteria 2', 'VLESS']
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "生态解析,底层架构,多协议支持,网络代理"
 ---
 
-在网络代理圈子中，如果说前几年是 Shadowsocks 和 V2Ray 的天下，近两年是 Clash 的鼎盛时期，那么现在和未来，相对属于一个名为 **sing-box** 的新星。
+在网络代理圈子中，如果说前几年是 Shadowsocks 和 V2Ray 的天下，近两年是 [Clash](/tag/clash/) 的鼎盛时期，那么现在和未来，相对属于一个名为 **[sing-box](/tag/sing-box/)** 的新星。
 
 无论您是在寻找更低延迟的游戏加速器，还是在寻找能够突破最严厉封锁的网络工具，sing-box 都在成为众多资深极客的首选。那么，sing-box 究竟是什么？它与我们熟知的 Clash 有什么区别？它又支持哪些先进的协议？
 
@@ -36,10 +36,10 @@ keywords: "生态解析,底层架构,多协议支持,网络代理"
 
 ### 1. 协议支持的“代差”
 - **Clash 停滞不前**：原版 Clash 仅支持较老的协议（SS, VMess, Trojan），面对如今复杂的网络环境显得有些力不从心。虽然 Clash Meta (Mihomo) 继承了其衣钵，但在新协议的原生支持上，依然有历史包袱。
-- **sing-box 原生先进**：sing-box 几乎原生支持目前市面上所有最新的稳定连接锁协议。例如基于 QUIC 的 **Hysteria 2**，以及带有 Reality 防御机制的 **VLESS**。这些协议在晚高峰网络拥堵和敏感时期，表现出了碾压级别的优势。
+- **sing-box 原生先进**：sing-box 几乎原生支持目前市面上所有最新的稳定连接锁协议。例如基于 QUIC 的 **[Hysteria 2](/blog/hysteria2-explained/)**，以及带有 [Reality](/blog/vless-reality-explained/) 防御机制的 **[VLESS](/blog/vless-reality-explained/)**。这些协议在晚高峰网络拥堵和敏感时期，表现出了碾压级别的优势。
 
 ### 2. 内存与性能
-- **轻量级霸主**：sing-box 从零开始设计，极其注重内存控制。在路由器、老旧安卓手机等资源受限的设备上，sing-box 的内存占用通常只有同等规则下 Clash 的一半甚至三分之一，且 TUN 虚拟网卡的性能极佳。
+- **轻量级霸主**：sing-box 从零开始设计，极其注重内存控制。在路由器、老旧安卓手机等资源受限的设备上，sing-box 的内存占用通常只有同等规则下 Clash 的一半甚至三分之一，且 TUN [虚拟网卡](/blog/what-is-proxy-rules-and-tun/)的性能极佳。
 
 ### 3. 配置文件的门槛
 - **Clash 的 YAML**：Clash 的配置文件使用 `YAML` 格式，对人类阅读非常友好，分流规则清晰易懂，小白也能照猫画虎。
@@ -56,7 +56,7 @@ sing-box 之所以被称为“通用平台”，就是因为它几乎是个“�
 *   **传统兼容协议**：`Shadowsocks`, `VMess`, `SOCKS`, `HTTP`。
 *   **内网穿透与企业协议**：`WireGuard`, `SSH`。
 
-只要您的网络服务商（机场）或者您的 VPS 搭建了上述任何一种协议，sing-box 都能完美接入。
+只要您的网络[服务商](/category/airports/)（机场）或者您的 VPS 搭建了上述任何一种协议，sing-box 都能完美接入。
 
 ---
 

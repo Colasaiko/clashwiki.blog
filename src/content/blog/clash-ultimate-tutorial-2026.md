@@ -1,20 +1,20 @@
 ---
-title: "2026最新 Clash 全能深度配置与排障指南 | 代理进阶 - ClashWiki"
+title: "2026年Clash全平台配置与常见排障指南"
 description: "还在被复杂的代理规则和节点报错折磨？ClashWiki 重磅推出全平台通用进阶教程，包含订阅转换、自定义规则与常见网络诊断，点击成为网络优化高手。"
 pubDate: 2026-07-27
-category: "教程指南"
-tags: ["Clash"]
+category: "客户端教程"
+tags: ['Clash']
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 image: "/og/clash-theme.jpg"
 keywords: "全能配置,排障指南,自定义规则,进阶教程"
 ---
 
-## 引言：为什么在2026年依然首选 Clash？
+## 引言：为什么在2026年依然首选 [Clash](/tag/clash/)？
 
-尽管跨境网络的工具层出不穷，甚至许多协议和客户端在不断迭代，但在 2026 年，**Clash** 及其生态衍生品（如 Clash Verge Rev, Clash for Windows 的替代品, Clash Meta 等）依然是绝大多数用户的首选。
+尽管跨境网络的工具层出不穷，甚至许多协议和客户端在不断迭代，但在 2026 年，**Clash** 及其生态衍生品（如 [Clash Verge](/blog/clash-verge-vs-clash-for-windows/) Rev, Clash for Windows 的替代品, Clash Meta 等）依然是绝大多数用户的首选。
 
-其核心原因在于 Clash 拥有无与伦比的 **规则分流（Rule Providers）** 能力。通过 Clash，你可以实现：
+其核心原因在于 Clash 拥有无与伦比的 **[规则分流](/blog/what-is-proxy-rules-and-tun/)（Rule Providers）** 能力。通过 Clash，你可以实现：
 - 访问国内网站直连（极速且不消耗机场流量）。
 - 访问国际网站走代理。
 - 特定应用（如 Telegram、Discord）走指定节点。
@@ -26,7 +26,7 @@ keywords: "全能配置,排障指南,自定义规则,进阶教程"
 
 ## 第一部分：获取优质的 Clash 节点订阅
 
-在使用 Clash 之前，你必须拥有一个提供 Clash 订阅链接的服务商（俗称“机场”）。
+在使用 Clash 之前，你必须拥有一个提供 Clash 订阅链接的[服务商](/category/airports/)（俗称“机场”）。
 > **提示**：Clash 本身只是一个软件（类似于视频播放器），你需要导入节点订阅（类似于电影源）才能使用。
 
 获取订阅后，通常链接格式为：`https://example.com/api/v1/client/subscribe?token=xxxxxx`
@@ -35,7 +35,7 @@ keywords: "全能配置,排障指南,自定义规则,进阶教程"
 
 ## 第二部分：Windows 平台配置指南
 
-随着原版 Clash for Windows (CFW) 的停更，2026 年 Windows 平台最推荐的客户端是 **Clash Verge Rev**（基于 Tauri 和 Clash Meta 内核）。
+随着原版 Clash for Windows (CFW) 的停更，2026 年 Windows 平台最推荐的客户端是 **[Clash Verge Rev](/blog/clash-verge-vs-clash-for-windows/)**（基于 Tauri 和 Clash Meta 内核）。
 
 ### 1. 下载与安装
 1. 前往 GitHub 的 Clash Verge Rev 发布页。
@@ -48,7 +48,7 @@ keywords: "全能配置,排障指南,自定义规则,进阶教程"
 3. 在顶部输入框粘贴订阅链接，点击 **“导入 (Import)”**。
 4. 等待进度条完成后，**单击**刚刚导入的配置文件，使其左侧亮起蓝色的激活指示条。
 5. 点击左侧导航栏的 **“代理 (Proxies)”**，在此处你可以看到所有的节点。
-6. 点击左侧导航栏的 **“设置 (Settings)”**，打开 **“系统代理 (System Proxy)”** 开关。
+6. 点击左侧导航栏的 **“设置 (Settings)”**，打开 **“[系统代理](/blog/clash-timeout-troubleshooting/) (System Proxy)”** 开关。
 7. 恭喜！你已经可以自由访问国际互联网了。
 
 ---
@@ -64,7 +64,7 @@ keywords: "全能配置,排障指南,自定义规则,进阶教程"
 
 ### 2. 核心设置
 步骤与 Windows 完全一致：导入订阅 -> 激活配置 -> 开启系统代理 (System Proxy) 或 增强模式 (Tun Mode)。
-> **进阶技巧**：在 Mac 上开启 **TUN 模式 (增强模式)** 可以接管所有终端命令和不遵循系统代理的 App 的流量。
+> **进阶技巧**：在 Mac 上开启 **[TUN 模式](/blog/what-is-proxy-rules-and-tun/) (增强模式)** 可以接管所有终端命令和不遵循系统代理的 App 的流量。
 
 ---
 
@@ -79,13 +79,13 @@ keywords: "全能配置,排障指南,自定义规则,进阶教程"
 4. 粘贴你的机场订阅链接，名称可随意填写，点击右上角的保存图标。
 5. 选中该配置，返回首页。
 6. 点击中间巨大的 **“点击启动 (Tap to Start)”** 按钮。
-7. 系统会弹出 VPN 连接请求，点击“允许”。
+7. 系统会弹出 [VPN](/tag/vpn/) 连接请求，点击“允许”。
 
 ---
 
 ## 第五部分：iOS (iPhone/iPad) 平台配置指南
 
-由于 iOS 系统的封闭性，Clash 官方并没有推出 iOS 客户端。目前 iOS 上的完美替代品是 **Shadowrocket (小火箭)** 或 **Stash** (Stash 完全兼容 Clash 配置)。
+由于 iOS 系统的封闭性，Clash 官方并没有推出 iOS 客户端。目前 iOS 上的完美替代品是 **[Shadowrocket](/tag/shadowrocket/) (小火箭)** 或 **Stash** (Stash 完全兼容 Clash 配置)。
 
 ### 使用 Stash 配置 (最推荐)
 1. 在非国区 App Store 购买并下载 Stash。
@@ -100,7 +100,7 @@ keywords: "全能配置,排障指南,自定义规则,进阶教程"
 ### 1. 为什么开启 Clash 后，国内国际互联网服务站都打不开了？
 * **原因 A**：系统时间不准确。Clash 和底层协议对时间校验非常严格。**解决**：将电脑/手机的时间同步设置为“自动获取”，确保时间误差在 1 分钟以内。
 * **原因 B**：节点全部超时。**解决**：在“代理”页面点击闪电图标测试延迟，如果全红，请更新订阅或联系机场客服。
-* **原因 C**：DNS 污染或端口冲突。**解决**：重启电脑，或者在 Clash 设置中重置虚拟网卡。
+* **原因 C**：DNS 污染或端口冲突。**解决**：重启电脑，或者在 Clash 设置中重置[虚拟网卡](/blog/what-is-proxy-rules-and-tun/)。
 
 ### 2. 怎么让特定的软件（如游戏）走代理？
 一般的“系统代理”只能接管浏览器流量。要接管游戏或命令行流量，必须在设置中开启 **TUN 模式 (增强模式)**。Clash 依靠虚拟网卡将所有流量截获并根据规则分发。

@@ -1,0 +1,123 @@
+---
+// PageQuickRead.astro
+const { path = Astro.url.pathname } = Astro.props;
+
+// 归一化路径，确保首尾都有斜杠
+let cleanPath = path;
+if (!cleanPath.endsWith('/')) cleanPath += '/';
+if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+
+const pageData = {
+  '/blog/': {
+    quickRead: 'ClashWiki 的全站文章索引。这里汇集了我们发布的所有网络代理教程、翻墙工具评测、防封锁技术探讨以及流媒体解锁指南，是探索整个知识库的最全入口。',
+    tips: '文章非常多！建议优先使用上方的“分类导航栏”进行筛选，或者使用网页右上角的搜索功能来快速定位你遇到的具体问题。'
+  },
+  '/category/clients/': {
+    quickRead: '涵盖全平台（Windows / Mac / iOS / Android）主流代理客户端的详细图文教程。不论你使用的是老牌的 Clash、V2rayN，还是新一代的 sing-box 与 Clash Verge，都能在这里找到最详尽的配置步骤。',
+    tips: '不同客户端的核心原理其实是相通的。掌握了“如何导入订阅”与“如何开启系统代理”这两个核心步骤，你就能轻松驾驭任何一款翻墙软件。'
+  },
+  '/category/protocols/': {
+    quickRead: '深入解析翻墙协议与底层网络原理。从经典的 Shadowsocks/VMess，到抗封锁能力拉满的 Reality/VLESS，再到拯救垃圾线路的 Hysteria 2，带你了解协议的演进史与技术细节。',
+    tips: '对于普通用户而言，其实无需过度钻研协议底层。只要记住：求稳定用 Reality/VLESS，追求极致速度用 Hysteria 2 即可。'
+  },
+  '/category/troubleshooting/': {
+    quickRead: '科学上网疑难杂症的最终诊疗室。总结了全网玩家最容易遇到的连接失败、Timeout 报错、速度慢、无法接管系统流量等痛点，提供实打实的排障思路与检测工具。',
+    tips: '“连不上”的原因通常只有三个：节点死掉了、电脑时间不准导致协议握手失败、或者路由规则设置成了直连。从这三点排查能解决 80% 的问题。'
+  },
+  '/category/airports/': {
+    quickRead: '机场服务商深度评测与选购专区。收录了业内口碑良好、运行稳定的专线与平价机场。我们通过晚高峰测速、流媒体解锁测试，为你排雷避坑，推荐最具性价比的梯子。',
+    tips: '没有 100% 完美的机场，哪怕是顶级的 IPLC 专线也会偶尔遇到海缆故障。建议养成同时保留一个“主力机场”和一个“几块钱备用机场”的好习惯。'
+  },
+
+  '/topics/airport-recommendation/': {
+    quickRead: '2026年最新机场测速与筛选指南。我们排除了跑路风险极高的小作坊，优选出专线带宽充足、抗封锁能力强的顶级机场。无论你需求是 4K 流媒体、外服游戏还是稳定办公，本榜单都能提供直接参考。',
+    tips: '新人建议优先选择提供“月付”套餐的机场，先用一个月测试你当地宽带在晚高峰的表现。好用再续费季付或年付，切忌盲目上头买年费。'
+  },
+  '/brands/': {
+    quickRead: '全网主流翻墙代理品牌收录大全。这里汇集了高端 IEPL/IPLC 专线、平价大流量以及老牌机场，方便你快速查阅并找到适合自己消费档次的品牌，省去在茫茫互联网中搜索的烦恼。',
+    tips: '点击品牌即可进入对应的详细测评页面。如果你在寻找特定的解锁需求（如 ChatGPT 或 TikTok），可以在详细测评的解锁测试环节找到答案。'
+  },
+  '/compare/': {
+    quickRead: '最直观的机场多维对比表格。你可以同时对比多家机场的节点数量、专线类型、流媒体解锁表现、起售价格、以及退款政策，帮助你像对比手机参数一样挑选出性价比最高的服务商。',
+    tips: '表格支持横向滑动浏览。如果在对比中难以抉择，可以看看最后两列的“详细测评”入口，里面有更深度的晚高峰实际测速图供参考。'
+  },
+  '/topics/budget/': {
+    quickRead: '专为学生党和轻度用户准备的高性价比平价机场合集。我们从全网筛选出“便宜但不垃圾”的机场，虽然可能没有昂贵的专线，但在日常刷网页、看 1080P 视频等轻量级场景下依然游刃有余。',
+    tips: '平价机场的国际出口带宽通常有限，晚高峰（8点-11点）偶尔出现轻微卡顿属正常现象。如果追求极致稳定，还是建议考虑专线机场。'
+  },
+  '/tag/clash/': {
+    quickRead: 'Clash 从入门到精通的究极百科全书。不论你是刚听说 Clash 的小白，还是被各种分流规则和 YAML 语法折磨的高玩，这篇知识合集都能帮你理清客户端逻辑，让你彻底掌控自己的网络流量。',
+    tips: '新手不要被满屏的专业词汇吓到！建议直接从“Clash 新手使用路线图”开始跟着做，只需要“下载软件-导入订阅-开启代理”简单的三步就能畅游网络。'
+  },
+  '/topics/clients/': {
+    quickRead: '主流翻墙代理客户端大全。目前市面上有几十种不同内核的软件，我们帮你整理了 Clash 系列（Clash Verge、ClashX）、v2rayN、sing-box、Shadowrocket 等在 Windows/Mac/iOS/安卓平台上的最佳选择。',
+    tips: '没有“最好”的客户端，只有最适合你的。如果你不想折腾，Clash Verge 是目前的桌面端首选；如果你是苹果全家桶用户，Shadowrocket 和 Surge 会是最终归宿。'
+  },
+  '/topics/beginners/': {
+    quickRead: '纯小白翻墙扫盲指南。我们去掉了所有硬核的计算机网络原理，用最通俗易懂的大白话告诉你：代理是什么、机场是什么、订阅怎么用、以及为什么有时能连上却打不开网页。',
+    tips: '翻墙其实就像是买了一张国外的电话卡，而客户端就是你的手机。不要有畏难情绪，花 10 分钟读完扫盲篇，你就能解决 90% 的连通问题。'
+  },
+  '/downloads/': {
+    quickRead: '全平台代理软件纯净下载站。我们直接链接到各大开源项目（如 GitHub）的官方 Release 页面，确保你下载到的每一份安装包都是 100% 纯净、未被篡改的官方原版，杜绝木马与挖矿后门。',
+    tips: '强烈建议不要从第三方网盘或不知名博客下载代理软件！尤其是 Windows 用户，不干净的客户端极易导致你的账号和密码被盗。'
+  },
+  '/tools/': {
+    quickRead: '科学上网必备的在线诊断工具箱。当你的梯子抽风时，不用再四处乱问。直接使用这里的检测工具查 IP 归属地、测 DNS 泄露、查 WebRTC 隐私，三分钟精准定位出网络问题的根源。',
+    tips: '建议把本页面加入浏览器收藏夹。每次换了新节点后，来这里“体检”一下，确保你的真实 IP 没有因为浏览器插件或配置错误而泄露。'
+  },
+  '/tools/clash-checker/': {
+    quickRead: 'Clash YAML 配置文件语法诊断器。很多人的 Clash 无法启动或报错，都是因为导入了格式错误的配置。把你的配置粘进来，它能帮你一键检查节点组、规则和缩进是否符合规范。',
+    tips: '该工具完全在你的浏览器本地（Client-Side）运行，你的任何节点信息、密码和服务器 IP 都不会上传到我们的服务器，请放心使用。'
+  },
+  '/tools/ip/': {
+    quickRead: '最专业的 IP 和 DNS 泄露检测工具。它能告诉你当前节点被识别为哪个国家、是否解锁了当地的流媒体，以及你的网络环境中是否存在 DNS 劫持和隐私泄露风险。',
+    tips: '如果你明明连了美国节点，但检测出来却显示其他国家，或者流媒体依然看不了，说明这个节点其实是“伪装”的广播 IP，建议立刻换节点。'
+  },
+  '/faq/': {
+    quickRead: '337 个真实玩家踩过的坑与解答合集。Timeout 报错？连上却无法上网？晚上速度太慢？我们把所有新人最容易遇到、最常见的高频疑难杂症全部整理在此，手把手教你排障。',
+    tips: '遇到问题先别慌，按 Ctrl+F 或 Cmd+F 直接在页面内搜索报错关键词。99% 的基础网络故障都能在这个页面里找到解决方案。'
+  },
+  '/topics/streaming/': {
+    quickRead: 'Netflix、Disney+、HBO Max 流媒体解锁进阶指南。普通的节点通常只能看油管，如果想畅享海外流媒体的正版剧集，你需要了解什么是原生 IP，以及如何挑选能稳定绕过版权封锁的机场。',
+    tips: '流媒体平台的封锁策略非常严格且频繁更新。如果昨晚还能看，今天突然提示“不支持该地区”，这很正常，只需在客户端里切换一个新节点即可。'
+  },
+  '/category/ai-tools/': {
+    quickRead: 'ChatGPT、Claude 与热门 AI 工具的代理连通指南。AI 公司对代理 IP 的封杀力度堪比流媒体。这里教你如何寻找“原生住宅 IP”节点，以及如何通过配置规则防止账号被封禁。',
+    tips: '使用 AI 聊天机器人时，切忌频繁在不同国家的节点之间疯狂切换！一天内 IP 跨越多国是账号被系统风控和封号的最直接原因。'
+  },
+  '/topics/advanced/': {
+    quickRead: '高级协议与防封锁极客专区。当长城防火墙（GFW）发威时，普通的代理协议会全军覆没。带你了解 Reality、Hysteria 2 等前沿抗封锁协议的原理，以及如何通过高级路由规则极限优化延迟。',
+    tips: '如果你的网络只是用来查查资料看看视频，完全不需要死磕这些高级协议。但如果你身处特殊的网络环境（如严格限制的校园网或企业网），这篇将是你的救命稻草。'
+  },
+  '/topics/scam-avoidance/': {
+    quickRead: '机场防骗防跑路避坑指南。这行的水很深，一不小心就会遇到“提桶跑路”或“虚假宣传”的不良商家。教你如何识破超低价陷阱、如何判断专线的真假，以及被跑路后如何止损。',
+    tips: '永远记住一条铁律：尽量选择月付或季付。任何打着“终身卡”、“超级打折的三年付”名义让你一次性掏大笔钱的机场，跑路概率高达 99%。'
+  }
+};
+
+const currentData = pageData[cleanPath];
+---
+
+{currentData && (
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 relative z-20">
+    <!-- 30秒小白速读 -->
+    <div class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 shadow-lg relative overflow-hidden transition-all hover:bg-slate-800/80">
+      <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-lg shrink-0">⏱️</div>
+        <h3 class="text-lg font-bold text-slate-200">30秒小白速读</h3>
+      </div>
+      <p class="text-slate-400 text-sm leading-relaxed">{currentData.quickRead}</p>
+    </div>
+
+    <!-- 温馨小提示 -->
+    <div class="bg-amber-900/10 border border-amber-700/30 rounded-2xl p-6 shadow-lg relative overflow-hidden transition-all hover:bg-amber-900/20">
+      <div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-lg shrink-0">💡</div>
+        <h3 class="text-lg font-bold text-amber-200">温馨小提示</h3>
+      </div>
+      <p class="text-amber-200/70 text-sm leading-relaxed">{currentData.tips}</p>
+    </div>
+  </div>
+)}

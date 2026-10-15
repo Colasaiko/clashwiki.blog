@@ -36,6 +36,9 @@ const brands = defineCollection({
       client_support: z.number().min(0).max(5),
       service: z.number().min(0).max(5),
     }).optional(),
+    sortOrder: z.number().optional(),
+    price_info: z.string().optional(),
+    speed_info: z.string().optional(),
     last_checked: z.object({
       price: z.string().or(z.date()),
       network: z.string().or(z.date()),

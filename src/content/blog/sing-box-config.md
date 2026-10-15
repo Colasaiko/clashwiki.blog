@@ -1,18 +1,18 @@
 ---
-title: "2026最新 sing-box 配置文件手写进阶教程 | 代理进阶 - ClashWiki"
-description: "不想依赖订阅转换，打算自己定制强大的分流规则？ClashWiki 深入拆解 sing-box 的标准 JSON 配置结构，带您掌握出入站路由的高阶写法，点击成为配置达人。"
+title: "2026年 sing-box 配置文件手写进阶教程"
+description: "不想依赖订阅转换，想自己定制强大的分流规则？ClashWiki 深入拆解 sing-box 的标准 JSON 配置结构，带您掌握路由的高阶写法，点击成为配置达人。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "配置文件", "分流规则"]
+category: "客户端教程"
+tags: ['sing-box', '配置规则', '分流规则']
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "手写配置,分流规则,JSON结构,进阶教程"
 ---
 
-如果您对网络代理的理解还停留在“一键导入订阅链接”，那么 sing-box 可能会让您望而生畏。但如果您是一名追求极致控制权的极客，渴望精准掌控每一条网络请求的流向，那么 sing-box 的 JSON 配置文件将为您打开一扇新世界的大门。
+如果您对网络代理的理解还停留在“一键导入订阅链接”，那么 [sing-box](/tag/sing-box/) 可能会让您望而生畏。但如果您是一名追求极致控制权的极客，渴望精准掌控每一条网络请求的流向，那么 sing-box 的 JSON 配置文件将为您打开一扇新世界的大门。
 
-与 Clash 人类可读性极强的 YAML 格式不同，sing-box 采用了更严谨、更适合程序解析的 JSON 格式。这篇文章将带您拆解 sing-box 配置文件的五脏六腑。
+与 [Clash](/tag/clash/) 人类可读性极强的 YAML 格式不同，sing-box 采用了更严谨、更适合程序解析的 JSON 格式。这篇文章将带您拆解 sing-box 配置文件的五脏六腑。
 
 ---
 
@@ -21,7 +21,7 @@ keywords: "手写配置,分流规则,JSON结构,进阶教程"
 一个完整的 sing-box 配置文件，主要由四大块组成。理解了这四块，您就理解了 sing-box 的灵魂：
 
 1. **`log` (日志)**：负责记录运行状态，排错必备。
-2. **`inbounds` (入站)**：负责接收流量。流量怎么进入 sing-box？是通过 HTTP 代理、SOCKS5，还是 TUN 虚拟网卡？
+2. **`inbounds` (入站)**：负责接收流量。流量怎么进入 sing-box？是通过 HTTP 代理、SOCKS5，还是 TUN [虚拟网卡](/blog/what-is-proxy-rules-and-tun/)？
 3. **`outbounds` (出站)**：负责发送流量。流量怎么发出去？是直连 (direct)、拦截 (block)，还是通过代理节点 (如 vless, hysteria2) 发送？
 4. **`route` (路由)**：核心大脑。负责决定从 `inbounds` 进来的流量，应该匹配哪条规则，最终交给哪个 `outbounds`。
 
@@ -93,3 +93,8 @@ keywords: "手写配置,分流规则,JSON结构,进阶教程"
 ## 结语
 
 手搓 JSON 是一项非常考验耐心（和视力，特别是漏写逗号时）的工作。对于日常使用，我们强烈建议搭配图形化客户端使用，仅在需要微调特定分流规则时，再去动这底层的 JSON 结构。
+
+
+> [!TIP]
+> **还没有合适的节点？**
+> 如果你还没有稳定可用的翻墙机场，或者正在寻找速度更快的优质节点，可以参考 ClashWiki 团队定期测速更新的 [2026 机场推荐指南](/topics/airport-recommendation/)，我们评测了多家高性价比与专线梯子，总有一款适合你。

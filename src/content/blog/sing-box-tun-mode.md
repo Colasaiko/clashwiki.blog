@@ -1,22 +1,22 @@
 ---
-title: "sing-box TUN 虚拟网卡接管模式进阶教程 | 代理进阶 - ClashWiki"
-description: "普通系统代理无法覆盖游戏客户端或命令行工具？ClashWiki 手把手教您开启 sing-box 的 TUN 真全局模式，解决所有网络穿透难题，点击阅读权威操作指南。"
+title: "sing-box TUN 虚拟网卡全局接管模式教程"
+description: "系统代理无法覆盖游戏客户端或命令行工具？ClashWiki 手把手教您开启 sing-box 的 TUN 真全局模式，解决所有网络穿透难题，点击阅读权威操作指南。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "游戏加速", "实用教程", "Windows", "macOS"]
+category: "客户端教程"
+tags: ['sing-box', '游戏加速', '客户端教程', 'Windows', 'macOS']
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "TUN模式,虚拟网卡接管,真全局代理,进阶教程"
 ---
 
-对于经常打跨服游戏、或者需要使用 Windows UWP 微软商店应用的用户来说，普通的 System Proxy (系统代理) 往往无法接管这部分流量。此时，您需要开启 sing-box 的“杀手锏”功能：**TUN 模式**。
+对于经常打跨服游戏、或者需要使用 Windows UWP 微软商店应用的用户来说，普通的 System Proxy ([系统代理](/blog/clash-timeout-troubleshooting/)) 往往无法接管这部分流量。此时，您需要开启 [sing-box](/tag/sing-box/) 的“杀手锏”功能：**[TUN 模式](/blog/what-is-proxy-rules-and-tun/)**。
 
 ---
 
 ## 什么是 TUN 模式？
 
-TUN (Network TUNnel) 模式的核心原理是在操作系统中创建一张**虚拟网卡**。
+TUN (Network TUNnel) 模式的核心原理是在操作系统中创建一张**[虚拟网卡](/blog/what-is-proxy-rules-and-tun/)**。
 开启 TUN 后，sing-box 会通过修改系统路由表，将设备上**所有**软件发出的网络请求强制引流到这张虚拟网卡中。这意味着，无论是不遵守系统代理设置的命令行工具、老旧应用、甚至是外服游戏客户端，流量都会被强制接管并进行代理。
 
 ## 如何在配置文件中开启 TUN？

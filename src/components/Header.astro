@@ -10,18 +10,25 @@ import { MAIN_NAV } from '../data/nav';
       </a>
     </div>
     
-    <nav class="hidden md:flex items-center gap-1 bg-white/95 backdrop-blur-md px-2 py-1.5 rounded-full shadow-sm border border-slate-200/80">
+    <nav class="hidden md:flex items-center gap-1 bg-slate-900/95 backdrop-blur-md px-2 py-1.5 rounded-full shadow-sm border border-slate-700/80">
       {MAIN_NAV.map(item => (
         item.children ? (
           <div class="relative group">
-            <a href={item.href} class="text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all flex items-center gap-1">
+            <a href={item.href} class="text-sm font-semibold text-slate-300 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all flex items-center gap-1">
               {item.label}
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:rotate-180"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </a>
             <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <div class="bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-lg rounded-2xl py-2 w-48 flex flex-col">
+              <div class="bg-slate-900/95 backdrop-blur-md border border-slate-700/80 shadow-lg rounded-2xl py-2 w-48 flex flex-col">
                 {item.children.map(child => (
-                  <a href={child.href} class="text-sm text-slate-600 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2.5 transition-colors text-center font-medium">
+                  <a 
+                    href={child.href} 
+                    class={`text-sm px-4 py-2.5 transition-colors text-center font-medium ${
+                      (child as any).highlight 
+                        ? 'text-orange-400 hover:text-orange-300 drop-shadow-[0_0_8px_rgba(251,146,60,0.8)] font-bold animate-pulse' 
+                        : 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50'
+                    }`}
+                  >
                     {child.label}
                   </a>
                 ))}
@@ -29,7 +36,7 @@ import { MAIN_NAV } from '../data/nav';
             </div>
           </div>
         ) : (
-          <a href={item.href} class="text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all">
+          <a href={item.href} class="text-sm font-semibold text-slate-300 hover:text-emerald-600 hover:bg-emerald-50 px-4 py-2 rounded-full transition-all">
             {item.label}
           </a>
         )
@@ -40,7 +47,7 @@ import { MAIN_NAV } from '../data/nav';
       <a href="/brands/" class="hidden md:inline-flex btn-primary py-2.5 px-6 text-sm shadow-lg shadow-emerald-500/20">
         寻找机场
       </a>
-      <button class="md:hidden text-slate-800 drop-shadow-sm">
+      <button class="md:hidden text-slate-200 drop-shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
     </div>
@@ -58,10 +65,10 @@ import { MAIN_NAV } from '../data/nav';
       
       if (currentScrollY > 20) {
         header.classList.remove('bg-transparent', 'border-none', 'h-20');
-        header.classList.add('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-200/50', 'shadow-sm', 'h-16');
+        header.classList.add('bg-slate-900/80', 'backdrop-blur-md', 'border-b', 'border-slate-700/50', 'shadow-sm', 'h-16');
       } else {
         header.classList.add('bg-transparent', 'border-none', 'h-20');
-        header.classList.remove('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-slate-200/50', 'shadow-sm', 'h-16');
+        header.classList.remove('bg-slate-900/80', 'backdrop-blur-md', 'border-b', 'border-slate-700/50', 'shadow-sm', 'h-16');
       }
       
       // Auto-hide header when scrolling down past 100px

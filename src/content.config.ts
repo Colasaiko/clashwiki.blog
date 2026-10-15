@@ -13,7 +13,7 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
     author: z.string().default('Admin'),
-  }),
+  }).catchall(z.any()),
 });
 
 const brands = defineCollection({
@@ -24,9 +24,9 @@ const brands = defineCollection({
     category: z.string().default('机场推荐'),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
-    updatedDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     image: z.string().optional(),
-  }),
+  }).catchall(z.any()),
 });
 
 const topics = defineCollection({
@@ -37,7 +37,7 @@ const topics = defineCollection({
     slug: z.string(),
     featured: z.boolean().default(false),
     updatedDate: z.coerce.date(),
-  }),
+  }).catchall(z.any()),
 });
 
 export const collections = { blog, brands, topics };

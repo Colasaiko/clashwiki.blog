@@ -1,18 +1,39 @@
 ---
+import { getCollection } from 'astro:content';
 import ArticleCard from './ArticleCard.astro';
-import SectionTitle from './SectionTitle.astro';
 
 interface Props {
-  posts: any[];
+  currentSlug: string;
+  tags: string[];
 }
 
-const { posts } = Astro.props;
+const { currentSlug, tags } = Astro.props;
+
+// Fetch all blog posts
+const allPosts = await getCollection('blog');
+
+// Find posts with overlapping tags, exclude current
+const relatedPosts = allPosts
+  .filter(post => post.id.replace(/\.md$/, '') !== currentSlug)
+  .map(post => {
+    const postTags = post.data.tags || [];
+    const intersection = postTags.filter((t: string) => (tags || []).includes(t)).length;
+    return { post, score: intersection };
+  })
+  .filter(item => item.score > 0)
+  .sort((a, b) => b.score - a.score || new Date(b.post.data.pubDate || new Date()).valueOf() - new Date(a.post.data.pubDate || new Date()).valueOf())
+  .map(item => item.post)
+  .slice(0, 3);
 ---
-{posts.length > 0 && (
-  <div class="mt-16 pt-16 border-t border-slate-200 ">
-    <SectionTitle title="相关阅读" align="left" />
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-      {posts.map(post => (
+
+{relatedPosts.length > 0 && (
+  <div class="mt-16 pt-10 border-t border-slate-800">
+    <h3 class="text-2xl font-heading font-bold text-slate-100 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+      相关阅读
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {relatedPosts.map((post) => (
         <ArticleCard 
           title={post.data.title}
           description={post.data.description}

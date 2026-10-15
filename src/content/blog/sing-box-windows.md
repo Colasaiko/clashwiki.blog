@@ -1,16 +1,16 @@
 ---
-title: "sing-box Windows 电脑版快速配置进阶教程 | 桌面代理 - ClashWiki"
-description: "Windows 用户如何快速部署轻量高效的 sing-box 代理？ClashWiki 提供从内核下载到图形化客户端搭配的完整避坑教程，点击开启极低资源占用的跨境网络体验。"
+title: "sing-box Windows 电脑版快速配置教程"
+description: "Windows 用户如何快速部署高效的 sing-box 代理？ClashWiki 提供从内核下载到图形化客户端搭配的完整避坑教程，点击开启极低资源占用的跨境网络体验。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "Windows", "Hiddify", "客户端教程"]
+category: "客户端教程"
+tags: ['sing-box', 'Windows', 'Hiddify', '客户端教程']
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "Windows客户端,极低资源占用,图形化配置,进阶教程"
 ---
 
-对于 Windows 用户来说，随着 Clash for Windows 的停更，寻找一个强大且持续更新的替代品成为了当务之急。而以 sing-box 为内核的图形化客户端，正是完美的接班人。
+对于 Windows 用户来说，随着 [Clash](/tag/clash/) for Windows 的停更，寻找一个强大且持续更新的替代品成为了当务之急。而以 [sing-box](/tag/sing-box/) 为内核的图形化客户端，正是完美的接班人。
 
 目前 Windows 平台上体验最好的两款 sing-box 客户端分别是：极客首选的 **GUI.for.SingBox** 和小白福音 **Hiddify**。
 
@@ -28,7 +28,7 @@ keywords: "Windows客户端,极低资源占用,图形化配置,进阶教程"
 3. 按照提示一直“下一步”完成安装。
 
 ### 2. 导入订阅与连接
-1. 登录您的网络服务商后台，找到“一键订阅”或“复制订阅链接”。（如果没有提供 Hiddify 专属订阅，直接复制普通的 Clash 或 V2Ray 订阅链接也可，Hiddify 兼容性极强）。
+1. 登录您的网络[服务商](/category/airports/)后台，找到“一键订阅”或“复制订阅链接”。（如果没有提供 Hiddify 专属订阅，直接复制普通的 Clash 或 V2Ray 订阅链接也可，Hiddify 兼容性极强）。
 2. 打开 Hiddify 客户端，点击界面中心的 **+ 号 (New Profile)**，选择 **从剪贴板导入 (Import from Clipboard)**。
 3. 导入成功后，点击界面上的巨大圆形按钮 **[Tap to Connect]**。
 4. 按钮变绿，即可畅游国际互联网。
@@ -48,7 +48,7 @@ keywords: "Windows客户端,极低资源占用,图形化配置,进阶教程"
 1. **下载内核**：首次运行可能没有内核，点击左侧菜单的“设置(Settings)” -> “内核(Cores)”，点击下载最新的 sing-box 内核。
 2. **导入订阅**：点击左侧“配置(Profiles)”，新建一个配置，将您的订阅链接粘贴进去并保存。
 3. **选择节点**：点击左侧“代理(Proxies)”，您会看到熟悉的节点列表与延迟测试按钮，选择您需要的节点。
-4. **开启代理**：在“仪表盘(Dashboard)”中，开启系统代理(System Proxy) 即可。
+4. **开启代理**：在“仪表盘(Dashboard)”中，开启[系统代理](/blog/clash-timeout-troubleshooting/)(System Proxy) 即可。
 
 ## 结语
 无论您选择极简的 Hiddify 还是功能丰富的 GUI.for.SingBox，您都已经迈入了新一代代理技术的大门。现在，去体验更低的延迟和更高的稳定性吧！

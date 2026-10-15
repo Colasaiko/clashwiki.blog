@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+// 主要参考资料
+const mainResources = [
+  {
+    name: 'BestJichang',
+    description: '专注于全网最新优质机场的深度评测与推荐，提供极具参考价值的测速数据与稳定选购指南。',
+    url: 'https://bestjichang.com/',
+    icon: '🏆',
+    tags: ['机场评测', '测速', '选购'],
+  },
+  {
+    name: 'Vpn-clash',
+    description: '专业剖析 VPN 与 Clash 生态的优劣差异，提供详尽的网络安全隐私保护方案与防封锁技巧。',
+    url: 'https://vpn-clash.net/',
+    icon: '🛡️',
+    tags: ['VPN对比', '安全', '防封锁'],
+  },
+  {
+    name: 'JichangBlog',
+    description: '记录科学上网干货与行业动态，分享小众、稳定且极具性价比的网络加速服务商评测博客。',
+    url: 'https://jichangblog.net/',
+    icon: '📝',
+    tags: ['行业动态', '博客', '高性价比'],
+  },
+  {
+    name: 'Jichangmao',
+    description: '网罗全网极简优质的代理方案，聚合各类开源网络加速协议的前沿分析与节点筛选心得。',
+    url: 'https://jichangmao.com/',
+    icon: '🐱',
+    tags: ['节点筛选', '极简', '网络优化'],
+  }
+];
+
+// 更多流行机场推荐博客
+const moreResources = [
+  {
+    name: 'Clash 爱好者',
+    description: '深入研究 Clash 内核与规则分流的顶级博客，分享大量客户端配置技巧与热门代理推荐。',
+    url: 'https://clashios.com/',
+    icon: '💡',
+    tags: ['Clash教程', '规则分流', '资源'],
+  },
+  {
+    name: '润土分享',
+    description: '老牌且极具影响力的机场评测与科学上网干货博客，涵盖各大服务商的长线测速与抗压报告。',
+    url: 'https://runtufenxiang.com/',
+    icon: '🌍',
+    tags: ['深度评测', '老牌博客', '干货'],
+  },
+  {
+    name: '毒药测速 (DuyaoSS)',
+    description: '曾经的行业风向标，虽然更新频率降低，但其测评维度和节点数据图表仍是测速界的标杆。',
+    url: 'https://www.duyaoss.com/',
+    icon: '📊',
+    tags: ['数据图表', '硬核测速', '历史标杆'],
+  },
+  {
+    name: '1024 机场推荐',
+    description: '汇聚了大量深受程序员与开发者喜爱的高稳定性翻墙服务商，侧重于 AI 工具与开发的网络需求。',
+    url: 'https://1024.day/',
+    icon: '💻',
+    tags: ['开发者', 'AI节点', '高稳定性'],
+  }
+];
+
+// 其他资料来源 (官方项目与客户端)
+const otherResources = [
+  {
+    name: 'Mihomo (Clash Meta)',
+    description: '当前最强大、持续维护的开源 Clash 核心分支，支持极简灵活的规则与最新代理协议。',
+    url: 'https://wiki.metacubex.one/',
+    icon: '🐈',
+    tags: ['官方文档', 'Clash内核', '开源项目'],
+  },
+  {
+    name: 'Shadowrocket',
+    description: 'iOS 平台最经典的代理工具，支持极速扫码导入与详尽的路由策略配置，生态极其繁荣。',
+    url: 'https://apps.apple.com/us/app/shadowrocket/id932747118',
+    icon: '🚀',
+    tags: ['iOS客户端', 'AppStore', '主流工具'],
+  },
+  {
+    name: 'sing-box',
+    description: '下一代通用代理平台，拥有极佳的跨平台性能，被众多极客与新型客户端作为底层核心。',
+    url: 'https://sing-box.sagernet.org/zh/',
+    icon: '📦',
+    tags: ['官方社区', '极客推荐', '下一代'],
+  },
+  {
+    name: 'v2rayN',
+    description: 'Windows 平台广泛使用、界面直观且功能全面的 Xray/V2Ray 图形化管理工具，开箱即用。',
+    url: 'https://github.com/2dust/v2rayN',
+    icon: '🪟',
+    tags: ['Windows工具', 'GitHub', '简单易用'],
+  }
+];
+---
+
+<BaseLayout 
+  title="行业参考资料与推荐阅读 - ClashWiki" 
+  description="ClashWiki 官方推荐的优质第三方参考资料与独立博客。我们甄选了网络优化、AI 效率、极客硬件等领域的优质内容源，为您提供更广阔的知识视野。" 
+  keywords="参考资料,优质博客,推荐阅读,网络技术,AI工具"
+>
+  <div class="container mx-auto max-w-7xl px-4 pt-28 pb-20 min-h-[85vh]">
+    <Breadcrumb items={[{ label: '参考资料' }]} />
+    
+    <div class="mt-8 mb-16 text-center">
+      <SectionTitle 
+        title="参考资料与推荐阅读" 
+        subtitle="除了 ClashWiki 本站的测评与教程，我们还强烈推荐以下高质量的「第三方独立内容源」。它们在各自的垂直领域提供了极具深度的见解与参考资料。" 
+        align="center" 
+        asH1={true} 
+      />
+    </div>
+
+    <!-- 温馨小提示 -->
+    <div class="mb-12 max-w-5xl mx-auto bg-emerald-900/20 border border-emerald-500/30 rounded-2xl p-6 flex items-start gap-4 shadow-lg shadow-emerald-900/10">
+      <div class="text-emerald-400 text-3xl mt-1">💡</div>
+      <div>
+        <h3 class="text-emerald-400 font-bold text-lg mb-2">温馨小提示</h3>
+        <p class="text-slate-300 leading-relaxed text-sm">
+          ClashWiki 作为一个开源与共享精神驱动的综合知识库，我们的许多评测数据、技术方案以及内容灵感，均受益于下方这些极具价值的中文社区与独立博客。我们强烈建议您在将本站加入书签的同时，也多多关注这些硬核站长与开源项目的心血之作！
+        </p>
+      </div>
+    </div>
+
+    <!-- 本站主要参考资料来源于 -->
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-2xl md:text-3xl font-heading font-bold text-emerald-400">【本站主要参考资料来源于】</h2>
+      </div>
+      
+      <!-- 设置为 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 让它们排成一排 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {mainResources.map(res => (
+          <a 
+            href={res.url} 
+            target="_blank" 
+            rel="noopener" 
+            class="group block bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:bg-slate-800/80 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-emerald-500/10 relative overflow-hidden"
+          >
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-500"></div>
+            
+            <div class="relative z-10 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl mb-5 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                {res.icon}
+              </div>
+              
+              <h3 class="text-lg font-bold font-heading text-slate-100 mb-3 group-hover:text-emerald-400 transition-colors">
+                {res.name}
+              </h3>
+              
+              <p class="text-slate-400 text-sm leading-relaxed flex-grow mb-5">
+                {res.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto">
+                {res.tags.map(tag => (
+                  <span class="px-2 py-1 text-[11px] font-medium bg-slate-950 text-slate-300 border border-slate-800 rounded-md">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- 更多参考资料来源 -->
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-2xl md:text-3xl font-heading font-bold text-emerald-400">【更多参考资料来源】</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {moreResources.map(res => (
+          <a 
+            href={res.url} 
+            target="_blank" 
+            rel="noopener" 
+            class="group block bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:bg-slate-800/80 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-emerald-500/10 relative overflow-hidden"
+          >
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-500"></div>
+            
+            <div class="relative z-10 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl mb-5 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                {res.icon}
+              </div>
+              
+              <h3 class="text-lg font-bold font-heading text-slate-100 mb-3 group-hover:text-emerald-400 transition-colors">
+                {res.name}
+              </h3>
+              
+              <p class="text-slate-400 text-sm leading-relaxed flex-grow mb-5">
+                {res.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto">
+                {res.tags.map(tag => (
+                  <span class="px-2 py-1 text-[11px] font-medium bg-slate-950 text-slate-300 border border-slate-800 rounded-md">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- 其他资料来源 -->
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-2xl md:text-3xl font-heading font-bold text-emerald-400">【其他资料来源】</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {otherResources.map(res => (
+          <a 
+            href={res.url} 
+            target="_blank" 
+            rel="noopener" 
+            class="group block bg-slate-900 border border-slate-800 rounded-3xl p-6 hover:bg-slate-800/80 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-emerald-500/10 relative overflow-hidden"
+          >
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-500"></div>
+            
+            <div class="relative z-10 flex flex-col h-full">
+              <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl mb-5 shadow-inner group-hover:scale-110 transition-transform duration-300">
+                {res.icon}
+              </div>
+              
+              <h3 class="text-lg font-bold font-heading text-slate-100 mb-3 group-hover:text-emerald-400 transition-colors">
+                {res.name}
+              </h3>
+              
+              <p class="text-slate-400 text-sm leading-relaxed flex-grow mb-5">
+                {res.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mt-auto">
+                {res.tags.map(tag => (
+                  <span class="px-2 py-1 text-[11px] font-medium bg-slate-950 text-slate-300 border border-slate-800 rounded-md">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- 底部说明框 -->
+    <div class="mt-20 p-8 bg-slate-950 border border-slate-800 rounded-3xl text-center max-w-3xl mx-auto shadow-2xl">
+      <div class="text-emerald-500 mb-4 flex justify-center">
+        <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-slate-100 mb-3">申请收录</h3>
+      <p class="text-slate-400 mb-6 leading-relaxed">
+        如果您也运营着网络科技、代理技术、AI 工具或数码评测相关的优质独立博客，并且希望被 ClashWiki 收录推荐，欢迎通过邮件与我们取得联系。我们将定期评估并更新推荐列表。
+      </p>
+      <a href="/contact/" class="inline-flex items-center justify-center px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 font-medium rounded-xl transition-colors border border-slate-700">
+        联系我们
+      </a>
+    </div>
+
+  </div>
+</BaseLayout>

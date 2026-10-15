@@ -1,0 +1,76 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  brand: string;
+}
+
+const { brand } = Astro.props;
+const brandData = await getEntry('brands', brand);
+
+if (!brandData) {
+  return null;
+}
+
+const data = brandData.data;
+
+const name = data.name;
+const description = data.description;
+const suitable = (Array.isArray(data.audience) ? data.audience.find((a: any) => a.suitable)?.suitable : data.audience?.suitable)?.slice(0, 3) || [];
+const pros = data.pros?.slice(0, 3) || [];
+const price = typeof data.price_info === 'object' && data.price_info !== null
+  ? (data.price_info.monthly || data.price_info.yearly || '详见官网')
+  : (data.price_info || data.price_min ? `¥${data.price_min}起` : null);
+---
+
+<div class="not-prose my-8 p-6 bg-slate-900 border border-slate-700 rounded-2xl shadow-lg relative overflow-hidden group hover:border-emerald-500/50 transition-colors">
+  <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+  
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+    <div class="flex-1">
+      <div class="flex items-center gap-3 mb-2">
+        <h3 class="text-xl font-bold text-slate-100 m-0">{name}</h3>
+        <span class="px-2 py-0.5 bg-amber-500/10 text-amber-500 text-xs font-bold rounded">⭐ ClashWiki 推荐</span>
+      </div>
+      <p class="text-sm text-slate-400 mb-4 line-clamp-2">{description}</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        {suitable.length > 0 && (
+          <div>
+            <span class="text-slate-500 block mb-1 text-xs">适合人群：</span>
+            <ul class="text-slate-300 space-y-1">
+              {suitable.map((item: string) => <li class="flex items-start gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0"></div><span class="line-clamp-1">{item}</span></li>)}
+            </ul>
+          </div>
+        )}
+        
+        {pros.length > 0 && (
+          <div>
+            <span class="text-slate-500 block mb-1 text-xs">核心优势：</span>
+            <ul class="text-slate-300 space-y-1">
+              {pros.map((item: string) => <li class="flex items-start gap-1.5"><div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0"></div><span class="line-clamp-1">{item}</span></li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+    
+    <div class="w-full md:w-auto flex flex-col items-center shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6">
+      {price && price !== '未知' && (
+        <div class="text-center mb-3">
+          <span class="text-xs text-slate-500 block">参考价格</span>
+          <span class="text-lg font-bold text-emerald-400">{price}</span>
+        </div>
+      )}
+      <a 
+        href={`/go/${brand}/`}
+        target="_blank"
+        rel="nofollow sponsored noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 hover:-translate-y-0.5"
+      >
+        前往官网详情
+      </a>
+      <a href={`/brands/${brand}/`} class="text-xs text-slate-500 hover:text-slate-300 mt-3 transition-colors">查看深度评测 &rarr;</a>
+    </div>
+  </div>
+</div>

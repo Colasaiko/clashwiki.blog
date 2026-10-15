@@ -1,8 +1,8 @@
 ---
-title: "灵猫云(Civet)流媒体解锁与速度深度测评 | 节点推荐 - ClashWiki"
+title: "灵猫云(Civet)流媒体解锁与速度详细评测"
 description: "灵猫云在跨区流媒体观影上究竟表现如何？ClashWiki 通过严苛的千兆带宽环境实测其全节点连通率与延迟，为您呈现最真实的晚高峰数据，点击查看深度报告。"
 pubDate: 2026-07-28
-category: "机场推荐"
+category: "服务商评测"
 image: "/images/banner1.png"
 tags: []
 author: "Clash Wiki 编辑组"
@@ -12,14 +12,14 @@ keywords: "灵猫云测评,流媒体解锁,节点连通率,网络服务商"
 
 ## 1. 核心数据速览 (Quick Facts)
 
-作为 2026 年备受关注的跨境网络服务商，**灵猫 (Civet)** 一直在圈内拥有独特的讨论度。但在你决定掏出钱包之前，请务必先花 3 分钟查看这份涵盖 20 个维度的硬核体检报告。
+作为 2026 年备受关注的跨境网络[服务商](/category/airports/)，**灵猫 (Civet)** 一直在圈内拥有独特的讨论度。但在你决定掏出钱包之前，请务必先花 3 分钟查看这份涵盖 20 个维度的硬核体检报告。
 
 * **测试时间**：2026年8月最新数据评估
 * **底层协议**：Shadowsocks / V2Ray
 * **线路架构**：BGP 公网中转与隧道混用
 * **起步价格**：9.9元/月
 * **流量范围**：50G - 500G / 月
-* **专属客户端**：Clash, Shadowrocket, Quantumult X
+* **专属客户端**：[Clash](/tag/clash/), [Shadowrocket](/tag/shadowrocket/), Quantumult X
 * **Clash 支持**：完全兼容，并提供订阅转换
 
 ---
@@ -42,7 +42,7 @@ keywords: "灵猫云测评,流媒体解锁,节点连通率,网络服务商"
 | **上传速度 (UL)** | **65 Mbps** |
 | **丢包率 (Loss)** | **1.2%** |
 | **流媒体解锁** | 通过 DNS 智能解锁绝大部分流媒体 |
-| **AI 纯净度** | 支持大部分热门 AI 工具使用 |
+| **AI 纯净度** | 支持大部分热门 [AI 工具](/tag/ai-tools/)使用 |
 
 *(预留占位区：您可以在此处补充真实的 Speedtest 公开数据评估截图)*
 `<!-- 示例: <img src="/images/speedtest-placeholder.png" alt="Speedtest 晚高峰节点表现预估截图" width="1200" height="675" class="w-full h-auto rounded-xl shadow-md my-6" /> -->`

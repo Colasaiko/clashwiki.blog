@@ -28,22 +28,23 @@ const validTagsForSitemap = Object.entries(tagCounts)
   .map(([tag]) => encodeURI(tag));
 
 // Nav whitelisted tags MUST be in sitemap regardless of post count
-const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude'];
+const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols', 'network-diagnostics', 'ai-tools', 'chatgpt', 'claude', 'vpn'];
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.clashwiki.blog',
   integrations: [sitemap({
     filter: (page) => {
-      if (page.includes('/go/')) return false;
+      if (page.includes('/go/') || page.includes('/404') || page.includes('/search')) return false;
       
-      const tagMatch = page.match(/\/tag\/([^\/]+)\/?$/);
-      if (tagMatch) {
-        const tagInUrl = tagMatch[1]; 
-        const isWhitelisted = navWhitelist.includes(tagInUrl) || navWhitelist.includes(decodeURI(tagInUrl));
-        // if this encoded tag is not in our valid list AND not in nav whitelist, exclude it
-        return isWhitelisted || validTagsForSitemap.includes(tagInUrl) || validTagsForSitemap.includes(decodeURI(tagInUrl));
-      }
+      const redirects = [
+        '/tag/tutorials/', '/tag/config-tutorial/', '/tag/android-tutorials/', '/tag/apple-tutorials/',
+        '/tag/ai-programming/', '/tag/ai-search/', '/tag/network-diagnostics/', '/tag/privacy/',
+        '/tag/2026-airport-review/', '/tag/budget-airports/', '/tag/vpn-recommendation/',
+        '/tag/value-for-money/', '/tag/airport-recommendation/', '/tag/network-optimization/',
+        '/tag/network-tools/', '/tag/config-files/', '/tag/json/'
+      ];
+      if (redirects.some(r => page.includes(r))) return false;
       
       return true;
     }

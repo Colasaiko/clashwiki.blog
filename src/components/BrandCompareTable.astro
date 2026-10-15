@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+const { brandIds } = Astro.props;
+
+const allBrands = await getCollection('brands');
+const brands = brandIds
+  .map(id => allBrands.find(b => b.id === `${id}.md`))
+  .filter(Boolean);
+---
+
+<div class="not-prose overflow-x-auto my-10 border border-slate-700/60 rounded-xl shadow-xl shadow-slate-900/40">
+  <div class="bg-slate-800 px-5 py-3 border-b border-slate-700 flex items-center justify-between">
+    <h3 class="text-slate-100 font-bold flex items-center gap-2 m-0 text-base">
+      <span class="text-amber-400">🔥</span> 2026 优质服务商横向对比榜单
+    </h3>
+    <span class="text-xs text-slate-400">实时数据更新</span>
+  </div>
+  <table class="w-full text-left text-sm text-slate-300">
+    <thead class="bg-slate-900/80 text-slate-400 text-xs uppercase tracking-wider">
+      <tr>
+        <th class="px-5 py-4 font-bold border-b border-slate-700/50">服务商</th>
+        <th class="px-5 py-4 font-bold border-b border-slate-700/50 hidden md:table-cell">核心优势</th>
+        <th class="px-5 py-4 font-bold border-b border-slate-700/50">起步价格</th>
+        <th class="px-5 py-4 font-bold border-b border-slate-700/50 hidden sm:table-cell">核心协议</th>
+        <th class="px-5 py-4 font-bold border-b border-slate-700/50">流媒体/AI</th>
+        <th class="px-5 py-4 font-bold border-b border-slate-700/50 text-right">操作</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-800 bg-slate-900">
+      {brands.map(b => (
+        <tr class="hover:bg-slate-800/80 transition-colors group">
+          <td class="px-5 py-4 font-bold text-emerald-400 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center p-1.5 border border-slate-700 group-hover:border-emerald-500/50 transition-colors shrink-0">
+              {b.data.image ? (
+                <img src={b.data.image} alt={b.data.name} class="w-full h-full object-contain" />
+              ) : (
+                <span class="text-xs">{b.data.name.charAt(0)}</span>
+              )}
+            </div>
+            <a href={`/brands/${b.id.replace('.md', '')}/`} class="hover:text-emerald-300 transition-colors whitespace-nowrap">
+              {b.data.name}
+            </a>
+          </td>
+          <td class="px-5 py-4 text-slate-400 hidden md:table-cell text-xs">
+            {b.data.audience?.suitable?.[0] || '综合需求性价比极高'}
+          </td>
+          <td class="px-5 py-4">
+            <div class="flex flex-col">
+              <span class="text-amber-400 font-bold">¥{b.data.price_min}</span>
+              <span class="text-[10px] text-slate-500">/ 月起</span>
+            </div>
+          </td>
+          <td class="px-5 py-4 hidden sm:table-cell">
+            <div class="flex gap-1.5 flex-wrap">
+              {Array.isArray(b.data.protocols) && b.data.protocols.slice(0, 2).map(p => (
+                <span class="bg-slate-950 px-2 py-0.5 rounded text-[10px] border border-slate-700/50 text-slate-300 font-mono">{p}</span>
+              ))}
+            </div>
+          </td>
+          <td class="px-5 py-4">
+            {Array.isArray(b.data.unblock) && b.data.unblock.filter(u => u.supported).length > 2 ? (
+              <span class="inline-flex items-center gap-1 text-emerald-500 font-medium text-xs bg-emerald-500/10 px-2 py-1 rounded-full border border-emerald-500/20">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                全解锁
+              </span>
+            ) : (
+              <span class="inline-flex items-center gap-1 text-amber-500 font-medium text-xs bg-amber-500/10 px-2 py-1 rounded-full border border-amber-500/20">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                部分解锁
+              </span>
+            )}
+          </td>
+          <td class="px-5 py-4 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <a href={`/brands/${b.id.replace('.md', '')}/`} class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition-colors whitespace-nowrap">
+                深度评测
+              </a>
+              <a href={`/go/${b.id.replace('.md', '')}`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="hidden sm:block text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-emerald-600/20">
+                官网直达
+              </a>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -31,7 +31,12 @@ const {
   faqs,
 } = Astro.props;
 
-const pageTitle = title.includes(SITE.name) ? title : `${title} - ${SITE.name}`;
+let cleanTitle = title;
+if (cleanTitle !== SITE.name) {
+  cleanTitle = cleanTitle.replace(/\s*[-|]\s*ClashWiki(\s*\|\s*网络工具 · AI 工具 · 实用教程)?$/, '');
+  cleanTitle = `${cleanTitle} | ClashWiki`;
+}
+const pageTitle = cleanTitle;
 const imageUrl = image ? new URL(image, SITE.domain).href : new URL('/logo.jpg', SITE.domain).href;
 
 const schemaData = ogType === 'article' ? {
@@ -133,6 +138,8 @@ if (faqs && faqs.length > 0) {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+<link rel="shortcut icon" type="image/jpeg" href="/logo.jpg" />
+<link rel="apple-touch-icon" href="/logo.jpg" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Primary Meta Tags -->
@@ -141,7 +148,7 @@ if (faqs && faqs.length > 0) {
 <meta name="description" content={description} />
 {keywords && <meta name="keywords" content={keywords} />}
 <link rel="canonical" href={canonicalUrl} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />

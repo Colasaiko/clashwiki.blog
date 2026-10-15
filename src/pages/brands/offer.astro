@@ -1,0 +1,165 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackButton from '../../components/BackButton.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+
+const brands = (await getCollection('brands')).sort((a, b) => {
+  const orderA = a.data.sortOrder ?? 999;
+  const orderB = b.data.sortOrder ?? 999;
+  return orderA - orderB;
+});
+
+const offers: Record<string, { permanent?: {code: string, discount: string}, limited?: {code: string, discount: string, expire: string} }> = {
+  'brand-013': { permanent: { code: 'xk808', discount: '8折' }, limited: { code: 'EG101/EG815', discount: '85折 / 8折', expire: '2026-10-10' } },
+  'brand-012': { permanent: { code: 'ermao888', discount: '85折' }, limited: { code: 'zqj80', discount: '8折', expire: '2026-10-10' } },
+  'brand-002': { permanent: { code: 'flycat888', discount: '8折' } },
+  'firefly': { permanent: { code: 'firefly', discount: '8折' }, limited: { code: 'flymoon80', discount: '限时8折', expire: '2026-10-15' } },
+  'brand-010': { limited: { code: 'GNTHP80/GNTHP85', discount: '8折 / 85折', expire: '双节活动期间' } },
+  'brand-007': { permanent: { code: 'AMM', discount: '8折 (新用户)' } },
+  'brand-021': { permanent: { code: 'yxr888', discount: '8折' } },
+  'brand-009': { permanent: { code: 'JLY888', discount: '8折' }, limited: { code: '2happy80/2happy85', discount: '8折 / 85折', expire: '2026-10-10' } },
+  'kuajie': { permanent: { code: 'kuajie', discount: '8折' } },
+  'brand-020': { limited: { code: 'zq88 / zq85', discount: '88折 / 85折', expire: '2026-10-25 23:59' } },
+  'civet': { permanent: { code: 'lingmao', discount: '8折' }, limited: { code: 'LM80', discount: '限时8折', expire: '2026-10-17' } },
+  'brand-004': { permanent: { code: 'mm88', discount: '8折' } },
+  'flashleap': { permanent: { code: 'shanyue', discount: '8折' }, limited: { code: 'fest / eoht', discount: '7.5折 / 7折', expire: '2026-10-10' } },
+  'shenxing': { permanent: { code: 'sx0077', discount: '7折 (新客)' } },
+  'brand-003': { permanent: { code: 'sogo10000', discount: '9折' }, limited: { code: 'sogo85/sogo80', discount: '85折 / 8折', expire: '2026-10-10' } },
+  'brand-015': { permanent: { code: 'sujie888', discount: '8折' } },
+  'brand-018': { permanent: { code: 'tiziyun', discount: '8折' } },
+  'brand-008': { permanent: { code: 'U1S1', discount: '8折' }, limited: { code: 'U1S1-80', discount: '限时8折', expire: '2026-10-15' } },
+  'brand-017': { permanent: { code: 'fly20', discount: '8折' } },
+  'brand-019': { permanent: { code: 'lw888', discount: '8折' } },
+  'breeze': { permanent: { code: 'weifeng90', discount: '7折' } },
+  'brand-006': { permanent: { code: 'rabbit', discount: '8折' }, limited: { code: 'VTFEST80', discount: '限时8折', expire: '2026-10-10' } },
+  'worryfree': { limited: { code: 'wuyou666', discount: '限时8折', expire: '活动期有效' } },
+  'brand-005': { permanent: { code: 'nmw888', discount: '9折' }, limited: { code: '2happy85/2happy80', discount: '85折 / 8折', expire: '2026-10-10' } },
+  'brand-011': { permanent: { code: '1FLYYUN', discount: '9折 (新用户)' } },
+};
+---
+
+<BaseLayout 
+  title="2026 最新机场优惠码与折扣汇总 | ClashWiki" 
+  description="实时更新全网优质机场服务商的常驻优惠码、节日折扣及特价活动。省钱购买高速稳定的跨境网络节点。" 
+  keywords="优惠码,折扣码,常驻优惠,特价机场,限时优惠,省钱购买"
+>
+  <div class="container mx-auto max-w-6xl px-4 pt-28 pb-20">
+    <BackButton text="返回品牌库" href="/brands/" />
+    <Breadcrumb items={[{ label: '优选品牌库', href: '/brands/' }, { label: '优惠码汇总' }]} />
+    
+    <div class="mt-8 mb-12">
+      <SectionTitle 
+        title="最新优惠码与折扣汇总" 
+        subtitle="我们为您整理了各路大牌机场与新锐优质服务商的最新优惠活动，使用下方折扣码可享受专属折扣。" 
+        align="left" 
+        asH1={true} 
+      />
+    </div>
+
+    <!-- 优惠卷内容区 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {brands.map((brand, index) => {
+        const brandKey = brand.id ? brand.id.replace(/\.md$/, '') : (brand as any).slug;
+        const offer = offers[brandKey];
+        const hasAnyOffer = offer && (offer.permanent || offer.limited);
+        
+        return (
+        <div class={`bg-slate-900/80 backdrop-blur-md rounded-xl border ${hasAnyOffer ? 'border-emerald-500/30' : 'border-slate-700/60'} shadow-sm p-4 flex flex-col justify-between hover:border-emerald-500/60 transition-all group`}>
+          
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-lg font-bold text-slate-300 border border-slate-700 group-hover:text-emerald-400 group-hover:border-emerald-500/30 transition-colors">
+              {brand.data.name.charAt(0)}
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-200 group-hover:text-emerald-400 transition-colors">{brand.data.name}</h3>
+              <p class="text-[11px] text-slate-500 mt-0.5">{brand.data.tags?.slice(0, 2).join(' · ')}</p>
+            </div>
+          </div>
+          
+          <div class="flex-1 flex flex-col gap-2 mb-3">
+            
+            <!-- 常驻优惠码 -->
+            <div class={`rounded-lg p-2.5 border ${offer?.permanent ? 'bg-emerald-900/10 border-emerald-500/20' : 'bg-slate-800/30 border-slate-700/50 border-dashed'}`}>
+              <div class="text-[11px] text-slate-400 mb-1 flex justify-between items-center">
+                <span class={offer?.permanent ? 'text-emerald-400/80' : ''}>✅ 常驻优惠码</span>
+                <span class="text-emerald-400 font-bold">{offer?.permanent?.discount || ''}</span>
+              </div>
+              <div class="flex items-center justify-between bg-slate-900 rounded-md p-1.5 border border-slate-800/50">
+                <span class={`font-mono text-sm font-bold tracking-wider pl-1 ${offer?.permanent ? 'text-emerald-400' : 'text-slate-500'}`}>
+                  {offer?.permanent?.code || '暂无优惠'}
+                </span>
+                {offer?.permanent && (
+                  <button class="text-slate-500 hover:text-emerald-400 transition-colors copy-btn p-1" data-code={offer.permanent.code} title="点击复制优惠码">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <!-- 限时折扣码 -->
+            <div class={`rounded-lg p-2.5 border flex-1 flex flex-col justify-between ${offer?.limited ? 'bg-orange-900/10 border-orange-500/20' : 'bg-slate-800/30 border-slate-700/50 border-dashed'}`}>
+              <div>
+                <div class="text-[11px] text-slate-400 mb-1 flex justify-between items-center">
+                  <span class={offer?.limited ? 'text-orange-400/80' : ''}>🔥 限时折扣码</span>
+                  <span class="text-orange-400 font-bold">{offer?.limited?.discount || ''}</span>
+                </div>
+                <div class="flex items-center justify-between bg-slate-900 rounded-md p-1.5 border border-slate-800/50">
+                  <span class={`font-mono text-sm font-bold tracking-wider pl-1 ${offer?.limited ? 'text-orange-400' : 'text-slate-500'}`}>
+                    {offer?.limited?.code || '暂无优惠'}
+                  </span>
+                  {offer?.limited && (
+                    <button class="text-slate-500 hover:text-orange-400 transition-colors copy-btn p-1" data-code={offer.limited.code} title="点击复制优惠码">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+              <p class="text-[10px] text-slate-500 mt-1.5 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class={`h-3 w-3 ${offer?.limited ? 'text-orange-500/50' : 'opacity-50'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                截止时间: {offer?.limited ? offer.limited.expire : '敬请期待'}
+              </p>
+            </div>
+
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <a href={`/go/${brand.id.replace(/\.md$/, '')}`} target="_blank" rel="sponsored nofollow noopener" class="flex-1 text-center py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm font-bold shadow-sm transition-all">
+              直达官网
+            </a>
+            <a href={`/brands/${brand.id.replace(/\.md$/, '')}/`} class="flex-1 text-center py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm font-medium transition-all">
+              查看评测
+            </a>
+          </div>
+          
+        </div>
+      )})}
+    </div>
+
+    <div class="mt-16">
+      <HubFooterLinks />
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtns = document.querySelectorAll('.copy-btn');
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const code = (e.currentTarget as HTMLElement).dataset.code;
+        if (code) {
+          navigator.clipboard.writeText(code).then(() => {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<span class="text-emerald-400 text-xs font-bold mr-1">已复制!</span>';
+            setTimeout(() => {
+              btn.innerHTML = originalHTML;
+            }, 2000);
+          });
+        }
+      });
+    });
+  });
+</script>

@@ -1,16 +1,16 @@
 ---
-title: "苹果 iOS 设备 Clash 兼容客户端进阶教程 | 移动代理 - ClashWiki"
+title: "苹果iOS设备Clash兼容客户端网络配置教程"
 description: "iPhone 或 iPad 应该如何配置代理节点？ClashWiki 深度解析 iOS 平台主流网络优化工具的订阅与分流设置，点击获取流畅稳定的苹果端跨网体验。"
 pubDate: 2026-08-12
 author: "Clash Wiki 编辑组"
-category: "教程指南"
-tags: ["iOS", "Shadowrocket"]
+category: "客户端教程"
+tags: ['iOS', 'Shadowrocket']
 updatedDate: 2026-08-13
 image: "/og/clash-theme.jpg"
 keywords: "iOS代理,苹果手机网络,节点订阅,进阶教程"
 ---
 
-在 iOS (iPhone / iPad) 平台上，由于政策原因您在 App Store 里是**搜索不到官方名为 Clash 的应用程序的**。但不用担心，iOS 生态拥有极为丰富的替代方案，其中最著名的是 **Shadowrocket (小火箭)** 和 **Stash**。
+在 iOS (iPhone / iPad) 平台上，由于政策原因您在 App Store 里是**搜索不到官方名为 [Clash](/tag/clash/) 的应用程序的**。但不用担心，iOS 生态拥有极为丰富的替代方案，其中最著名的是 **[Shadowrocket](/tag/shadowrocket/) (小火箭)** 和 **Stash**。
 
 本文将以受众最广的 **Shadowrocket** 为例，带您完成从零到一的配置指南。
 
@@ -19,7 +19,7 @@ keywords: "iOS代理,苹果手机网络,节点订阅,进阶教程"
 在正式开始之前，请确保具备以下条件：
 - 一部运行 iOS 的 iPhone 或 iPad。
 - **一个非中国大陆地区（如美区、日区、港区）的 Apple ID**。
-- **一个有效的机场订阅链接**（如果您还没有，请前往 [品牌库](/brands/) 挑选一个适合您的服务商）。
+- **一个有效的机场订阅链接**（如果您还没有，请前往 [品牌库](/brands/) 挑选一个适合您的[服务商](/category/airports/)）。
 
 ## 2. 下载
 
@@ -74,7 +74,7 @@ keywords: "iOS代理,苹果手机网络,节点订阅,进阶教程"
 ## 9. 常见错误
 
 - **找不到小火箭**：国区 App Store 相对搜不到正版，搜出来的全是蹭热度的假软件，必须换外区账号。
-- **无法连接网络**：如果顶部有 VPN 图标但上不了网，请检查：① 订阅是否过期；② 节点是否失效（重新公开数据评估换一个节点）；③ 全局路由是否不小心设置成了“代理”导致国内网站打不开。
+- **无法连接网络**：如果顶部有 [VPN](/tag/vpn/) 图标但上不了网，请检查：① 订阅是否过期；② 节点是否失效（重新公开数据评估换一个节点）；③ 全局路由是否不小心设置成了“代理”导致国内网站打不开。
 
 ## 10. 下一步
 

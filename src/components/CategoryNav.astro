@@ -7,14 +7,14 @@ interface Props {
 
 const { activeCategory } = Astro.props;
 ---
-<nav class="flex flex-wrap gap-2 mb-8">
-  <a href="/blog/" class={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${!activeCategory ? 'bg-slate-900  text-white ' : 'bg-slate-100  text-slate-600  hover:bg-slate-200'}`}>
+<nav class="flex flex-wrap gap-2 mb-8 sticky top-24 z-40 bg-slate-900/80 backdrop-blur-xl border border-slate-800 shadow-xl rounded-2xl p-4">
+  <a href="/blog/" class={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${!activeCategory ? 'bg-slate-900  text-white ' : 'bg-slate-800  text-slate-400  hover:bg-slate-200'}`}>
     全部
   </a>
   {CATEGORIES.map(category => (
     <a 
       href={category.customHref || `/category/${category.name}/`} 
-      class={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 ${activeCategory === category.name ? 'bg-slate-900  text-white ' : 'bg-slate-100  text-slate-600  hover:bg-slate-200'}`}
+      class={`px-4 py-2 rounded-xl text-sm font-medium transition-colors flex items-center gap-2 ${activeCategory === category.name ? 'bg-slate-900  text-white ' : 'bg-slate-800  text-slate-400  hover:bg-slate-200'}`}
     >
       <span>{category.icon}</span> {category.name}
     </a>

@@ -12,17 +12,17 @@ interface Props {
 const { items, title = "常见问题" } = Astro.props;
 ---
 <div class="my-12">
-  {title && <h2 class="text-2xl font-heading font-bold text-slate-900  mb-6 text-center">{title}</h2>}
+  {title && <h2 class="text-2xl font-heading font-bold text-slate-100  mb-6 text-center">{title}</h2>}
   <div class="space-y-4 max-w-3xl mx-auto">
     {items.map(item => (
-      <details class="group bg-white  border border-slate-200  rounded-2xl open:bg-slate-50 transition-colors">
-        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-slate-900 ">
+      <details class="group bg-slate-900  border border-slate-700  rounded-2xl open:bg-slate-800 transition-colors">
+        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-5 text-slate-100 ">
           <span class="text-lg">{item.question}</span>
-          <span class="transition group-open:rotate-180 bg-slate-100  text-slate-500  rounded-full p-1 ml-4 flex-shrink-0">
+          <span class="transition group-open:rotate-180 bg-slate-800  text-slate-400  rounded-full p-1 ml-4 flex-shrink-0">
             <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
           </span>
         </summary>
-        <div class="text-slate-600  mt-2 p-5 pt-0 leading-relaxed">
+        <div class="text-slate-400  mt-2 p-5 pt-0 leading-relaxed">
           {item.answer}
         </div>
       </details>

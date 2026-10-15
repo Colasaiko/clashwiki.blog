@@ -1,18 +1,18 @@
 ---
-title: "sing-box 苹果 Mac 电脑端安装配置进阶教程 | 桌面代理 - ClashWiki"
-description: "如何在 macOS 上优雅地运行 sing-box 实现系统级代理？ClashWiki 提供包括 TUN 模式提权在内的详尽图文配置指南，点击获取最流畅的苹果端跨网冲浪体验。"
+title: "sing-box 苹果 Mac 电脑端安装与配置教程"
+description: "如何在 macOS 上优雅地运行 sing-box 实现系统代理？ClashWiki 提供包括 TUN 模式提权在内的详尽配置指南，点击获取最流畅的苹果端跨网冲浪体验。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "macOS", "客户端教程", "苹果教程"]
+category: "客户端教程"
+tags: ['sing-box', 'macOS', '客户端教程']
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "Mac代理配置,TUN模式,系统级提权,进阶教程"
 ---
 
-苹果 Mac 电脑由于系统的封闭性，优秀的代理客户端相对较少。过去大家普遍使用 ClashX，但随着旧版协议的淘汰，我们需要为 Mac 寻找更现代的解决方案。
+苹果 Mac 电脑由于系统的封闭性，优秀的代理客户端相对较少。过去大家普遍使用 [Clash](/tag/clash/)X，但随着旧版协议的淘汰，我们需要为 Mac 寻找更现代的解决方案。
 
-今天，我们将介绍在 macOS 上运行 sing-box 内核的最佳实践。
+今天，我们将介绍在 macOS 上运行 [sing-box](/tag/sing-box/) 内核的最佳实践。
 
 ---
 
@@ -52,6 +52,6 @@ Hiddify 不仅在 Windows 上表现优异，它的 macOS 版本同样是新手�
 
 ## 高阶提示：TUN 模式与权限
 
-由于 macOS 系统对网络底层的权限管控极其严格，如果您希望开启 **TUN 模式**（即接管 Mac 上所有的软件流量，包括终端、游戏，而不只是浏览器），客户端在首次开启时会要求您输入 Mac 的开机密码来安装 Helper 工具。
+由于 macOS 系统对网络底层的权限管控极其严格，如果您希望开启 **[TUN 模式](/blog/what-is-proxy-rules-and-tun/)**（即接管 Mac 上所有的软件流量，包括终端、游戏，而不只是浏览器），客户端在首次开启时会要求您输入 Mac 的开机密码来安装 Helper 工具。
 
-请放心输入，这是创建虚拟网卡的必要步骤。一旦 TUN 模式启动成功，您将获得最极致的无死角代理体验。
+请放心输入，这是创建[虚拟网卡](/blog/what-is-proxy-rules-and-tun/)的必要步骤。一旦 TUN 模式启动成功，您将获得最极致的无死角代理体验。

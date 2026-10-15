@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<BaseLayout title="联系我们 | 商务合作与技术交流 - ClashWiki" description="欢迎联系 ClashWiki。无论是商务合作、文章纠错，还是获取其他有用的导航链接，都可以在此页面找到我们的联系方式。" keywords="联系我们,商务合作,意见反馈" >
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[{ label: '联系我们' }]} />
+    
+    <div class="mt-8 prose prose-slate prose-invert prose-emerald max-w-none">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-100 mb-8">联系我们</h1>
+      
+      <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-2xl mb-8">
+        <h2 class="text-2xl font-bold text-white mt-0 mb-6">📩 邮箱联系</h2>
+        <p class="text-slate-300 text-lg mb-6">
+          如果您有任何问题、商务合作需求或是文章内容纠错，欢迎通过以下邮箱与我们取得联系：
+        </p>
+        <div class="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-700 flex-wrap">
+          <span class="text-3xl">📧</span>
+          <a href="mailto:colasaiko15@gmail.com" class="text-emerald-400 hover:text-emerald-300 text-xl font-medium no-underline break-all" id="email-text">
+            colasaiko15@gmail.com
+          </a>
+          <button class="copy-btn ml-auto md:ml-4 px-4 py-1.5 bg-slate-700 hover:bg-emerald-600 text-sm text-white font-medium rounded-lg transition-colors flex items-center gap-1 shadow-sm" data-clipboard="colasaiko15@gmail.com">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span class="copy-text">复制</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-2xl">
+        <h2 class="text-2xl font-bold text-white mt-0 mb-6">🔗 其他链接</h2>
+        <p class="text-slate-300 mb-6">
+          （更多社交媒体、专属社群及其他友情链接将在未来更新于此。）
+        </p>
+        <ul class="list-disc pl-5 text-slate-300 space-y-4">
+          <li class="flex items-center flex-wrap gap-2">
+            <strong>我的主页：</strong> 
+            <a href="https://colasaiko.github.io/Home/" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 break-all">https://colasaiko.github.io/Home/</a>
+            <button class="copy-btn px-3 py-1 bg-slate-700 hover:bg-emerald-600 text-xs text-white rounded transition-colors flex items-center gap-1 shadow-sm" data-clipboard="https://colasaiko.github.io/Home/">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span class="copy-text">复制</span>
+            </button>
+          </li>
+          <li class="flex items-center flex-wrap gap-2">
+            <strong>Telegram 官方频道：</strong> 
+            <a href="https://t.me/clashwiki_blog" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 break-all">https://t.me/clashwiki_blog</a>
+            <button class="copy-btn px-3 py-1 bg-slate-700 hover:bg-emerald-600 text-xs text-white rounded transition-colors flex items-center gap-1 shadow-sm" data-clipboard="https://t.me/clashwiki_blog">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span class="copy-text">复制</span>
+            </button>
+          </li>
+          <li><strong>Twitter (X)：</strong> 筹备中...</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtns = document.querySelectorAll('.copy-btn');
+    
+    copyBtns.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const textToCopy = btn.getAttribute('data-clipboard');
+        if (!textToCopy) return;
+        
+        try {
+          await navigator.clipboard.writeText(textToCopy);
+          const textSpan = btn.querySelector('.copy-text');
+          const originalText = textSpan.textContent;
+          
+          textSpan.textContent = '已复制!';
+          btn.classList.replace('bg-slate-700', 'bg-emerald-500');
+          btn.classList.replace('hover:bg-emerald-600', 'hover:bg-emerald-400');
+          
+          setTimeout(() => {
+            textSpan.textContent = originalText;
+            btn.classList.replace('bg-emerald-500', 'bg-slate-700');
+            btn.classList.replace('hover:bg-emerald-400', 'hover:bg-emerald-600');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+          alert('复制失败，请手动复制');
+        }
+      });
+    });
+  });
+</script>

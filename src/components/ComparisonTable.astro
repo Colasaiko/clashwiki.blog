@@ -29,14 +29,14 @@ const { items } = Astro.props;
         )}
         
         <div class="text-center mb-6">
-          <h3 class="text-xl font-bold font-heading text-slate-900  mb-2">{item.name}</h3>
+          <h3 class="text-xl font-bold font-heading text-slate-100  mb-2">{item.name}</h3>
           <div class="text-2xl font-bold text-emerald-500">{item.price}<span class="text-sm text-slate-400 font-normal"> /起</span></div>
         </div>
         
         <ul class="space-y-4 mb-8 flex-grow">
           {item.features.map(feat => (
             <li class="flex items-start justify-between text-sm">
-              <span class="text-slate-600 ">{feat.name}</span>
+              <span class="text-slate-400 ">{feat.name}</span>
               <span class="font-medium">
                 {feat.support === true ? (
                   <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -45,7 +45,7 @@ const { items } = Astro.props;
                 ) : feat.support === 'partial' ? (
                   <svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
                 ) : (
-                  <span class="text-slate-900 ">{feat.support}</span>
+                  <span class="text-slate-100 ">{feat.support}</span>
                 )}
               </span>
             </li>

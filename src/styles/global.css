@@ -3,128 +3,94 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-brand-50: #f0fdf4;
-  --color-brand-100: #dcfce7;
-  --color-brand-500: #22c55e;
-  --color-brand-600: #16a34a;
-  --color-brand-900: #14532d;
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-900: #1e3a8a;
   
   --color-surface-50: #f8fafc;
-  --color-surface-100: #f1f5f9;
   --color-surface-800: #1e293b;
   --color-surface-900: #0f172a;
   --color-surface-950: #020617;
 
-  --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
-  --font-heading: "Outfit", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-heading: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: dark !important;
+    background-color: #020617 !important; /* surface-950 */
+    color: #e2e8f0 !important; /* slate-200 */
+    transition: filter 0.3s ease, background-color 0.3s ease;
+  }
+
+  html.light-mode {
+    filter: invert(1) hue-rotate(180deg);
+    background-color: #f8fafc !important; /* Inverted 020617 */
     color-scheme: light !important;
-    background-color: #ffffff !important;
-    color: #0f172a !important;
+  }
+
+  /* Double invert for media so they look normal */
+  html.light-mode img,
+  html.light-mode video,
+  html.light-mode iframe,
+  html.light-mode .no-invert,
+  html.light-mode [style*="background-image"] {
+    filter: invert(1) hue-rotate(180deg);
   }
 
  :root {
-    --bg-color: var(--color-surface-50);
-    --text-primary: var(--color-surface-900);
-    --text-secondary: var(--color-surface-800);
-    --border-color: #e2e8f0;
-    --card-bg: #ffffff;
+    --bg-color: var(--color-surface-950);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --border-color: #1e293b;
+    --card-bg: #0f172a;
   }
 
-
-
   body {
-    @apply text-slate-900 antialiased min-h-screen flex flex-col font-sans bg-transparent;
+    @apply text-slate-200 antialiased min-h-screen flex flex-col font-sans bg-[#020617];
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+    @apply font-heading tracking-tight text-slate-100;
+    scroll-margin-top: 140px; /* Accounts for header + sticky TOC */
   }
 }
 
 @layer components {
   .glass-panel {
-    @apply bg-transparent border border-slate-200/40 rounded-2xl;
+    @apply bg-slate-900 border border-slate-800 rounded-xl;
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-colors duration-200 hover:border-blue-500/50 hover:bg-slate-800/80;
   }
 
   .btn-primary {
-    @apply px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white rounded-xl font-medium shadow-md hover:shadow-lg transition-all duration-300;
+    @apply px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors duration-200;
   }
 
   .btn-secondary {
-    @apply px-6 py-2.5 bg-transparent hover:bg-slate-100 text-slate-900 rounded-xl font-medium transition-all duration-300 border border-slate-200;
+    @apply px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-medium transition-colors duration-200 border border-slate-700;
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-500;
+    @apply text-blue-400; /* No gradients per requirement */
   }
 
   .prose-custom {
-    @apply prose prose-slate  max-w-none 
-    prose-headings:font-heading prose-headings:font-semibold
-    prose-a:text-emerald-500 hover:prose-a:text-emerald-400
-    prose-img:rounded-xl prose-img:shadow-md
-    prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800
-    prose-blockquote:border-l-emerald-500 prose-blockquote:bg-slate-50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
-    prose-th:bg-slate-100 prose-th:p-3 prose-td:p-3 prose-table:border-collapse prose-table:w-full prose-table:border prose-table:border-slate-200;
+    @apply prose prose-invert max-w-none 
+    prose-headings:font-heading prose-headings:font-semibold prose-headings:text-slate-100 prose-headings:scroll-mt-[140px]
+    prose-p:text-slate-200 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
+    prose-a:text-blue-400 hover:prose-a:text-blue-300
+    prose-img:rounded-lg prose-img:border prose-img:border-slate-800
+    prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800 prose-pre:rounded-lg
+    prose-blockquote:border-l-blue-500 prose-blockquote:bg-slate-900 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:text-slate-200
+    prose-th:bg-slate-900 prose-th:p-3 prose-th:text-slate-100 prose-th:border-slate-800
+    prose-td:p-3 prose-td:border-slate-800 prose-td:text-slate-200 prose-table:border-collapse prose-table:w-full prose-table:border prose-table:border-slate-800
+    prose-li:text-slate-200 prose-li:text-lg;
   }
-}
-
-/* Chibi Peep Animation */
-/* Chibi Peep Animation */
-.wiki-chibi-peep-hitbox {
-  position: fixed;       /* 固定在屏幕上 */
-  top: 0;                /* 紧贴顶部 */
-  right: 60px;           /* 靠右一点 */
-  z-index: 1000;         /* 确保在导航栏之上或同级 */
-  width: 120px;
-  height: 120px;         /* 控制大小，稍微放大一点显得更可爱 */
-  cursor: pointer;
-  pointer-events: auto;  /* 允许鼠标悬停触发 */
-}
-
-.wiki-chibi-peep-wrapper {
-  display: block;
-  position: relative; /* 为内部绝对定位的图层提供基准 */
-  width: 100%;
-  height: 100%;
-  /* 稍微放下来一点点 */
-  margin-top: -40px;
-  /* 减弱回弹效果，让“跳下来”的动作更轻盈 */
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-  transform-origin: top center;
-}
-
-/* 鼠标悬停在 hitbox 上时，移动内部 wrapper，这样 hitbox 不动，就不会导致来回震动的 BUG */
-.wiki-chibi-peep-hitbox:hover .wiki-chibi-peep-wrapper {
-  /* 不要缩得太高，减少上下跳动的距离 */
-  transform: translateY(-70%); 
-}
-
-.wiki-chibi-peep-hitbox img.peep-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-  /* 倒转图片，让她从顶部倒挂下来 */
-  transform: scaleY(-1);
-}
-
-#peep-body {
-  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
-}
-
-#peep-eyes {
-  /* 眼珠图层需要非常迅速平滑的跟随过渡 */
-  transition: transform 0.1s ease-out; 
 }

@@ -1,16 +1,16 @@
 ---
-title: "经典 v2rayN 客户端 Windows 端配置进阶教程 | 桌面代理 - ClashWiki"
-description: "依然钟情于老牌稳定的代理工具？ClashWiki 为您更新 2026 版 v2rayN 最全配置指南，涵盖核心下发、节点导入与路由设置，点击查收这份历久弥新的网络优化手册。"
+title: "经典 v2rayN 客户端 Windows 端配置教程"
+description: "依然钟情于老牌稳定的代理工具？ClashWiki 为您更新 2026 版 v2rayN 详尽配置指南，涵盖核心下发、节点导入与路由设置，点击查收这份经典的优化手册。"
 pubDate: 2026-08-13
 author: "Clash Wiki 编辑组"
-category: "教程指南"
-tags: ["v2rayN", "Windows", "客户端教程"]
+category: "客户端教程"
+tags: ['v2rayN', 'Windows', '客户端教程']
 updatedDate: 2026-08-13
 image: "/og/network-tools-theme.jpg"
 keywords: "经典客户端,节点导入,路由设置,进阶教程"
 ---
 
-v2rayN 是一款在 Windows 平台上历史悠久、功能强大的网络代理客户端，支持 Vmess, Vless, Shadowsocks, Trojan 等多种协议。
+[v2rayN](/tag/v2rayn/) 是一款在 Windows 平台上历史悠久、功能强大的网络代理客户端，支持 Vmess, Vless, Shadowsocks, Trojan 等多种协议。
 
 ## 安装步骤
 
@@ -21,3 +21,8 @@ v2rayN 是一款在 Windows 平台上历史悠久、功能强大的网络代理�
 ## 导入订阅
 
 （内容持续补充中...）
+
+
+> [!TIP]
+> **还没有合适的节点？**
+> 如果你还没有稳定可用的翻墙机场，或者正在寻找速度更快的优质节点，可以参考 ClashWiki 团队定期测速更新的 [2026 机场推荐指南](/topics/airport-recommendation/)，我们评测了多家高性价比与专线梯子，总有一款适合你。

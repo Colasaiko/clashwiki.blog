@@ -1,22 +1,22 @@
 ---
-title: "Clash Verge 与 CFW 客户端深度测评对比 | 网络代理 - ClashWiki"
-description: "不知道该用老牌 CFW 还是新兴的 Clash Verge？ClashWiki 从内核性能、界面交互及功能特性进行多维度深度比拼，点击帮您选出最称手的网络代理兵器。"
+title: "Clash Verge 与 CFW 客户端全方位对比"
+description: "不知道用老牌 CFW 还是新兴的 Clash Verge？本文从内核性能、界面交互及特性进行多维度深度比拼，点击帮您选出2026年最称手的网络代理兵器。"
 pubDate: 2026-07-27
 updatedDate: 2026-08-13
-category: "教程指南"
-tags: ["Clash", "Clash Verge"]
+category: "客户端教程"
+tags: ['Clash', 'Clash Verge']
 author: "Clash Wiki 编辑组"
 image: "/og/clash-theme.jpg"
 keywords: "客户端测评,内核性能,界面交互,网络工具"
 ---
 
-## 时代的眼泪：Clash for Windows (CFW) 的落幕
+## 时代的眼泪：[Clash](/tag/clash/) for Windows (CFW) 的落幕
 
 凡是经历过 2020-2023 年跨境网络黄金时代的用户，对 **Clash for Windows (CFW)** 这款软件相对不会陌生。作为曾经统治 Windows 平台数年之久的“国民级”代理客户端，CFW 以其强大的功能、直观的图形界面，将复杂的 YAML 配置文件平民化，极大地拉低了跨境网络的门槛。
 
-然而，由于众所周知的原因，CFW 开发者在 2023 年底宣布删库停更。虽然现有的版本依然勉强可以使用，但随着底层协议（如 VLESS, Hysteria 2）的快速迭代，CFW 的内核已经无法跟上时代的步伐。
+然而，由于众所周知的原因，CFW 开发者在 2023 年底宣布删库停更。虽然现有的版本依然勉强可以使用，但随着底层协议（如 [VLESS](/blog/vless-reality-explained/), [Hysteria 2](/blog/hysteria2-explained/)）的快速迭代，CFW 的内核已经无法跟上时代的步伐。
 
-这就引出了今天的主角——**Clash Verge (及其分支版本 Clash Verge Rev)**，它被公认为是 CFW 最完美的继承者。
+这就引出了今天的主角——**[Clash Verge](/blog/clash-verge-vs-clash-for-windows/) (及其分支版本 [Clash Verge Rev](/blog/clash-verge-vs-clash-for-windows/))**，它被公认为是 CFW 最完美的继承者。
 
 ---
 
@@ -43,7 +43,7 @@ keywords: "客户端测评,内核性能,界面交互,网络工具"
 * **Clash Verge**：采用了极具现代感的 Fluent Design 设计语言，原生支持炫酷的暗色模式（Dark Mode）、自定义主题色以及优雅的圆角和过渡动画。配置列表和节点卡片的展示更加直观。
 
 ### 5. 增强功能：配置合并与覆写 (Merge & Override)
-很多高阶用户喜欢将机场的订阅规则替换为自己定制的规则（例如增加去广告规则，或者指定特定的流媒体分流）。
+很多高阶用户喜欢将机场的订阅规则替换为自己定制的规则（例如增加去广告规则，或者指定特定的[流媒体](/tag/streaming/)分流）。
 * **CFW**：依赖于 Parsers 功能，需要编写一段难懂的 JavaScript 或 YAML 代码来实现覆写，门槛极高。
 * **Clash Verge**：提供了一个极度易用的 **“合并配置 (Merge)”** 可视化界面。你可以轻松地添加外部规则切片（Rule-providers），将它们与机场原有的订阅无缝融合，甚至不需要写一行代码。
 

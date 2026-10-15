@@ -6,6 +6,9 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import CategoryNav from '../../components/CategoryNav.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import PageHeroNav from '../../components/PageHeroNav.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -35,9 +38,14 @@ const { posts, categoryInfo } = Astro.props;
   <div class="container mx-auto max-w-6xl px-4 py-12">
     <Breadcrumb items={[{ label: '博客', href: '/blog/' }, { label: categoryInfo.name }]} />
     
-    <div class="mt-8 mb-16">
-      <SectionTitle title={`${categoryInfo.icon} ${categoryInfo.name}`} subtitle={categoryInfo.description} align="left" asH1={true} />
+    <div class="mt-8 mb-4">
+      <SectionTitle title={`${categoryInfo.icon} ${categoryInfo.name}`} subtitle={categoryInfo.description} align="center" asH1={true} />
     </div>
+
+    <PageQuickRead />
+
+
+    <PageHeroNav description={categoryInfo.description} categoryName={`分类: ${categoryInfo.name}`} />
 
     <CategoryNav activeCategory={categoryInfo.name} />
 
@@ -52,8 +60,9 @@ const { posts, categoryInfo } = Astro.props;
         />
       ))}
       {posts.length === 0 && (
-        <p class="text-slate-500 py-12">该分类下暂无文章。</p>
+        <p class="text-slate-400 py-12">该分类下暂无文章。</p>
       )}
     </div>
+    <HubFooterLinks />
   </div>
 </BaseLayout>

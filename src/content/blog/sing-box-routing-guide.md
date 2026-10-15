@@ -1,9 +1,9 @@
 ---
-title: "sing-box 复杂路由分流规则编写进阶教程 | 代理进阶 - ClashWiki"
-description: "想要实现国内外流量精准分流并完美接管特定 App？ClashWiki 深入解析 sing-box 路由模块的匹配逻辑与自定义规则写法，点击定制属于您的极客网络分流方案。"
+title: "sing-box 复杂路由分流规则编写进阶教程"
+description: "想要实现国内外流量精准分流并接管特定 App？ClashWiki 深入解析 sing-box 路由模块匹配逻辑与自定义规则写法，点击定制属于您的极客网络分流方案。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "分流规则", "实用教程"]
+category: "客户端教程"
+tags: ['sing-box', '分流规则', '客户端教程']
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
@@ -12,7 +12,7 @@ keywords: "精准分流,匹配逻辑,自定义规则,进阶教程"
 
 对于追求极致网络体验的玩家来说，将所有流量一股脑地塞进代理节点并不是最聪明的做法。这不仅浪费节点流量，还会导致国内网站访问速度下降。
 
-sing-box 提供了全网最强大、最灵活的 `route` (路由) 引擎。本文将教您如何配置 sing-box 的分流规则，打造最完美的网络体验。
+[sing-box](/tag/sing-box/) 提供了全网最强大、最灵活的 `route` (路由) 引擎。本文将教您如何配置 sing-box 的分流规则，打造最完美的网络体验。
 
 ---
 
@@ -70,7 +70,7 @@ sing-box 推荐使用 `rule_set` (规则集) 来替代庞大的 `geosite` 或 `g
 
 ## 高阶玩法：特定 App / 进程分流
 
-在 Windows 和 macOS 的 TUN 模式下，sing-box 可以读取发送网络请求的 App 进程名，从而实现“只让某个游戏走代理”，或者“只让某个流媒体软件走香港节点”。
+在 Windows 和 macOS 的 [TUN 模式](/blog/what-is-proxy-rules-and-tun/)下，sing-box 可以读取发送网络请求的 App 进程名，从而实现“只让某个游戏走代理”，或者“只让某个[流媒体](/tag/streaming/)软件走香港节点”。
 
 ```json
 {

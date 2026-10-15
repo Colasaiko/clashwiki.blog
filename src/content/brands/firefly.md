@@ -1,7 +1,7 @@
 ---
 name: "萤火虫"
-description: "流萤云的平价线路能否在晚高峰保持不卡顿？ClashWiki 详尽剖析其全球节点覆盖与协议支持情况，附带长周期网络监控测速结果，点击查阅这款代理品牌的真实实力。"
-category: "机场推荐"
+description: "流萤云的平价线路能否在晚高峰保持不卡顿？ClashWiki详尽剖析其全球节点覆盖与协议支持情况，附带长周期网络监控测速结果，点击查阅这款代理品牌的真实实力。"
+category: "airports"
 tags: ["大流量", "便宜机场", "性价比"]
 image: "/images/brand_power.jpg"
 updatedDate: 2026-07-28
@@ -55,8 +55,12 @@ audience:
     - 需要多地区影视资源的影视解说
   - unsuitable:
     - 对延迟要求苛刻的电竞玩家
-title: "流萤云(Firefly)优质节点服务商最新深度测评 | 品牌库 - ClashWiki"
+title: "流萤云(Firefly)机场高性价比流媒体体验评测"
 keywords: "流萤云,全球节点覆盖,网络监控测速,深度测评"
+price_info:
+  monthly: '¥25起'
+  yearly: '¥96起'
+sortOrder: 5
 ---
 
 ## 1. 前言
@@ -92,12 +96,23 @@ keywords: "流萤云,全球节点覆盖,网络监控测速,深度测评"
 | Firefly Nova | 1000 GB| ¥150.00 | ¥400.00 | ¥1360.00 |
 | Firefly不限时 | 100 GB | 一次性 | - | - |
 
+
+> [!NOTE]
+> **价格更新时间：2026-09-01**。价格与套餐可能随服务商活动进行调整，请以服务商官网最终显示为准。
+
 > [!TIP]
 > 重度刷剧狂人首选：**【Firefly Plus】（¥45/月）**。每月 300GB 流量，不仅价格极其亲民，还能彻底实现 Netflix 和 YouTube 的 4K 流量自由。
 > **官方专属优惠码**：`firefly`
 > **<a href="https://fvip02.fireflyaff.com/#/?code=mcYQUZxG" target="_blank" rel="nofollow noopener noreferrer">👉 点击此处使用优惠码前往官网注册</a>**
 
-![价格配图](/yhc2.png)
+| 名称 | 流量 | 月付 | 季付 | 年付 |
+| :--- | :--- | :--- | :--- | :--- |
+| Firefly年付版 | 60 GB | - | - | ¥96.00 |
+| Firefly Lite | 150 GB | ¥25.00 | ¥67.00 | ¥240.00 |
+| Firefly Plus | 300 GB | ¥ 45.00 | ¥121.00 | ¥ 432.00 |
+| Firefly Blaze | 600 GB | ¥85.00 | ¥ 229.00 | ¥816.00 |
+| Firefly Nova | 1000 GB | ¥ 150.00 | ¥ 400.00 | ¥ |
+| Firefly不限时 | 100 GB | （一次性¥100.00） | - | - |
 
 
 
@@ -184,6 +199,16 @@ keywords: "流萤云,全球节点覆盖,网络监控测速,深度测评"
 <!-- SEO_CHUNK_END -->
 
 
+
+
+### 晚高峰批量节点测速报告
+以下为该机场的订阅节点大批量抽测结果，全面展示节点带宽冗余与晚高峰稳定性：
+<img src="/images/mockups/speedtest_long.jpg" style="max-width: 100%; border-radius: 12px; margin: 20px 0; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" alt="批量节点测速报告" />
+
+### 流媒体与 AI 区域解锁状态
+详细测试了不同区域节点的流媒体（Netflix/Disney+/YouTube等）及 AI 平台（ChatGPT/Claude）的解锁能力：
+<img src="/images/mockups/unblock_long.jpg" style="max-width: 100%; border-radius: 12px; margin: 20px 0; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" alt="流媒体与AI区域解锁状态" />
+
 ## 5. 总结
 
 平心而论，在这个内卷局里，萤火虫精准地找到了自己的生态位。它不追求花里胡哨的极致电竞延迟，而是用真金白银堆出了海量带宽。如果你是一位硬核的高清视频爱好者，或者是重度依赖海外资源的下载狂人，萤火虫相对是你的完美口粮机。闭眼上车，彻底实现流量自由吧！
@@ -209,3 +234,12 @@ keywords: "流萤云,全球节点覆盖,网络监控测速,深度测评"
 ![游戏加速配图](/yhc6.png)
 
 综合评估中，挂载萤火虫的节点直接连接 Steam 下载服务器或 Epic 商店，下载速度能瞬间飙升突破百兆大关（前提是你的本地宽带足够大）。几十个 G 的《使命召唤》更新，喝杯咖啡的功夫就能跑满进度条。而在实际的游戏联机表现上，萤火虫应对那些对极限延迟要求不高、但对数据吞吐量要求极大的游戏同样得心应手，比如《微软模拟飞行》的实时地景加载、《极限竞速：地平线》的漫游模式等。对于不追求极限 FPS 刚枪，而是热衷于 3A 大作、独立游戏下载以及联机养老的玩家来说，萤火虫“量大管饱”的特性简直是真正的游戏下载加速神器。
+
+
+## 相关测评与榜单
+
+如果你想横向对比 萤火虫 (Firefly) 与市面上其他服务商的差异，或者寻找更多不同价位的优质节点资源，请查看我们的深度评测指南：
+
+- [2026 机场推荐与测评：热门机场价格、节点与Clash兼容性对比](/blog/2026-airport-recommendation-guide/)
+- [查看 ClashWiki 独立公开数据评估大盘](/data/)
+- [探索更多机场单评文章](/tag/airport-review/)

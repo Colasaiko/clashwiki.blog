@@ -16,7 +16,7 @@ const { title, description, updatedDate, brandName, keywords, image } = Astro.pr
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords} bgImage="/content_bg.png" image={image}>
-  <div class="bg-white/60 backdrop-blur-2xl border-b border-white/40 pt-28 pb-12 shadow-sm">
+  <div class="bg-slate-900/60 backdrop-blur-2xl border-b border-white/40 pt-28 pb-12 shadow-sm">
     <div class="container mx-auto max-w-4xl px-4">
       <BackButton text="返回上一页" />
       <Breadcrumb items={[
@@ -26,23 +26,22 @@ const { title, description, updatedDate, brandName, keywords, image } = Astro.pr
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mt-6">
         <div>
-          <h1 class="text-3xl md:text-5xl font-bold font-heading text-slate-900  mb-4">
+          <h1 class="text-3xl md:text-5xl font-bold font-heading text-slate-100  mb-4">
             {brandName} 评测与详情
           </h1>
-          <p class="text-lg text-slate-500  max-w-2xl">
+          <p class="text-lg text-slate-400  max-w-2xl">
             {description}
           </p>
-        </div>
-        <div class="text-sm text-slate-500  bg-white  px-4 py-2 rounded-xl shadow-sm border border-slate-100 ">
-          最后更新: {updatedDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
         </div>
       </div>
     </div>
   </div>
 
   <article class="container mx-auto max-w-4xl px-4 py-12">
-    <div class="prose-custom mx-auto mb-16">
-      <slot />
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 md:p-10 lg:p-12 shadow-2xl mb-16 relative">
+      <div class="prose-custom mx-auto">
+        <slot />
+      </div>
     </div>
   </article>
 </BaseLayout>

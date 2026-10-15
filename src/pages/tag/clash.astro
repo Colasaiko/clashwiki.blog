@@ -1,0 +1,281 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
+
+// 获取所有文章，按时间倒序
+const allPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 按照规则筛选文章分类并格式化属性
+const getSlug = (p) => p.slug || p.id.replace(/\.md$/, '');
+const formatPost = (p) => ({
+  title: p.data.title,
+  description: p.data.description,
+  url: `/blog/${getSlug(p)}/`,
+  category: p.data.category || 'Clash',
+  pubDate: p.data.pubDate
+});
+
+const beginnerPosts = allPosts.filter(p => ['clash-ultimate-tutorial-2026', 'network-basics', 'vpn-vs-proxy-explained', 'what-is-proxy-rules-and-tun'].includes(getSlug(p))).map(formatPost);
+const clientPosts = allPosts.filter(p => ['clash-for-windows-tutorial', 'clash-for-mac-tutorial', 'clash-for-ios-tutorial', 'clash-for-android-tutorial', 'clash-verge-vs-clash-for-windows', 'proxy-clients-comparison'].includes(getSlug(p))).map(formatPost);
+const troubleshootingPosts = allPosts.filter(p => ['clash-timeout-troubleshooting', 'airport-timeout-fix', 'how-to-check-public-ip'].includes(getSlug(p))).map(formatPost);
+
+// 热门 Clash FAQ 数据
+const clashFaqs = [
+  { q: "Clash是什么？", a: "Clash 是一款基于规则分流的跨平台网络代理客户端内核。它能自动识别国内和国外流量，让需要代理的流量走节点，国内网站直连，从而实现无缝翻墙体验。" },
+  { q: "Clash怎么使用？", a: "基础流程为：下载安装对应平台的 Clash 客户端 -> 从机场服务商处复制 Clash 订阅链接 -> 在客户端的 Profiles 或配置项中导入订阅 -> 选择节点并开启 System Proxy（系统代理）。" },
+  { q: "Clash怎么导入订阅？", a: "在绝大多数 Clash 客户端（如 Clash for Windows 或 Clash Verge）中，找到 Profiles 或 配置 侧边栏，将以 http 开头的订阅链接粘贴进输入框，点击 Download 或导入即可。" },
+  { q: "Clash订阅怎么更新？", a: "在配置列表中找到你的机场配置，点击旁边的“更新”或“刷新”按钮图标。建议每周更新一次，以同步机场最新调整的节点和线路状态。" },
+  { q: "Clash节点怎么选择？", a: "进入 Proxies（代理）面板，点击闪电图标进行测速。通常建议选择延迟（ms）较低且颜色为绿色的节点。对于日常使用，可以直接选择 Auto（自动故障转移）策略。" },
+  { q: "Clash节点为什么Timeout？", a: "Timeout 代表无法连接到该节点。常见原因是节点 IP 被墙拦截、机场服务器宕机或你的本地网络（特别是 DNS）配置异常。建议先点击更新订阅获取最新 IP。" },
+  { q: "Clash节点为什么晚上变慢？", a: "晚上 8:00 - 11:00 是网络晚高峰，国际出口带宽拥堵。如果你的机场使用的是普通公网线路，就会受到严重干扰。此时建议切换到 IPLC/IEPL 专线节点。" },
+  { q: "Clash怎么切换节点？", a: "打开 Proxies 代理面板，展开你正在使用的代理策略组（通常名为 Proxy 或 节点选择），手动点击列表中的其他国家或地区节点即可无缝切换。" },
+  { q: "Clash Rule是什么？", a: "Rule 即规则分流模式。开启后，Clash 会严格按照配置文件中的域名和 IP 规则字典，自动判断哪个网站走代理、哪个网站直连。" },
+  { q: "Clash Global是什么？", a: "Global 即全局代理模式。开启后，Clash 会无视所有分流规则，将电脑产生的所有网络流量全部强制发送给当前选中的代理节点。" },
+  { q: "Clash Direct是什么？", a: "Direct 即直连模式。开启后，所有流量都不经过代理节点，等同于关闭了翻墙功能，完全使用你本地的运营商网络。" },
+  { q: "Clash TUN是什么？", a: "TUN（Tunnel）模式会在操作系统层面创建一张虚拟网卡，接管系统所有流量（包括不遵守系统代理的软件如游戏客户端或命令行程序），是最高级别的代理接管方式。" },
+  { q: "Clash DNS是什么？", a: "Clash 内置了一个强大的 DNS 解析器。它可以防止本地运营商的 DNS 污染（即返回虚假 IP 导致无法翻墙），是配置中非常关键的一环。" },
+  { q: "Clash YAML是什么？", a: "YAML 是 Clash 使用的配置文件格式。你导入的机场订阅本质上就是一个写满了节点、规则、代理组的 .yaml 纯文本文件。" },
+  { q: "Clash YAML报错怎么办？", a: "常见原因为缩进错误或使用了客户端不支持的新协议。请检查报错的具体行数，或尝试在机场后台更换订阅格式（如选择 Clash Meta 订阅）。" },
+  { q: "Clash连接成功但打不开网页怎么办？", a: "可能是系统代理未成功设置，或者浏览器安装了冲突的代理插件（如 SwitchyOmega）。也可能是节点本身已连通但无实际带宽，请尝试更换节点。" },
+  { q: "Clash为什么只有部分网站打不开？", a: "这通常是因为该网站被节点服务商的审计规则屏蔽（如 BT 下载、暗网等），或者是配置文件中的规则写错了（把本该代理的域名分流到了 Direct）。" },
+  { q: "Clash和VPN有什么区别？", a: "传统 VPN 会在底层接管整个电脑的所有流量，难以实现精准分流；而 Clash 侧重于七层应用代理与灵活的规则分流，速度更快、体验更无缝。" },
+  { q: "Clash和Shadowrocket有什么区别？", a: "两者都是基于规则的代理客户端。Clash 偏向于桌面端与生态构建（配置文件通用），而 Shadowrocket 则是 iOS 专属的付费应用，且支持更广泛的小众协议。" },
+  { q: "Clash和sing-box有什么区别？", a: "sing-box 是较新的下一代代理内核，不仅跨平台性能更强，原生支持 VLESS/Reality 等新协议，也是目前替代停更版 Clash 的热门方案。" },
+  { q: "Clash机场怎么选？", a: "只需寻找支持 Clash 订阅格式的服务商。建议重点关注其是否提供专线（应对晚高峰）、流媒体解锁情况以及节点是否频繁超时。" },
+  { q: "Clash订阅是什么？", a: "订阅是一个特殊的网址链接。客户端下载这个网址，就能自动获取里面几十上百个节点的服务器 IP、端口、密码以及已经写好的分流规则。" }
+];
+
+// Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.clashwiki.blog/" },
+    { "@type": "ListItem", "position": 2, "name": "专题", "item": "https://www.clashwiki.blog/topics/" },
+    { "@type": "ListItem", "position": 3, "name": "关于 Clash 的深度指南", "item": "https://www.clashwiki.blog/tag/clash/" }
+  ]
+};
+---
+
+<BaseLayout 
+  title="Clash 教程与机场节点指南｜订阅、配置、规则与常见问题 - ClashWiki" 
+  description="Clash 教程、机场订阅、节点选择、配置、Rules、DNS、TUN 以及常见故障排查指南，帮助新手全面系统地了解并掌握 Clash 代理工具的使用方法。" 
+  keywords="Clash,Clash教程,Clash配置,Clash订阅,Clash节点,Clash Timeout"
+>
+  <!-- Schema 注入 -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="container mx-auto max-w-7xl px-4 pt-28 pb-10">
+    <Breadcrumb items={[{ label: '专题', href: '/topics/' }, { label: 'Clash指南' }]} />
+    
+    <!-- Hero Section -->
+    <div class="mt-8 mb-16 relative bg-slate-900 border border-slate-800 rounded-3xl p-10 overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
+      <div class="relative z-10 max-w-3xl">
+        <h1 class="text-3xl md:text-5xl font-heading font-black text-slate-100 mb-6 leading-tight">
+          关于 <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Clash</span> 的深度指南
+        </h1>
+        <p class="text-xl text-slate-300 font-medium mb-4 leading-relaxed">
+          从 Clash 入门、机场订阅、节点配置，到 TUN、DNS、规则与常见故障，系统了解 Clash 的使用方法。
+        </p>
+        <p class="text-slate-400 leading-relaxed text-sm">
+          Clash 是许多用户用于管理代理节点和网络规则的客户端生态之一。本专题整理 Clash 入门、订阅、节点、配置、规则、DNS、TUN、排障以及相关客户端内容，帮助新手从基础开始了解 Clash。
+        </p>
+      </div>
+    </div>
+
+    <PageQuickRead />
+
+    <!-- Clash 快速导航 -->
+    <div class="mb-16 sticky top-24 z-40 bg-slate-900/80 backdrop-blur-xl border border-slate-800 shadow-2xl rounded-2xl p-4">
+      <div class="flex items-center gap-4">
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider shrink-0 hidden md:block">Clash 快速导航</h2>
+        <div class="flex overflow-x-auto gap-3 items-center no-scrollbar pb-1">
+          {['入门', '客户端', '机场', '节点', '工具', '常见问题', '排障'].map(item => (
+            <a href={`#clash-${item}`} class="shrink-0 px-4 py-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-xl hover:border-emerald-500 hover:text-emerald-400 hover:bg-slate-900 transition-colors font-medium shadow-sm hover:shadow-emerald-500/10 text-sm">
+              Clash {item}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 文章区域：入门 -->
+    <div class="mb-20 scroll-mt-48" id="clash-入门">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">Clash 入门基础</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {beginnerPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <!-- 文章区域：客户端 -->
+    <div class="mb-20 scroll-mt-48" id="clash-客户端">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">Clash 客户端生态</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {clientPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+
+
+    <!-- Clash 机场专区 -->
+    <div class="mb-20 bg-slate-900 border border-emerald-500/30 rounded-3xl p-8 lg:p-12 shadow-xl scroll-mt-48" id="clash-机场">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="text-4xl">✈️</span>
+        <h2 class="text-3xl font-heading font-bold text-emerald-400">Clash 机场选购专区</h2>
+      </div>
+      <p class="text-slate-300 leading-relaxed mb-8 max-w-4xl text-lg">
+        很多机场服务会提供可以导入 Clash 兼容客户端的订阅配置。选择 Clash 机场时，可以重点关注套餐价格、流量、节点、专线协议、客户端兼容性以及服务商政策。
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/blog/2026-airport-recommendation-guide/" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-medium transition-colors shadow-lg shadow-emerald-600/30">2026 机场推荐测评表</a>
+        <a href="/tag/airport-review/" class="px-6 py-3 bg-slate-800 border border-slate-700 hover:border-emerald-500 text-slate-200 rounded-xl font-medium transition-colors">2026 机场单评汇总</a>
+        <a href="/topics/budget/" class="px-6 py-3 bg-slate-800 border border-slate-700 hover:border-emerald-500 text-slate-200 rounded-xl font-medium transition-colors">低价便宜机场筛选</a>
+      </div>
+    </div>
+
+    <!-- Clash 节点场景 -->
+    <div class="mb-20 scroll-mt-48" id="clash-节点">
+      <h2 class="text-3xl font-heading font-bold text-slate-100 mb-8">Clash 节点适合什么场景？</h2>
+      <p class="text-slate-400 mb-8 max-w-3xl">不同场景对 Clash 节点的要求截然不同。在使用机场订阅时，应该根据具体业务切换合适的路由策略。</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"><div class="text-2xl mb-2">🌐</div><h3 class="font-bold text-slate-200 mb-1 text-sm">日常浏览</h3><p class="text-[11px] text-slate-500">常规线路即可</p></div>
+        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"><div class="text-2xl mb-2">🤖</div><h3 class="font-bold text-slate-200 mb-1 text-sm">AI工具</h3><p class="text-[11px] text-slate-500">需原生纯净 IP</p></div>
+        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"><div class="text-2xl mb-2">📺</div><h3 class="font-bold text-slate-200 mb-1 text-sm">视频流媒体</h3><p class="text-[11px] text-slate-500">大带宽与地区解锁</p></div>
+        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"><div class="text-2xl mb-2">🎮</div><h3 class="font-bold text-slate-200 mb-1 text-sm">游戏联机</h3><p class="text-[11px] text-slate-500">极低延迟与防抖动</p></div>
+        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"><div class="text-2xl mb-2">⚡</div><h3 class="font-bold text-slate-200 mb-1 text-sm">低延迟需求</h3><p class="text-[11px] text-slate-500">IPLC/IEPL 专线</p></div>
+        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl text-center"><div class="text-2xl mb-2">🛡️</div><h3 class="font-bold text-slate-200 mb-1 text-sm">极高稳定性</h3><p class="text-[11px] text-slate-500">大机场抗压冗余</p></div>
+      </div>
+    </div>
+
+    <!-- 实用工具与其他生态 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20 scroll-mt-48" id="clash-工具">
+      <!-- 实用工具 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+        <h2 class="text-2xl font-bold text-slate-100 mb-6 flex items-center gap-3"><span class="text-emerald-400">🛠️</span> Clash 实用工具</h2>
+        <div class="space-y-4">
+          <a href="/tools/clash-checker/" class="flex items-center justify-between p-4 bg-slate-950 rounded-xl hover:bg-slate-800 transition-colors border border-slate-800/50">
+            <span class="font-medium text-slate-200">Clash 配置检查器</span>
+            <span class="text-slate-500 text-sm">排查 YAML 报错 &rarr;</span>
+          </a>
+          <a href="/tools/dns-leak/" class="flex items-center justify-between p-4 bg-slate-950 rounded-xl hover:bg-slate-800 transition-colors border border-slate-800/50">
+            <span class="font-medium text-slate-200">DNS 泄漏测试</span>
+            <span class="text-slate-500 text-sm">检查解析污染 &rarr;</span>
+          </a>
+          <a href="/tools/ip/" class="flex items-center justify-between p-4 bg-slate-950 rounded-xl hover:bg-slate-800 transition-colors border border-slate-800/50">
+            <span class="font-medium text-slate-200">IP 查询与归属地</span>
+            <span class="text-slate-500 text-sm">检查节点原生度 &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 客户端生态 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+        <h2 class="text-2xl font-bold text-slate-100 mb-6 flex items-center gap-3"><span class="text-emerald-400">💻</span> Clash 及相关客户端</h2>
+        <p class="text-slate-400 text-sm mb-6">不同生态工具存在差异，注意配置支持情况：</p>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 bg-slate-800 text-emerald-400 text-sm font-medium rounded-lg">Clash Meta</span>
+          <span class="px-4 py-2 bg-slate-800 text-emerald-400 text-sm font-medium rounded-lg">Clash Verge Rev</span>
+          <span class="px-4 py-2 bg-slate-800 text-cyan-400 text-sm font-medium rounded-lg border border-slate-700">sing-box</span>
+          <span class="px-4 py-2 bg-slate-800 text-cyan-400 text-sm font-medium rounded-lg border border-slate-700">Shadowrocket</span>
+          <span class="px-4 py-2 bg-slate-800 text-cyan-400 text-sm font-medium rounded-lg border border-slate-700">v2rayN</span>
+          <span class="px-4 py-2 bg-slate-800 text-cyan-400 text-sm font-medium rounded-lg border border-slate-700">Quantumult X</span>
+          <span class="px-4 py-2 bg-slate-800 text-cyan-400 text-sm font-medium rounded-lg border border-slate-700">Stash</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新手路线 -->
+    <div class="mb-20">
+      <div class="flex items-center gap-3 mb-10 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">Clash 新手使用路线</h2>
+      </div>
+      <div class="relative max-w-4xl mx-auto">
+        <!-- 装饰竖线 -->
+        <div class="absolute left-[27px] top-4 bottom-4 w-1 bg-slate-800 rounded-full hidden md:block"></div>
+        
+        <div class="space-y-6 relative">
+          {[
+            { id: '01', title: '了解 Clash', desc: '学习代理分流基础原理', link: '/blog/what-is-proxy-rules-and-tun/' },
+            { id: '02', title: '选择兼容的机场服务', desc: '挑选大带宽低延迟的服务商', link: '/blog/2026-airport-recommendation-guide/' },
+            { id: '03', title: '获得机场订阅', desc: '从机场后台复制 YAML 订阅链接', link: null },
+            { id: '04', title: '导入 Clash', desc: '下载对应平台的 Clash 客户端并导入配置', link: '/blog/clash-client-download-intro/' },
+            { id: '05', title: '选择节点', desc: '进行延迟测速，手动或自动选择最优节点', link: null },
+            { id: '06', title: '测试连接', desc: '开启系统代理并测试 YouTube 访问速度', link: null },
+            { id: '07', title: '配置 Rule / DNS / TUN', desc: '进阶防泄漏与全局接管设置', link: '/blog/clash-ultimate-tutorial-2026/' },
+            { id: '08', title: '遇到问题进行排障', desc: '解决超时、无法联网等常见故障', link: '/blog/clash-timeout-troubleshooting/' }
+          ].map(step => (
+            <div class="flex flex-col md:flex-row md:items-center gap-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl hover:border-emerald-500/30 transition-colors">
+              <div class="w-14 h-14 bg-emerald-500/10 text-emerald-400 font-black text-xl rounded-xl flex items-center justify-center shrink-0 border border-emerald-500/20 z-10">
+                {step.id}
+              </div>
+              <div class="flex-grow">
+                <h3 class="font-bold text-lg text-slate-100">{step.title}</h3>
+                <p class="text-slate-400 text-sm mt-1">{step.desc}</p>
+              </div>
+              {step.link && (
+                <a href={step.link} class="text-sm font-medium text-emerald-400 hover:text-emerald-300 mt-3 md:mt-0 whitespace-nowrap bg-emerald-500/10 px-4 py-2 rounded-lg">阅读教程 &rarr;</a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 热门 Clash 问题 FAQ -->
+    <div class="mb-20 scroll-mt-48" id="clash-常见问题">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">热门 Clash 问题解答</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {clashFaqs.map(faq => (
+          <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-emerald-500/30 transition-colors">
+            <h3 class="text-slate-100 font-bold mb-3 leading-snug">{faq.q}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 推荐阅读 (取前 6 篇) -->
+    <div class="mb-10">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-2xl font-heading font-bold text-slate-100">精选推荐阅读</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allPosts.slice(0, 6).map(post => <ArticleCard {...formatPost(post)} />)}
+      </div>
+    </div>
+
+    <!-- 文章区域：排障 -->
+    <div class="mb-20 scroll-mt-48" id="clash-排障">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">Clash 进阶排障与诊断</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {troubleshootingPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <!-- 所有 Clash 相关文章 -->
+    <div class="mb-20 scroll-mt-48" id="clash-all">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">所有 Clash 教程与资源</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allPosts.filter(p => p.data.tags && p.data.tags.includes('Clash')).map(post => <ArticleCard {...formatPost(post)} />)}
+      </div>
+    </div>
+
+    <HubFooterLinks />
+  </div>
+</BaseLayout>

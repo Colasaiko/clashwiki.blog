@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="新手入门：从零开始的网络工具指南 - ClashWiki" 
+  description="ClashWiki 为您提供的全套网络代理与安全指南。从零基础扫盲、挑选节点服务商、客户端配置到高级隐私保护，带您轻松打破信息茧房。"
+>
+  <!-- Global CSS to hide scrollbar but allow scrolling -->
+  <style is:global>
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+
+  <div class="container mx-auto max-w-5xl px-4 pt-28 pb-16 md:pt-32 md:pb-24">
+    
+    <!-- Hero Section -->
+    <div id="overview" class="text-center mb-12 relative scroll-mt-48">
+      <div class="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full w-2/3 h-2/3 mx-auto -z-10 pointer-events-none"></div>
+      <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-slate-100 mb-6 tracking-tight">
+        新手入门 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">通关指南</span>
+      </h1>
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+        不用担心看不懂专业术语。我们为您准备了从零开始的关键步骤与专题，带您安全、快速地连接世界。
+      </p>
+
+      <!-- 推荐精选栏目 -->
+      <div class="flex flex-wrap justify-center gap-3 mb-10">
+        <a href="#basics" class="px-5 py-2.5 bg-blue-500/10 border border-blue-500/30 rounded-full text-sm font-bold text-blue-400 hover:bg-blue-500/20 hover:scale-105 transition-all flex items-center gap-2">
+          🚀 快速入门
+        </a>
+        <a href="#buy" class="px-5 py-2.5 bg-green-500/10 border border-green-500/30 rounded-full text-sm font-bold text-green-400 hover:bg-green-500/20 hover:scale-105 transition-all flex items-center gap-2">
+          📈 专线选购
+        </a>
+        <a href="#security" class="px-5 py-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-sm font-bold text-emerald-400 hover:bg-emerald-500/20 hover:scale-105 transition-all flex items-center gap-2">
+          🛡️ 安全与排障
+        </a>
+        <a href="#ai" class="px-5 py-2.5 bg-purple-500/10 border border-purple-500/30 rounded-full text-sm font-bold text-purple-400 hover:bg-purple-500/20 hover:scale-105 transition-all flex items-center gap-2">
+          🤖 AI 解锁
+        </a>
+      </div>
+
+      <!-- 左侧阶段导向 / 右侧温馨提示 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
+        <!-- 左侧：按当前阶段找路线 -->
+        <a href="#path" class="block bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/50 hover:bg-slate-800 transition-all group shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+              <span class="text-blue-500">🎯</span> 按当前阶段找路线
+            </h3>
+            <span class="text-slate-400 group-hover:text-blue-400 transition-colors text-xl">&rarr;</span>
+          </div>
+          <p class="text-sm text-slate-400 mb-5">不知道从何看起？直接点击查看您的专属学习图谱。</p>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">小白入门</span>
+            <span class="text-slate-400">&rarr;</span>
+            <span class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">进阶玩家</span>
+            <span class="text-slate-400">&rarr;</span>
+            <span class="bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700">极客折腾</span>
+          </div>
+        </a>
+
+        <!-- 右侧：温馨提示 -->
+        <div class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-6 flex flex-col justify-center">
+          <div class="flex items-start gap-3">
+            <span class="text-amber-500 text-2xl shrink-0 mt-0.5">⚠️</span>
+            <div class="text-sm text-amber-200/80 leading-relaxed">
+              <strong class="text-amber-400 block mb-1.5 text-base">合规警告与温馨提示</strong>
+              请您在遵守所在地区相关法律法规的前提下使用网络工具。本站内容仅供学术研究、外贸业务及跨境电商从业者学习参考，切勿用于任何非法用途。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌟 TOP STICKY BAR 🌟 -->
+    <div class="mb-16 sticky top-24 z-40 bg-slate-900/80 backdrop-blur-xl border border-slate-800 shadow-xl rounded-2xl p-4">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <a href="#overview" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">📅课表</a>
+        <a href="#recent" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">✨近期</a>
+        <a href="#basics" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">🚀入门</a>
+        <a href="#security" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">🛡️安全</a>
+        <a href="#troubleshoot" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">🔍排障</a>
+        <a href="#network" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">🌐网络</a>
+        <a href="#ai" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">🤖AI工具</a>
+        <a href="#path" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">🎯路径</a>
+        <a href="#buy" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">📈选购</a>
+        <a href="#more" class="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 text-slate-400 hover:bg-slate-200 transition-colors flex items-center gap-2">📚更多</a>
+      </div>
+    </div>
+
+    <!-- ✨近期 -->
+    <div id="recent" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-yellow-400">✨</span> 近期更新与推荐
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="/blog/sing-box-vs-clash-verge/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-yellow-500/50 hover:bg-slate-800 transition-all group">
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-yellow-400">Clash Verge 与 sing-box 深度横评</h3>
+          <p class="text-sm text-slate-400">2026 年到底该选哪个核心？看这篇就够了。</p>
+        </a>
+        <a href="/blog/claude-registration-guide/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-yellow-500/50 hover:bg-slate-800 transition-all group">
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-yellow-400">Claude 注册防封终极指南</h3>
+          <p class="text-sm text-slate-400">解决封号痛点，教你如何百分百成功注册并稳定使用。</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🚀入门 -->
+    <div id="basics" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-blue-500">🚀</span> 基础入门
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/blog/vpn-guide-placeholder/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-blue-500/50 hover:bg-slate-800 hover:-translate-y-1 transition-all group shadow-sm">
+          <div class="text-blue-500 mb-3 text-3xl">🧱</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-blue-400 transition-colors">什么是跨境网络代理？</h3>
+          <p class="text-sm text-slate-400">了解跨境网络的基础原理，以及为什么我们需要使用代理工具。</p>
+        </a>
+        <a href="/tag/clash/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-blue-500/50 hover:bg-slate-800 hover:-translate-y-1 transition-all group shadow-sm">
+          <div class="text-blue-500 mb-3 text-3xl">💻</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-blue-400 transition-colors">全平台客户端下载与配置</h3>
+          <p class="text-sm text-slate-400">Windows、Mac、iOS、Android 新手图文配置教程合集。</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🛡️安全 -->
+    <div id="security" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-emerald-500">🛡️</span> 隐私与安全
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/blog/security-privacy-guide/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/50 hover:bg-slate-800 hover:-translate-y-1 transition-all group shadow-sm sm:col-span-2">
+          <div class="text-emerald-500 mb-3 text-3xl">🕵️‍♂️</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-emerald-400 transition-colors">代理安全与隐私保护：如何防止身份被泄露？</h3>
+          <p class="text-sm text-slate-400">使用代理就一定安全吗？揭秘常见的隐私泄露途径，以及如何正确设置代理客户端以实现 100% 的匿名保护。</p>
+        </a>
+        <a href="/blog/is-free-vpn-safe/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/50 hover:bg-slate-800 hover:-translate-y-1 transition-all group shadow-sm">
+          <div class="text-emerald-500 mb-3 text-3xl">⚠️</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-emerald-400 transition-colors">免费节点好用、安全吗？</h3>
+          <p class="text-sm text-slate-400">免费的才是最贵的。揭秘免费 VPN 盗取个人隐私的内幕。</p>
+        </a>
+        <a href="/tools/dns-leak/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-emerald-500/50 hover:bg-slate-800 hover:-translate-y-1 transition-all group shadow-sm">
+          <div class="text-emerald-500 mb-3 text-3xl">🛡️</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-emerald-400 transition-colors">DNS 泄露在线检测工具</h3>
+          <p class="text-sm text-slate-400">一键查验你的真实运营商 IP 是否已经被彻底隐藏。</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🔍排障 -->
+    <div id="troubleshoot" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-orange-500">🔍</span> 异常排障
+      </h2>
+      <div class="grid grid-cols-1 gap-4">
+        <a href="/blog/airport-timeout-fix/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-orange-500/50 hover:bg-slate-800 hover:-translate-y-1 transition-all group shadow-sm flex flex-col sm:flex-row items-center gap-6">
+          <div class="text-orange-500 text-5xl">🛠️</div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-orange-400 transition-colors">连上了但打不开网页怎么办？(Timeout 排查)</h3>
+            <p class="text-sm text-slate-400">常见 Timeout 报错、节点全部超时、系统时间错误导致的连接失败等常见疑难杂症的 5 步排查解决法。</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🌐网络 -->
+    <div id="network" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-cyan-500">🌐</span> 网络原理
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/blog/network-basics/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-cyan-500/50 hover:bg-slate-800 transition-all group shadow-sm">
+          <div class="text-cyan-500 mb-3 text-3xl">📡</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-cyan-400">什么是 TCP 与 UDP？代理为何要开 UDP？</h3>
+          <p class="text-sm text-slate-400">深入浅出解析网络底层协议，打游戏、语音通话必看原理。</p>
+        </a>
+        <a href="/blog/proxy-protocols-comparison-2026/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-cyan-500/50 hover:bg-slate-800 transition-all group shadow-sm">
+          <div class="text-cyan-500 mb-3 text-3xl">⚔️</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-cyan-400">Trojan、Vmess 与 Shadowsocks 有何区别？</h3>
+          <p class="text-sm text-slate-400">主流代理协议底层逻辑对比与抗封锁能力解析。</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🤖AI工具 -->
+    <div id="ai" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-purple-500">🤖</span> AI 解锁与生产力
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/blog/chatgpt-unblock-guide/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-purple-500/50 hover:bg-slate-800 transition-all group shadow-sm">
+          <div class="text-purple-500 mb-3 text-3xl">🤖</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-purple-400">完美解锁 ChatGPT 访问限制</h3>
+          <p class="text-sm text-slate-400">为什么连了代理还会被拒绝访问？教你如何伪装原生 IP 绕过严格的机房风控检测。</p>
+        </a>
+        <a href="/tag/ai-tools/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-purple-500/50 hover:bg-slate-800 transition-all group shadow-sm">
+          <div class="text-purple-500 mb-3 text-3xl">🧠</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-purple-400">AI 编程与工具推荐库</h3>
+          <p class="text-sm text-slate-400">Cursor 编程指南、Perplexity 搜索应用等海量 AI 生产力提升教程。</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 🎯路径 -->
+    <div id="path" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-rose-500">🎯</span> 知识图谱与学习路径
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+          <div class="text-rose-500 font-bold mb-4 flex items-center gap-2"><span class="bg-rose-500/20 px-2 py-1 rounded text-xs">阶段一</span>小白入门</div>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li><a href="/blog/vpn-guide-placeholder/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 代理原理与网络分流机制</a></li>
+            <li><a href="/blog/2026-airport-recommendation-guide/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 服务商购买与基础防坑</a></li>
+            <li><a href="/tag/clash/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 客户端导入订阅链接</a></li>
+          </ul>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+          <div class="text-rose-500 font-bold mb-4 flex items-center gap-2"><span class="bg-rose-500/20 px-2 py-1 rounded text-xs">阶段二</span>进阶玩家</div>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li><a href="/blog/proxy-protocols-comparison-2026/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 深入解析代理协议</a></li>
+            <li><a href="/tag/routing-rules/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 学习配置分流规则</a></li>
+            <li><a href="/tools/dns-leak/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 防 DNS 泄露调优</a></li>
+          </ul>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+          <div class="text-rose-500 font-bold mb-4 flex items-center gap-2"><span class="bg-rose-500/20 px-2 py-1 rounded text-xs">阶段三</span>极客折腾</div>
+          <ul class="space-y-3 text-sm text-slate-300">
+            <li><a href="/tag/sing-box/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 手写 sing-box 配置</a></li>
+            <li><a href="/tag/linux/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> Linux 代理环境配置</a></li>
+            <li><a href="/tag/ai-tools/" class="hover:text-rose-400 flex items-start gap-2"><span class="text-rose-500">&rarr;</span> 纯净原生 IP 业务解锁</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📈选购 -->
+    <div id="buy" class="scroll-mt-48 mb-16">
+      <h2 class="text-2xl font-bold font-heading text-slate-100 mb-6 flex items-center gap-2 border-b border-slate-800 pb-2">
+        <span class="text-green-500">📈</span> 选购与防坑指南
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="/blog/2026-airport-recommendation-guide/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-green-500/50 hover:bg-slate-800 transition-all group shadow-sm">
+          <div class="text-green-500 mb-3 text-3xl">🛒</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-green-400">怎么购买优质的节点服务商？</h3>
+          <p class="text-sm text-slate-400">教你看懂 IPLC、IEPL 等参数，挑选一家稳定不跑路的节点服务商。</p>
+        </a>
+        <a href="/category/airports/" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-green-500/50 hover:bg-slate-800 transition-all group shadow-sm bg-center">
+          <div class="text-green-500 mb-3 text-3xl">🏆</div>
+          <h3 class="text-lg font-bold text-slate-200 mb-2 group-hover:text-green-400">2026 高性价比专线榜单</h3>
+          <p class="text-sm text-slate-400">经过实测的优质商业服务提供商，稳定解锁流媒体与 AI 应用。</p>
+        </a>
+      </div>
+    </div>
+
+    <!-- 📚更多 (工具 & FAQ) -->
+    <div id="more" class="scroll-mt-48 pt-8">
+      
+      <!-- 工具库 -->
+      <div class="mb-16">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold font-heading text-slate-100 flex items-center justify-center gap-2 mb-2">
+            <span class="text-blue-500">🔧</span> 在线工具箱
+          </h2>
+          <p class="text-slate-400">日常网络维护与排障的好帮手</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="/tools/ip/" class="bg-slate-900 border border-slate-800 p-5 rounded-xl hover:bg-slate-800 hover:-translate-y-1 transition-all text-center group shadow-sm">
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🌍</div>
+            <div class="font-bold text-slate-200 text-sm mb-1">IP 归属查询</div>
+          </a>
+          <a href="/tools/dns-leak/" class="bg-slate-900 border border-slate-800 p-5 rounded-xl hover:bg-slate-800 hover:-translate-y-1 transition-all text-center group shadow-sm">
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🛡️</div>
+            <div class="font-bold text-slate-200 text-sm mb-1">DNS 泄露测试</div>
+          </a>
+          <a href="/tools/webrtc/" class="bg-slate-900 border border-slate-800 p-5 rounded-xl hover:bg-slate-800 hover:-translate-y-1 transition-all text-center group shadow-sm">
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">👁️</div>
+            <div class="font-bold text-slate-200 text-sm mb-1">WebRTC 检测</div>
+          </a>
+          <a href="/tools/ping/" class="bg-slate-900 border border-slate-800 p-5 rounded-xl hover:bg-slate-800 hover:-translate-y-1 transition-all text-center group shadow-sm">
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">⚡</div>
+            <div class="font-bold text-slate-200 text-sm mb-1">Ping 测速</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="mb-16">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold font-heading text-slate-100 mb-2">新手常见问题 FAQ</h2>
+          <p class="text-slate-400">快速解答您的疑惑</p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+            <h3 class="font-bold text-slate-200 mb-2 flex items-center gap-2"><span class="text-blue-500">Q:</span> 免费 VPN 真的能用吗？</h3>
+            <p class="text-sm text-slate-400">部分免费节点可以应急使用，但绝大多数免费 VPN 会通过出售用户隐私、植入广告或恶意挖矿来盈利。对于长期使用的用户，强烈建议购买正规的商业专线服务。</p>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+            <h3 class="font-bold text-slate-200 mb-2 flex items-center gap-2"><span class="text-blue-500">Q:</span> 节点总是 Timeout 超时怎么排查？</h3>
+            <p class="text-sm text-slate-400">首先更新订阅并确认套餐没有过期；其次尝试切换不同国家的节点；最后检查电脑系统时间是否准确（误差不能超过90秒，否则会导致协议校验失败）。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 快捷导航框架 (Bottom) -->
+      <div class="pt-10 border-t border-slate-800/50">
+        <h2 class="text-center text-slate-400 text-sm font-semibold tracking-widest uppercase mb-6">探索其他栏目</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
+          <a href="/tag/vpn/" class="flex items-center justify-center gap-2 p-3 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 hover:border-slate-700 transition-all">
+            <span class="text-lg">🔐</span><span class="text-sm font-medium text-slate-300">VPN 知识</span>
+          </a>
+          <a href="/category/airports/" class="flex items-center justify-center gap-2 p-3 bg-slate-900 border border-blue-500/30 rounded-lg hover:bg-slate-800 hover:border-blue-500 transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+            <span class="text-lg">✈️</span><span class="text-sm font-bold text-blue-400">服务商评测</span>
+          </a>
+          <a href="/tools/" class="flex items-center justify-center gap-2 p-3 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 hover:border-slate-700 transition-all">
+            <span class="text-lg">🔧</span><span class="text-sm font-medium text-slate-300">网络工具</span>
+          </a>
+          <a href="/tag/ai-tools/" class="flex items-center justify-center gap-2 p-3 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 hover:border-slate-700 transition-all">
+            <span class="text-lg">🤖</span><span class="text-sm font-medium text-slate-300">AI 解锁</span>
+          </a>
+          <a href="/blog/" class="flex items-center justify-center gap-2 p-3 bg-slate-900 border border-slate-800 rounded-lg hover:bg-slate-800 hover:border-slate-700 transition-all col-span-2 md:col-span-1">
+            <span class="text-lg">📚</span><span class="text-sm font-medium text-slate-300">全部教程</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</BaseLayout>

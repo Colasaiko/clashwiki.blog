@@ -1,0 +1,185 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
+
+const allPosts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const getSlug = (p: any) => p.slug || p.id.replace(/\.md$/, '');
+const formatPost = (p: any) => ({
+  title: p.data.title,
+  description: p.data.description,
+  url: `/blog/${getSlug(p)}/`,
+  category: p.data.category || 'AI 工具',
+  pubDate: p.data.pubDate || new Date('2026-01-01'),
+  image: p.data.image
+});
+
+const aiKeywords = ['ai', 'chatgpt', 'claude', 'gemini', 'cursor', 'windsurf', 'perplexity', 'agent'];
+const aiPosts = allPosts.filter(p => {
+  if (!p.data) return false;
+  const tagsStr = (p.data.tags || []).join(' ').toLowerCase();
+  const titleStr = (p.data.title || '').toLowerCase();
+  const descStr = (p.data.description || '').toLowerCase();
+  const fullStr = `${tagsStr} ${titleStr} ${descStr}`;
+  return aiKeywords.some(kw => fullStr.includes(kw));
+}).map(formatPost);
+
+const aiFaqs = [
+  { q: "ChatGPT 是什么？", a: "ChatGPT 是由 OpenAI 开发的大型语言模型，能够理解人类语言、撰写文章、翻译文本、编写代码以及回答各种复杂问题，是目前最普及的 AI 聊天工具。" },
+  { q: "Claude 是什么？", a: "Claude 是由 Anthropic 开发的 AI 助手。它在长文本处理、复杂逻辑推理以及编程辅助方面表现出色，并以其低幻觉率和高安全性受到许多专业用户的喜爱。" },
+  { q: "Gemini 是什么？", a: "Gemini 是 Google 推出的原生多模态大模型，能够同时理解并处理文字、图像、音频和视频，与 Google 生态系统（如 Docs、Gmail 等）深度整合。" },
+  { q: "Cursor 是什么？", a: "Cursor 是一款基于 VS Code 深度定制的 AI 智能代码编辑器。它内置了强大的 AI 预测补全和多文件重构功能，是目前最受程序员欢迎的 AI 编程辅助利器。" },
+  { q: "ChatGPT 适合什么场景？", a: "非常适合日常知识检索、快速文案撰写、跨语种翻译、头脑风暴以及通用问题的快速问答，生态丰富，插件众多。" },
+  { q: "Claude 适合什么场景？", a: "非常适合长文档阅读与总结、复杂代码逻辑分析、长篇小说的构思与写作，以及对准确度要求极高的逻辑推理场景。" },
+  { q: "Gemini 适合什么场景？", a: "适合需要处理图像分析、视频理解等富媒体任务，或者重度依赖 Google 办公全家桶协同工作的场景。" },
+  { q: "Cursor 适合编程吗？", a: "非常适合！Cursor 是专为编程打造的工具，它不仅能自动补全代码，还能跨文件理解你的整个项目架构，大幅度提升开发效率。" },
+  { q: "ChatGPT 和 Claude 有什么区别？", a: "ChatGPT 的联网搜索与插件生态更强大，而 Claude 3.5 Sonnet 在编程能力和自然语言的拟人感、细腻度上更胜一筹。" },
+  { q: "ChatGPT 和 Gemini 有什么区别？", a: "ChatGPT 主要偏向文本和逻辑处理，而 Gemini 从底层开始就是多模态设计，原生处理图像和视频的能力更强，且深度绑定谷歌搜索。" },
+  { q: "Claude 和 Gemini 有什么区别？", a: "Claude 更像一个细心且逻辑严密的学者，适合深度的长文本阅读和代码调试；Gemini 则是全能型的助手，尤其在多媒体和实时网络数据检索上占据优势。" },
+  { q: "AI编程工具有哪些？", a: "目前主流的 AI 编程工具有 Cursor、Windsurf、GitHub Copilot、Codeium 以及基于浏览器的 Claude Artifacts 等。" },
+  { q: "AI写作工具适合什么场景？", a: "适合撰写营销文案、公文起草、博客文章润色、外语邮件沟通，甚至进行网文小说大纲的创作。" },
+  { q: "AI工具免费版和付费版有什么区别？", a: "免费版通常使用上一代模型（如 GPT-3.5 或 Claude 3 Haiku），且有严格的使用频率限制。付费版（如 Plus 或 Pro）则提供最先进的模型（GPT-4o 或 Claude 3.5 Sonnet），额度更高，且具备高级联网与数据分析能力。" },
+  { q: "AI工具为什么打不开？", a: "这通常是由于网络环境导致的。绝大多数主流海外 AI 工具对大陆 IP 以及一些常见的机房 IP 有严格的封锁限制。" },
+  { q: "AI工具速度慢怎么办？", a: "速度慢通常是因为代理节点的延迟过高或丢包严重，建议切换至低延迟的优质专线节点，并确保开启了全局代理或规则分流。" },
+  { q: "AI工具登录失败怎么办？", a: "可能是触发了风控（如提示 'Access Denied' 或 'IP blocked'）。请清理浏览器 Cookie，更换高质量的原生 IP 节点，或尝试使用无痕模式重新登录。" },
+  { q: "AI工具网络问题怎么排查？", a: "首先验证本地网络是否正常，然后使用工具检查当前的代理出口 IP 纯净度（Fraud Score），确保你使用的不是已经被大规模滥用的广播 IP。" }
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://www.clashwiki.blog/" },
+    { "@type": "ListItem", "position": 2, "name": "专题", "item": "https://www.clashwiki.blog/topics/" },
+    { "@type": "ListItem", "position": 3, "name": "AI工具", "item": "https://www.clashwiki.blog/tag/ai-tools/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": aiFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+  }))
+};
+---
+
+<BaseLayout 
+  title="AI工具指南与教程 | ClashWiki" 
+  description="整理ChatGPT、Claude、Gemini、Cursor等AI工具的使用指南、功能介绍、对比、AI编程与常见网络排障问题，帮助用户选择适合自己的AI工具。" 
+  keywords="AI工具,ChatGPT教程,Claude指南,Cursor编程,Gemini,AI效率工具,AI账号防封"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <div class="container mx-auto max-w-7xl px-4 pt-28 pb-10">
+    <Breadcrumb items={[{ label: '专题', href: '/topics/' }, { label: 'AI工具' }]} />
+    
+    <div class="mt-8 mb-16 relative bg-slate-900 border border-slate-800 rounded-3xl p-10 overflow-hidden shadow-2xl">
+      <div class="absolute -right-20 -top-20 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-fuchsia-500/10 rounded-full blur-3xl"></div>
+      <div class="relative z-10 max-w-3xl">
+        <h1 class="text-3xl md:text-5xl font-heading font-black text-slate-100 mb-6 leading-tight">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">AI工具指南</span>
+        </h1>
+        <p class="text-xl text-slate-300 font-medium mb-4 leading-relaxed">
+          探索 ChatGPT、Claude、Gemini、Cursor 等 AI 工具，了解 AI 应用、编程工具、使用技巧与常见网络问题。
+        </p>
+      </div>
+    </div>
+
+    <!-- AI Tools Categories & Cards -->
+    <div class="mb-20">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">AI 核心工具谱系</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-violet-500/40 transition-all group">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-100 mb-2 group-hover:text-violet-400 transition-colors">ChatGPT</h3>
+          <p class="text-sm text-slate-400 mb-4 h-10">普及率最高的全能型对话 AI，适合绝大多数文本生成与问答场景。</p>
+          <div class="text-xs text-slate-500">适合人群：通用知识检索、日常效率办公</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-violet-500/40 transition-all group">
+          <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-100 mb-2 group-hover:text-violet-400 transition-colors">Claude</h3>
+          <p class="text-sm text-slate-400 mb-4 h-10">拥有强大的长文本处理能力与卓越的编程理解，被誉为最强干活神器。</p>
+          <div class="text-xs text-slate-500">适合人群：长文档阅读、程序员、小说创作</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-violet-500/40 transition-all group">
+          <div class="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-100 mb-2 group-hover:text-violet-400 transition-colors">Cursor</h3>
+          <p class="text-sm text-slate-400 mb-4 h-10">基于 VS Code 打造的次世代 AI 代码编辑器，自动补全与多文件重构。</p>
+          <div class="text-xs text-slate-500">适合人群：前端/后端开发、AI 编程探索者</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-violet-500/40 transition-all group">
+          <div class="w-12 h-12 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-100 mb-2 group-hover:text-violet-400 transition-colors">Gemini</h3>
+          <p class="text-sm text-slate-400 mb-4 h-10">谷歌原生多模态引擎，强大的图片、视频原生理解及搜索整合能力。</p>
+          <div class="text-xs text-slate-500">适合人群：谷歌全家桶用户、多媒体内容分析</div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="mb-20">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">AI + 跨境网络必备</h2>
+      </div>
+      <div class="bg-blue-900/20 border border-blue-500/30 rounded-2xl p-6">
+        <p class="text-slate-300 leading-relaxed mb-4">
+          绝大部分海外顶级 AI 工具（如 ChatGPT, Claude）对访问者的网络 IP 有着极其严苛的风控策略。如果您在注册或日常使用中频繁遇到 <strong>“Access Denied”</strong>、<strong>无法加载对话</strong> 或 <strong>账号被封锁</strong> 等情况，请务必排查您的网络环境。如果用户需要了解 AI 工具使用时的网络环境，可以参考 <a href="/blog/2026-airport-recommendation-guide/" class="text-blue-400 hover:underline font-bold">最新机场推荐与测评指南</a> 寻找具备高质量原生 IP 的网络代理服务商。
+        </p>
+        <div class="flex flex-wrap gap-4 mt-4">
+          <a href="/tools/ip/" class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 text-sm hover:bg-slate-700 transition-colors">IP 纯净度检测</a>
+          <a href="/tools/dns-leak/" class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 text-sm hover:bg-slate-700 transition-colors">DNS 防漏测试</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-20" id="all-articles">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">所有 AI 教程与文章</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {aiPosts.map(post => <ArticleCard {...post} />)}
+      </div>
+    </div>
+
+    <div class="mb-20 scroll-mt-48" id="faq">
+      <div class="flex items-center gap-3 mb-8 pb-4 border-b border-slate-800">
+        <h2 class="text-3xl font-heading font-bold text-slate-100">热门 AI 工具常见问题</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {aiFaqs.map(faq => (
+          <div class="p-6 bg-slate-900 border border-slate-800 rounded-2xl hover:border-violet-500/30 transition-colors">
+            <h3 class="text-slate-100 font-bold mb-3 leading-snug">{faq.q}</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              {faq.a} 
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <HubFooterLinks />
+  </div>
+</BaseLayout>

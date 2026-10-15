@@ -1,5 +1,5 @@
 ---
-title: "2026最新进阶网络路由与规则自定义指南 | 专题 - ClashWiki"
+title: "进阶网络路由与规则配置指南 | 专题"
 description: "不想再受限于默认配置，渴望实现精准流量接管？ClashWiki 为您深度剖析路由匹配逻辑、自定义分流规则与 TUN 模式真全局提权，点击成为网络优化极客。"
 slug: "advanced"
 updatedDate: 2026-07-27

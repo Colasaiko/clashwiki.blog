@@ -1,16 +1,16 @@
 ---
-title: "sing-box 常见配置报错诊断与深度修复教程 | 网络排查 - ClashWiki"
-description: "启动 sing-box 时遇到令人头疼的 JSON 语法错误？ClashWiki 整理了最全面的核心报错日志分析与对应解决方案，点击查收这份专业的代理客户端排障自救手册。"
+title: "sing-box 常见配置报错诊断与修复详细教程"
+description: "启动 sing-box 遇到令人头疼的 JSON 语法错误？ClashWiki 整理了最全面的报错日志分析与解决方案，点击查收专业的代理客户端排障自救手册。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "配置文件", "节点排查", "实用教程"]
+category: "客户端教程"
+tags: ['sing-box', '配置规则', '故障排查', '客户端教程']
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "配置报错,日志分析,代理客户端排障,网络排查"
 ---
 
-对于刚刚从 Clash 迁移到 sing-box 的用户来说，面对庞大的 `config.json` 往往会感到无从下手。sing-box 的强项在于它的高自由度，但代价则是极其严格的 JSON 语法规范。
+对于刚刚从 [Clash](/tag/clash/) 迁移到 [sing-box](/tag/sing-box/) 的用户来说，面对庞大的 `config.json` 往往会感到无从下手。sing-box 的强项在于它的高自由度，但代价则是极其严格的 JSON 语法规范。
 
 本文整理了新手配置 sing-box 时最容易踩坑的几个“名场面”，并教你如何一步步进行节点排查。
 

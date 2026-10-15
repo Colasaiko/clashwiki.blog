@@ -32,7 +32,7 @@ const dimensions = [
 ];
 ---
 
-<div class="bg-white/90 backdrop-blur-xl p-6 md:p-10 rounded-3xl border border-slate-200 shadow-xl mb-12 flex flex-col md:flex-row gap-8 items-stretch relative overflow-hidden">
+<div class="bg-slate-900/90 backdrop-blur-xl p-6 md:p-10 rounded-3xl border border-slate-700 shadow-xl mb-12 flex flex-col md:flex-row gap-8 items-stretch relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50/50 pointer-events-none"></div>
   
   {/* Score Callout */}
@@ -54,7 +54,7 @@ const dimensions = [
   {/* Transparency Breakdown */}
   <div class="flex-grow flex flex-col justify-center relative z-10">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-slate-800 m-0">透明评分矩阵</h3>
+      <h3 class="text-lg font-bold text-slate-200 m-0">透明评分矩阵</h3>
       <span class="text-xs font-medium px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full border border-emerald-200">加权计算公式公示</span>
     </div>
     
@@ -62,19 +62,19 @@ const dimensions = [
       {dimensions.map(dim => (
         <div class="flex items-center justify-between group">
           <div class="flex items-center gap-2">
-            <span class="text-sm font-medium text-slate-700">{dim.label}</span>
-            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded font-mono border border-slate-200">{dim.weight}</span>
+            <span class="text-sm font-medium text-slate-300">{dim.label}</span>
+            <span class="text-[10px] px-1.5 py-0.5 bg-slate-800 text-slate-400 rounded font-mono border border-slate-700">{dim.weight}</span>
           </div>
           <div class="flex items-center gap-3 w-1/2">
-            <div class="h-1.5 flex-grow bg-slate-100 rounded-full overflow-hidden">
+            <div class="h-1.5 flex-grow bg-slate-800 rounded-full overflow-hidden">
               <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-1000 ease-out" style={`width: ${(Number(dim.score) / 5) * 100}%`}></div>
             </div>
-            <span class="text-sm font-mono font-semibold text-slate-900 min-w-[2.5rem] text-right">{dim.score}</span>
+            <span class="text-sm font-mono font-semibold text-slate-100 min-w-[2.5rem] text-right">{dim.score}</span>
           </div>
         </div>
       ))}
     </div>
-    <div class="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-500 flex items-start gap-2">
+    <div class="mt-5 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-start gap-2">
       <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
       <p class="m-0 leading-relaxed">
         <strong>打分说明：</strong>以上指标由本站按照固定权重标准统一计算生成。其中，稳定性直接决定了长期使用体验（占比30%），速度和延迟代表核心连接质量（共计40%）。各项得分为全满 5.0 分制。

@@ -1,18 +1,18 @@
 ---
-title: "sing-box 防 DNS 泄露与解析优化进阶教程 | 代理进阶 - ClashWiki"
-description: "代理速度慢或者无法访问某些受限网站？可能是您的 DNS 设置出了问题！ClashWiki 深度剖析 sing-box 远程与本地 DNS 分流策略，点击打造无死角的纯净网络。"
+title: "sing-box 防 DNS 泄露与解析优化权威教程"
+description: "代理速度慢或无法访问某些受限网站？可能是您的 DNS 设置出了问题！ClashWiki 深度剖析 sing-box 远程与本地 DNS 分流策略，点击打造无死角纯净网络。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "配置文件", "网络安全", "实用教程"]
+category: "客户端教程"
+tags: ['sing-box', '配置规则', '网络安全', '客户端教程']
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "DNS泄露,解析优化,分流策略,进阶教程"
 ---
 
-在跨境网络的过程中，**DNS 泄露**（DNS Leak）和**DNS 污染**是导致网页打不开、加载缓慢、甚至 IP 封锁的罪魁祸首。
+在跨境网络的过程中，**[DNS 泄露](/tools/dns-leak/)**（DNS Leak）和**DNS 污染**是导致网页打不开、加载缓慢、甚至 IP 封锁的罪魁祸首。
 
-sing-box 拥有一套比 Clash 更灵活但配置稍显复杂的 DNS 引擎。在这篇教程中，我们将彻底拆解 `dns` 模块，为您提供一份能兼顾速度与安全的工业级配置清单。
+[sing-box](/tag/sing-box/) 拥有一套比 [Clash](/tag/clash/) 更灵活但配置稍显复杂的 DNS 引擎。在这篇教程中，我们将彻底拆解 `dns` 模块，为您提供一份能兼顾速度与安全的工业级配置清单。
 
 ---
 

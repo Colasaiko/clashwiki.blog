@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import HubFooterLinks from '../../../components/HubFooterLinks.astro';
+---
+
+<BaseLayout 
+  title="JSON格式化校验与排障利器 | ClashWiki" 
+  description="完全免费的在线 JSON 格式化与语法校验工具。纯前端解析不过服务器。写 sing-box 配置文件报错了？复制进来一键排查所有缺少逗号、括号不匹配等语法错误。"
+>
+  <div class="container mx-auto max-w-5xl px-4 pt-28 pb-20">
+    <Breadcrumb items={[
+      { label: '工具箱', href: '/tools/' },
+      { label: 'JSON 格式化与校验' }
+    ]} />
+
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 mb-4 tracking-tight">
+        JSON 格式化与校验工具
+      </h1>
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto">
+        专治各种 <code>failed to parse config</code>。一键格式化、美化代码，精准定位语法报错位置。
+      </p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 shadow-xl max-w-5xl mx-auto">
+      
+      <!-- Toolbar -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex gap-2">
+          <button id="btn-format" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold rounded-lg shadow-lg shadow-emerald-900/20 transition-all active:scale-95 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            美化格式化 (Format)
+          </button>
+          <button id="btn-minify" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-bold rounded-lg transition-all active:scale-95 flex items-center gap-2">
+            压缩成一行 (Minify)
+          </button>
+        </div>
+        <div class="flex gap-2">
+          <button id="btn-copy" class="px-4 py-2 text-slate-300 hover:text-white hover:bg-slate-800 text-sm font-medium rounded-lg transition-all flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            复制
+          </button>
+          <button id="btn-clear" class="px-4 py-2 text-rose-400 hover:text-rose-300 hover:bg-rose-900/20 text-sm font-medium rounded-lg transition-all flex items-center gap-2">
+            清空
+          </button>
+        </div>
+      </div>
+
+      <!-- Editor Section -->
+      <div class="relative group">
+        <textarea 
+          id="json-editor" 
+          class="w-full h-[500px] bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-200 font-mono text-sm leading-relaxed focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all resize-none tab-support"
+          placeholder="在此粘贴您的 JSON 配置文件代码进行格式化与语法校验..."
+          spellcheck="false"
+        ></textarea>
+      </div>
+      
+      <!-- Error Panel -->
+      <div id="error-panel" class="mt-4 p-4 rounded-xl border border-rose-800 bg-rose-900/20 text-rose-300 text-sm font-mono hidden items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <div>
+          <div class="font-bold mb-1">校验失败！发现语法错误：</div>
+          <div id="error-message" class="whitespace-pre-wrap"></div>
+        </div>
+      </div>
+
+      <!-- Success Panel -->
+      <div id="success-panel" class="mt-4 p-4 rounded-xl border border-emerald-800 bg-emerald-900/20 text-emerald-300 text-sm hidden items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span class="font-bold">JSON 语法完全正确！</span>
+      </div>
+
+      <!-- Alert Message -->
+      <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl border border-slate-700 opacity-0 translate-y-10 transition-all duration-300 pointer-events-none z-50">
+        复制成功！
+      </div>
+
+    </div>
+
+    <!-- SEO / 说明 -->
+    <div class="max-w-4xl mx-auto mt-16 prose prose-invert prose-slate">
+      <h2>为什么 sing-box 老是报错 <code>failed to parse config</code>？</h2>
+      <p>
+        由于 sing-box 使用的是原生的 JSON 格式作为配置文件，它对语法有着极其严格的要求。任何一点点小失误都会导致整个软件崩溃无法启动。最常见的错误包括：
+      </p>
+      <ul>
+        <li><strong>多余的逗号：</strong> 在列表或对象的最后一个元素后面加上了 <code>,</code>（尾随逗号在标准 JSON 中是不允许的）。</li>
+        <li><strong>忘加双引号：</strong> 所有的 Key（键）都必须用 <code>" "</code> 包裹，不能用单引号，也不能不加。</li>
+        <li><strong>括号不匹配：</strong> 复制别人的路由规则时，经常会漏掉结尾的 <code>]</code> 或 <code>&#125;</code>。</li>
+      </ul>
+      <p>把代码粘贴到上面的工具中点击“美化格式化”，如果代码有错，错误提示栏会直接指出错误发生在大概哪一行，帮你快速排障。</p>
+    </div>
+    <HubFooterLinks />
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const editor = document.getElementById('json-editor') as HTMLTextAreaElement;
+    const btnFormat = document.getElementById('btn-format');
+    const btnMinify = document.getElementById('btn-minify');
+    const btnClear = document.getElementById('btn-clear');
+    const btnCopy = document.getElementById('btn-copy');
+    
+    const errorPanel = document.getElementById('error-panel');
+    const errorMessage = document.getElementById('error-message');
+    const successPanel = document.getElementById('success-panel');
+    const toast = document.getElementById('toast');
+
+    let toastTimeout;
+    const showToast = (msg) => {
+      if (toast) {
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        toast.style.transform = 'translate(-50%, 0)';
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translate(-50%, 20px)';
+        }, 2000);
+      }
+    };
+
+    const hideFeedback = () => {
+      if(errorPanel) errorPanel.style.display = 'none';
+      if(successPanel) successPanel.style.display = 'none';
+      editor.classList.remove('border-rose-500', 'border-emerald-500');
+    };
+
+    const parseJSON = () => {
+      hideFeedback();
+      const val = editor.value.trim();
+      if (!val) return null;
+
+      try {
+        const parsed = JSON.parse(val);
+        if(successPanel) {
+          successPanel.style.display = 'flex';
+          editor.classList.add('border-emerald-500');
+        }
+        return parsed;
+      } catch (e) {
+        if(errorPanel && errorMessage) {
+          errorPanel.style.display = 'flex';
+          errorMessage.textContent = e.toString();
+          editor.classList.add('border-rose-500');
+        }
+        return null;
+      }
+    };
+
+    // Auto check on blur
+    editor.addEventListener('blur', () => {
+      if (editor.value.trim()) parseJSON();
+    });
+
+    btnFormat?.addEventListener('click', () => {
+      const parsed = parseJSON();
+      if (parsed) {
+        editor.value = JSON.stringify(parsed, null, 2);
+      }
+    });
+
+    btnMinify?.addEventListener('click', () => {
+      const parsed = parseJSON();
+      if (parsed) {
+        editor.value = JSON.stringify(parsed);
+      }
+    });
+
+    btnClear?.addEventListener('click', () => {
+      editor.value = '';
+      hideFeedback();
+    });
+
+    btnCopy?.addEventListener('click', () => {
+      if (editor.value) {
+        navigator.clipboard.writeText(editor.value).then(() => {
+          showToast('JSON 已复制到剪贴板！');
+        });
+      }
+    });
+
+    // Support Tab indent in textarea
+    editor.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        editor.value = editor.value.substring(0, start) + "  " + editor.value.substring(end);
+        editor.selectionStart = editor.selectionEnd = start + 2;
+      }
+    });
+  });
+</script>

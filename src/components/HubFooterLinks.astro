@@ -1,0 +1,117 @@
+---
+// HubFooterLinks.astro
+// 提供全站统一的底部内容导览，增强孤岛页面的 SEO 内部链接和用户体验
+---
+
+<div class="mt-20 border-t border-slate-800 pt-12 pb-16">
+  <div class="mb-10 text-center md:text-left">
+    <h2 class="text-2xl font-bold font-heading text-slate-100 flex items-center justify-center md:justify-start gap-3">
+      <span class="text-emerald-400">🔗</span> 探索 ClashWiki 知识库
+    </h2>
+    <p class="text-slate-400 mt-2 text-sm">
+      找不到想要的内容？浏览下方核心目录，快速跳转至测评、教程、排障或工具。
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    
+    <!-- 1. 机场推荐 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">✈️</div>
+        <h3 class="text-slate-100 font-bold">机场推荐</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">寻找专线、平价或解锁流媒体的可靠机场。</p>
+      <ul class="space-y-3">
+        <li><a href="/topics/airport-recommendation/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>2026 机场精选排行</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/brands/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>机场品牌收录库</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/topics/budget/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>高性价比平价合集</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+    <!-- 2. 客户端教程 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">📚</div>
+        <h3 class="text-slate-100 font-bold">客户端教程</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">Clash、v2rayN 与各类翻墙软件使用指南。</p>
+      <ul class="space-y-3">
+        <li><a href="/tag/clash/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>Clash 深度使用指南</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/v2rayn/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>v2rayN 深度指南</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/topics/clients/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>主流客户端对比聚合</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+    <!-- 3. 网络工具 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">🛠️</div>
+        <h3 class="text-slate-100 font-bold">网络工具</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">网络诊断、IP 查询与配置检查在线工具箱。</p>
+      <ul class="space-y-3">
+        <li><a href="/tools/ip/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>IP / DNS 泄露检测</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tools/clash-checker/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>Clash 语法诊断器</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tools/webrtc/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>WebRTC 隐私诊断</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+    <!-- 4. 节点与网络 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">🌍</div>
+        <h3 class="text-slate-100 font-bold">节点与网络</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">代理节点、专线协议以及防封锁进阶网络知识。</p>
+      <ul class="space-y-3">
+        <li><a href="/topics/advanced/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>高级协议与防封锁</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/proxy-nodes/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>节点常识与推荐</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/proxy-protocols/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>主流翻墙协议解析</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+    <!-- 5. AI工具 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">🤖</div>
+        <h3 class="text-slate-100 font-bold">AI工具</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">解锁 ChatGPT 与 Claude，避免账号被风控封禁。</p>
+      <ul class="space-y-3">
+        <li><a href="/category/ai-tools/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>AI 工具与代理网络</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/chatgpt/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>ChatGPT 防封策略</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/claude/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>Claude 解锁指南</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+    <!-- 6. 流媒体 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">🎬</div>
+        <h3 class="text-slate-100 font-bold">流媒体</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">原生 IP 寻找，奈飞与迪士尼等视频版权解锁。</p>
+      <ul class="space-y-3">
+        <li><a href="/topics/streaming/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>流媒体解锁指南</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/streaming-unlock/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>流媒体节点评测</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/gaming-acceleration/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>外服游戏加速专区</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+    <!-- 7. 常见问题 -->
+    <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="text-xl">❓</div>
+        <h3 class="text-slate-100 font-bold">常见问题</h3>
+      </div>
+      <p class="text-xs text-slate-400 mb-4 h-8">无法上网？Timeout报错？防骗避坑必读大全。</p>
+      <ul class="space-y-3">
+        <li><a href="/faq/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>FAQ 常见问题排障</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/tag/troubleshooting/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>网络故障深度诊断</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+        <li><a href="/topics/scam-avoidance/" class="group flex items-center justify-between text-sm text-slate-400 hover:text-emerald-400 transition-colors"><span>机场防骗跑路避坑</span><span class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all">&rarr;</span></a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>

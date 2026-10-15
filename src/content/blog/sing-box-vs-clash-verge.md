@@ -1,16 +1,16 @@
 ---
-title: "sing-box 与 Clash Verge 性能对比深度测评 | 客户端测评 - ClashWiki"
+title: "sing-box 与 Clash Verge 性能对比评测"
 description: "面对两大主流现代网络代理客户端，到底该怎么选？ClashWiki 对比其内核资源占用、界面易用性及配置灵活性，通过真实数据帮您做出决策，点击查看终极横向测评。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "Clash Verge", "Clash", "代理协议", "实用教程"]
+category: "客户端教程"
+tags: ['sing-box', 'Clash Verge', 'Clash', '代理协议', '客户端教程']
 image: "/images/blog-default.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "性能对比,资源占用,界面易用性,深度测评"
 ---
 
-在 Clash 删库事件之后，跨境网络的客户端生态迎来了大洗牌。目前，市场上的核心玩家基本分为了两大阵营：一个是基于 Clash.Meta (Mihomo) 内核的 **Clash Verge Rev**，另一个则是强势崛起的纯血新星 **sing-box**。
+在 [Clash](/tag/clash/) 删库事件之后，跨境网络的客户端生态迎来了大洗牌。目前，市场上的核心玩家基本分为了两大阵营：一个是基于 Clash.Meta (Mihomo) 内核的 **[Clash Verge](/blog/clash-verge-vs-clash-for-windows/) Rev**，另一个则是强势崛起的纯血新星 **[sing-box](/tag/sing-box/)**。
 
 对于普通用户来说，面对这两个名字往往会感到迷茫：2026 年，到底应该选哪一个？本文将从五个维度为您进行深度横评。
 
@@ -23,9 +23,9 @@ keywords: "性能对比,资源占用,界面易用性,深度测评"
 
 **胜出者**：sing-box (在底层架构和性能上占据相对优势)
 
-## 2. 代理协议支持
+## 2. [代理协议](/tag/proxy-protocols/)支持
 
-在 2026 年，VLESS (Reality) 和 Hysteria 2 已经成为了主流。
+在 2026 年，[VLESS](/blog/vless-reality-explained/) ([Reality](/blog/vless-reality-explained/)) 和 [Hysteria 2](/blog/hysteria2-explained/) 已经成为了主流。
 - **Clash Verge**：通过 Mihomo 内核的不断更新，目前已经非常完美地兼容了 Hysteria 2、VLESS、Trojan 等几乎所有主流协议。
 - **sing-box**：作为“下一代通用代理”，sing-box 对这些新协议的支持是原生且底层的。特别是在 Hysteria 2 的优化上，sing-box 往往能跑出更低的延迟。
 
@@ -40,14 +40,14 @@ keywords: "性能对比,资源占用,界面易用性,深度测评"
 
 ## 4. 图形界面 (GUI) 与易用性
 
-- **Clash Verge**：作为一款成熟的桌面客户端，Clash Verge Rev 拥有极具现代感的图形界面。节点表现预估、规则切换、分流组管理一目了然，甚至支持深色模式和丰富的自定义 UI。小白只需复制订阅链接、一键导入即可使用。
+- **Clash Verge**：作为一款成熟的桌面客户端，[Clash Verge Rev](/blog/clash-verge-vs-clash-for-windows/) 拥有极具现代感的图形界面。节点表现预估、规则切换、分流组管理一目了然，甚至支持深色模式和丰富的自定义 UI。小白只需复制订阅链接、一键导入即可使用。
 - **sing-box**：虽然目前已经有了官方的图形化客户端以及第三方的 GUI 壳，但整体生态依然偏向于“极客向”。很多高级功能仍然需要在文本框里输入 JSON 代码来实现。
 
 **胜出者**：Clash Verge (用户体验完胜)
 
 ## 5. 生态与机场兼容性
 
-绝大多数机场（服务商）的基础设施都是围绕着 Clash 建立的。
+绝大多数机场（[服务商](/category/airports/)）的基础设施都是围绕着 Clash 建立的。
 - **Clash Verge**：支持世界上 99.9% 的机场，导入订阅几乎不会遇到任何阻碍。
 - **sing-box**：目前仍有部分中小型机场未原生提供 sing-box 订阅格式。用户往往需要借助第三方的订阅转换器 (Subconverter) 来将 Clash 订阅转换为 sing-box 格式，这增加了一步操作门槛。
 

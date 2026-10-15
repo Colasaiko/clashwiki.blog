@@ -28,7 +28,7 @@ const updates = [
 
 <BaseLayout keywords="ClashWiki更新记录, 网站动态, 评测更新, Clash教程更新" title="更新日志 - ClashWiki" description="查看 ClashWiki 的最新内容更新记录与评测数据迭代状态。我们坚持持续测试并跟进网络工具的最新技术动态。">
   <!-- 背景氛围 -->
-  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-50">
+  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-800">
     <div class="absolute top-[-1< 1%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-blue-500/5 blur-[120px] mix-blend-multiply"></div>
     <div class="absolute bottom-[-1< 1%] left-[-1< 1%] w-[50vw] h-[50vw] rounded-full bg-indigo-500/5 blur-[120px] mix-blend-multiply"></div>
   </div>
@@ -40,12 +40,12 @@ const updates = [
       <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 mb-6 tracking-tight">
         Clash Wiki 更新记录
       </h1>
-      <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto">
         保持敏锐，持续追踪。在这里查看我们最新的评测数据迭代、教程更新以及平台功能的升级动态。
       </p>
     </div>
     
-    <div class="bg-white/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-slate-200/60 shadow-xl shadow-slate-200/40 relative">
+    <div class="bg-slate-900/80 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-slate-700/60 shadow-xl shadow-slate-900/50/40 relative">
       
       <!-- 时间轴垂直线 -->
       <div class="absolute left-[39px] md:left-[55px] top-12 bottom-12 w-0.5 bg-slate-200/60 z-0"></div>
@@ -58,7 +58,7 @@ const updates = [
             
             <div class="flex-1">
               <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-4">
-                <h3 class="text-xl font-bold text-slate-800 m-0">{update.date}</h3>
+                <h3 class="text-xl font-bold text-slate-200 m-0">{update.date}</h3>
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-600 border border-blue-100">
                   Content Update
                 </span>
@@ -70,7 +70,7 @@ const updates = [
                     <svg class="w-5 h-5 text-indigo-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span class="text-slate-600 leading-relaxed">{item}</span>
+                    <span class="text-slate-400 leading-relaxed">{item}</span>
                   </li>
                 ))}
               </ul>

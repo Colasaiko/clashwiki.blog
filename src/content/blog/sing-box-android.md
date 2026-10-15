@@ -1,18 +1,18 @@
 ---
-title: "sing-box 安卓手机版配置与订阅进阶教程 | 移动代理 - ClashWiki"
+title: "sing-box 安卓手机版配置与订阅图文教程"
 description: "想在安卓系统上体验更新一代的轻量化代理内核？ClashWiki 为您提供 sing-box 客户端保姆级安装及规则配置指南，点击告别繁琐设置，畅享极速网络优化。"
 pubDate: "2026-08-13"
-category: "tutorials"
-tags: ["sing-box", "Android", "安卓教程", "客户端教程"]
+category: "客户端教程"
+tags: ['sing-box', 'Android', '客户端教程']
 image: "/og/singbox-theme.jpg"
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "安卓代理工具,轻量化内核,配置指南,进阶教程"
 ---
 
-在安卓生态中，曾经统治地位的是 Clash for Android (CFA) 和 v2rayNG。然而，随着新型协议（如 Hysteria 2、VLESS Reality）的普及，老款客户端已经无法胜任。
+在安卓生态中，曾经统治地位的是 [Clash](/tag/clash/) for Android (CFA) 和 [v2rayN](/tag/v2rayn/)G。然而，随着新型协议（如 [Hysteria 2](/blog/hysteria2-explained/)、[VLESS](/blog/vless-reality-explained/) [Reality](/blog/vless-reality-explained/)）的普及，老款客户端已经无法胜任。
 
-今天，我们就来带大家了解如何在安卓手机上，完美运行新一代网络代理神器：sing-box。
+今天，我们就来带大家了解如何在安卓手机上，完美运行新一代网络代理神器：[sing-box](/tag/sing-box/)。
 
 ---
 
@@ -47,7 +47,7 @@ SFA 对新手的要求较高，因为它默认界面非常硬核。
 1. **新建配置**：打开软件，进入 `Profiles`，点击右上角的添加按钮。
 2. **选择导入方式**：选择 `Import from URL`，为配置起个名字（比如您的机场名），然后将订阅链接粘贴在 URL 处。
 3. **启用配置**：保存后，回到首页（Dashboard），选择刚刚导入的配置，点击界面最下方的播放按钮 (▶)。
-4. 首次启动时，安卓系统会弹出“网络连接请求”提示以创建 VPN 隧道，请点击“确定”。
+4. 首次启动时，安卓系统会弹出“网络连接请求”提示以创建 [VPN](/tag/vpn/) 隧道，请点击“确定”。
 
 ### 3. 高级调优
 SFA 允许用户直接在手机上编辑复杂的 JSON 配置文件覆盖默认行为，但这仅推荐给了解路由原理的高级用户使用。

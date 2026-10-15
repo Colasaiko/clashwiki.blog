@@ -2,9 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
 ---
 
-<BaseLayout keywords="WebRTC测试, WebRTC泄漏, 真实IP检测, 局域网IP" title="WebRTC 泄漏探测器 - ClashWiki" description="免费的 WebRTC 隐私防泄漏测试工具。一键检测您的浏览器是否在连接代理时，意外泄露了您的真实局域网或本地公网 IP 地址。">
+<BaseLayout keywords="WebRTC测试, WebRTC泄漏, 真实IP检测, 局域网IP" title="WebRTC 泄漏探测测试 | ClashWiki" description="免费的 WebRTC 隐私防泄漏测试工具。一键检测您的浏览器是否在连接代理时，意外泄露了您的真实局域网或本地公网 IP 地址。">
   <div class="container mx-auto max-w-4xl px-4 pt-28 pb-12 min-h-[80vh]">
     <Breadcrumb items={[ { label: '网络工具箱', href: '/tools/' }, { label: 'WebRTC 泄漏探测' } ]} />
     
@@ -13,9 +14,9 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
     </div>
 
     <!-- UI Panel -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-      <div class="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
-        <h2 class="text-xl font-bold text-slate-800">底层探测结果</h2>
+    <div class="bg-slate-900 rounded-2xl shadow-sm border border-slate-700 p-8">
+      <div class="flex items-center justify-between mb-8 pb-6 border-b border-slate-800">
+        <h2 class="text-xl font-bold text-slate-200">底层探测结果</h2>
         <span id="webrtc-status" class="text-slate-400 text-sm flex items-center gap-2">
           正在嗅探 ICE Candidates...
         </span>
@@ -23,33 +24,34 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <p class="text-sm text-slate-500 mb-1">抓取到的私有 IP (Local)</p>
+          <p class="text-sm text-slate-400 mb-1">抓取到的私有 IP (Local)</p>
           <div id="local-ips" class="text-lg font-medium text-amber-600 font-mono flex flex-col gap-1">等待中...</div>
         </div>
         
         <div>
-          <p class="text-sm text-slate-500 mb-1">抓取到的公网 IP (Public)</p>
+          <p class="text-sm text-slate-400 mb-1">抓取到的公网 IP (Public)</p>
           <div id="public-ips" class="text-lg font-medium text-rose-600 font-mono flex flex-col gap-1">等待中...</div>
         </div>
       </div>
       
-      <div class="mt-8 pt-6 border-t border-slate-100">
-        <button id="refresh-btn" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-colors">重新探测</button>
+      <div class="mt-8 pt-6 border-t border-slate-800">
+        <button id="refresh-btn" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-200 text-slate-300 rounded-lg text-sm font-medium transition-colors">重新探测</button>
       </div>
     </div>
 
     <!-- Explainer -->
-    <div class="mt-12 prose-custom max-w-none text-sm text-slate-600 bg-slate-50 rounded-xl p-6">
-      <h3 class="text-base font-bold text-slate-800 mb-2">什么是 WebRTC 泄漏？</h3>
+    <div class="mt-12 prose-custom max-w-none text-sm text-slate-400 bg-slate-800 rounded-xl p-6">
+      <h3 class="text-base font-bold text-slate-200 mb-2">什么是 WebRTC 泄漏？</h3>
       <p>WebRTC 是浏览器内置的实时通信技术，允许直接进行端到端音视频通话。然而，它的机制允许网页通过 STUN 服务器获取您的真实 IP 地址。<strong>即使您使用了全局代理插件，如果不禁用或接管 WebRTC，您的真实宽带公网 IP 依然会被暴露。</strong></p>
       
-      <h3 class="text-base font-bold text-slate-800 mt-4 mb-2">如何修复？</h3>
+      <h3 class="text-base font-bold text-slate-200 mt-4 mb-2">如何修复？</h3>
       <ul class="mt-2 space-y-1">
         <li><strong>浏览器插件用户：</strong> 推荐安装 <code>WebRTC Network Limiter</code> (Chrome) 或 <code>Disable WebRTC</code>，强制通过代理路由 WebRTC 流量。</li>
         <li><strong>系统级代理用户：</strong> 像 Clash / sing-box 的 TUN 模式可以在虚拟网卡层面接管所有流量，通常能完美防止 WebRTC 泄漏。</li>
         <li><strong>注意事项：</strong> 现代浏览器为了隐私，部分局域网 IP 可能显示为 <code>.local</code> (mDNS) 掩码，这属于正常安全保护行为。</li>
       </ul>
     </div>
+    <HubFooterLinks />
   </div>
 </BaseLayout>
 

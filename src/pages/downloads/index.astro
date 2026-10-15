@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackButton from '../../components/BackButton.astro';
 import CategoryNav from '../../components/CategoryNav.astro';
+import HubFooterLinks from '../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../components/PageQuickRead.astro';
 
 // 客户端数据
 const platforms = [
@@ -28,7 +30,7 @@ const platforms = [
         desc: '老牌经典客户端，支持 Vmess/Vless/Trojan 等多种协议，资源占用极低。',
         url: 'https://github.com/2dust/v2rayN/releases',
         price: '免费开源',
-        iconColor: 'bg-slate-100 text-slate-600'
+        iconColor: 'bg-slate-800 text-slate-400'
       }
     ]
   },
@@ -106,7 +108,7 @@ const platforms = [
         desc: '安卓端老牌工具，简单直接，资源占用低，适合老旧机型或作为备用客户端。',
         url: 'https://github.com/2dust/v2rayNG/releases',
         price: '免费开源',
-        iconColor: 'bg-slate-100 text-slate-600'
+        iconColor: 'bg-slate-800 text-slate-400'
       }
     ]
   }
@@ -114,7 +116,7 @@ const platforms = [
 ---
 
 <BaseLayout title="全平台纯净版网络代理客户端极速下载 | 资源库 - ClashWiki" description="还在四处寻找各平台最新客户端安装包？ClashWiki 官方直链提供 Windows/Mac/iOS/Android 全生态纯净网络代理工具，点击即可安全无毒极速下载。" keywords="客户端下载,纯净版资源,官方直链,全生态支持" >
-  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-50">
+  <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-800">
     <div class="absolute top-0 right-0 w-[40vw] h-[40vw] rounded-full bg-indigo-500/5 blur-[120px] mix-blend-multiply"></div>
   </div>
 
@@ -127,10 +129,10 @@ const platforms = [
     </div>
     
     <div class="mt-8 mb-16 text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-100 mb-6 tracking-tight">
         全平台客户端 <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-fuchsia-500">下载中心</span>
       </h1>
-      <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+      <p class="text-lg text-slate-400 max-w-2xl mx-auto">
         为您整理了 Windows、macOS、iOS 和 Android 各大平台的最新主流代理客户端，安全无毒，直达官方下载。
       </p>
     </div>
@@ -142,20 +144,20 @@ const platforms = [
             <div class={`w-12 h-12 rounded-2xl bg-gradient-to-br ${platform.color} flex items-center justify-center text-white shadow-lg`}>
               <Fragment set:html={platform.icon} />
             </div>
-            <h2 class="text-3xl font-bold text-slate-800 m-0">{platform.name} 端下载</h2>
+            <h2 class="text-3xl font-bold text-slate-200 m-0">{platform.name} 端下载</h2>
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {platform.apps.map(app => (
-              <div class="bg-white/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-slate-200/60 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-300/50 hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full">
+              <div class="bg-slate-900/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-slate-700/60 shadow-xl shadow-slate-900/50/40 hover:shadow-2xl hover:shadow-slate-900/50 hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full">
                 <div class="flex items-start justify-between mb-4">
                   <div class="flex items-center gap-4">
                     <div class={`w-12 h-12 rounded-2xl ${app.iconColor} flex items-center justify-center shrink-0`}>
                       <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                     </div>
                     <div>
-                      <h3 class="text-xl font-bold text-slate-800 m-0 group-hover:text-indigo-600 transition-colors">{app.name}</h3>
-                      <p class="text-sm font-medium text-slate-500 mt-1">{app.price}</p>
+                      <h3 class="text-xl font-bold text-slate-200 m-0 group-hover:text-indigo-600 transition-colors">{app.name}</h3>
+                      <p class="text-sm font-medium text-slate-400 mt-1">{app.price}</p>
                     </div>
                   </div>
                   <span class={`px-2.5 py-1 text-xs font-bold text-white rounded-lg ${app.badgeColor} shadow-sm shrink-0`}>
@@ -163,7 +165,7 @@ const platforms = [
                   </span>
                 </div>
                 
-                <p class="text-slate-600 text-sm leading-relaxed mb-8 flex-1">
+                <p class="text-slate-400 text-sm leading-relaxed mb-8 flex-1">
                   {app.desc}
                 </p>
                 
@@ -191,5 +193,6 @@ const platforms = [
       </div>
     </div>
     
+    <HubFooterLinks />
   </div>
 </BaseLayout>

@@ -42,13 +42,43 @@ const seoKeywords = brand.data.tags ? [...brand.data.tags, "Clash", "便宜机�
       <div class="flex items-start gap-3">
         <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <p class="text-sm text-amber-800 leading-relaxed mb-0">
-          <strong>推荐与商业关系：</strong>本文包含推广链接。我们郑重承诺，推广关系绝不会影响本页面的客观测试评分与优缺点分析。
+          <strong>Affiliate 提示：</strong>本文部分链接可能为联盟推广链接。如果你通过这些链接购买服务，ClashWiki 可能获得佣金。该佣金不会额外增加你的购买成本。我们郑重承诺，推广关系绝不会影响本页面的客观测试与优缺点分析。
         </p>
+      </div>
+    </div>
+    
+    <div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-5 mb-6 text-sm text-slate-300">
+      <div class="flex items-center justify-between flex-wrap gap-4 mb-4 pb-4 border-b border-slate-700/50">
+        <div class="flex items-center gap-2 text-slate-200 font-medium">
+          <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          评测编辑: ClashWiki 团队
+        </div>
+        <div class="flex items-center gap-2 text-slate-400">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          最后更新: {brand.data.updatedDate ? brand.data.updatedDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '近期更新'}
+        </div>
+      </div>
+      
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-blue-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+        <div>
+          <p class="font-medium text-slate-200 mb-2">本站收录主要参考指标：</p>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2 py-1 bg-slate-800/80 rounded border border-slate-700 text-slate-300">节点稳定性</span>
+            <span class="px-2 py-1 bg-slate-800/80 rounded border border-slate-700 text-slate-300">晚高峰表现</span>
+            <span class="px-2 py-1 bg-slate-800/80 rounded border border-slate-700 text-slate-300">客户端兼容性</span>
+            <span class="px-2 py-1 bg-slate-800/80 rounded border border-slate-700 text-slate-300">流量价格比</span>
+            <span class="px-2 py-1 bg-slate-800/80 rounded border border-slate-700 text-slate-300">流媒体解锁</span>
+            <span class="px-2 py-1 bg-slate-800/80 rounded border border-slate-700 text-slate-300">售后与退款</span>
+          </div>
+          <p class="mt-3 text-xs text-slate-400">
+            想详细了解我们的数据采集与评价标准？请查看 <a href="/methodology/" class="text-blue-400 hover:text-blue-300 hover:underline transition-colors">收录方法论 (Methodology)</a>。
+          </p>
+        </div>
       </div>
     </div>
   </div>
   <DataStatus last_checked={brand.data.last_checked} updatedDate={brand.data.updatedDate} />
-  {brand.data.scores && <BrandScore scores={brand.data.scores} />}
   <BrandReportCard brand={brand} />
   
   <TableOfContents headings={headings} />
@@ -62,4 +92,11 @@ const seoKeywords = brand.data.tags ? [...brand.data.tags, "Clash", "便宜机�
     buttonText="前往官网注册" 
     buttonLink={`/go/${brand.id.replace(/\.md$/, '')}`} 
   />
+
+  <a href={`/go/${brand.id.replace(/\.md$/, '')}`} target="_blank" rel="nofollow sponsored noopener noreferrer" class="fixed bottom-6 right-4 md:bottom-10 md:right-10 z-[100] flex items-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full shadow-[0_10px_40px_rgb(0,0,0,0.4)] ring-4 ring-emerald-500/30 hover:scale-110 hover:shadow-emerald-500/50 transition-all duration-300 group">
+    <span class="text-lg font-black tracking-wide">服务入口 (推广)</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    </svg>
+  </a>
 </LandingLayout>

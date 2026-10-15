@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionTitle from '../../../components/SectionTitle.astro';
+import HubFooterLinks from '../../../components/HubFooterLinks.astro';
+import PageQuickRead from '../../../components/PageQuickRead.astro';
+---
+
+<BaseLayout 
+  title="Clash 配置检测器：在线检查 YAML 语法 | ClashWiki" 
+  description="纯前端在线 Clash 配置文件检测工具，一键排查 YAML 语法错误、代理节点(proxies)、策略组(proxy-groups)、分流规则(rules) 及 DNS 结构是否合法。数据全程不上传。"
+  keywords="Clash 配置检测, Clash Config Checker, YAML 语法检查, 策略组验证, Clash 排障"
+>
+  <div class="container mx-auto max-w-4xl px-4 pt-28 pb-20 min-h-screen">
+    <Breadcrumb items={[{ label: '网络工具箱', href: '/tools/' }, { label: 'Clash 配置检测器' }]} />
+    
+    <div class="mt-8 mb-8 text-center">
+      <SectionTitle title="Clash 配置静态检测 (Config Checker)" subtitle="纯前端解析，一键排查 YAML 格式错误与关键结构缺失。您的配置文件数据全程在浏览器本地处理，绝不会上传。" align="center" asH1={true} />
+    </div>
+
+    <PageQuickRead />
+
+
+    <div class="bg-slate-900 rounded-2xl p-6 border border-slate-700/60 shadow-xl shadow-slate-900/50/30">
+      <div class="mb-6 flex justify-between items-end">
+        <label for="config-input" class="block text-sm font-medium text-slate-300">
+          在此粘贴您的 Clash YAML 配置文件 (支持基础版与 Meta 版内核)：
+        </label>
+        <button id="clear-btn" class="text-xs text-slate-500 hover:text-slate-300 transition-colors">
+          清空内容
+        </button>
+      </div>
+      
+      <textarea 
+        id="config-input" 
+        rows="14" 
+        class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-300 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 placeholder-slate-700 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900" 
+        placeholder="proxies:\n  - name: &quot;节点1&quot;\n    type: ss\nproxy-groups:\n  - name: &quot;🚀 节点选择&quot;\nrules:\n  - MATCH,DIRECT\n..."></textarea>
+
+      <div class="mt-6 flex justify-center">
+        <button id="check-btn" class="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all hover:-translate-y-0.5 w-full md:w-auto flex items-center gap-2 justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+          立即静态检测
+        </button>
+      </div>
+
+      <!-- Result Panel -->
+      <div id="result-panel" class="mt-8 hidden">
+        <h3 class="text-lg font-bold text-slate-200 mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">
+          <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          检测报告
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="check-items">
+          <!-- Items will be injected here -->
+        </div>
+
+        <div id="error-alert" class="hidden mt-6 bg-rose-900/20 border-l-4 border-rose-500 p-4 rounded-r-lg">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-rose-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-rose-300 m-0">YAML 解析遭遇致命错误</h3>
+              <div class="mt-2 text-sm text-rose-200">
+                <p id="error-message" class="font-mono text-xs overflow-auto max-h-32 m-0 bg-slate-900/50 p-2 rounded border border-rose-800"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <HubFooterLinks />
+  </div>
+
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js" integrity="sha512-CSBhVREa011yzO2R4ZZ46j0JpQzQ3g/jQ24w657mJ9u9N6uO2DViJem+H2D9E2Vn1+25zYw/x+uJ1u0RcwP/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('config-input');
+      const checkBtn = document.getElementById('check-btn');
+      const clearBtn = document.getElementById('clear-btn');
+      const resultPanel = document.getElementById('result-panel');
+      const checkItemsContainer = document.getElementById('check-items');
+      const errorAlert = document.getElementById('error-alert');
+      const errorMessage = document.getElementById('error-message');
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        resultPanel.classList.add('hidden');
+      });
+
+      function createCheckItem(title, status, detail, successMsg, failMsg) {
+        const isPass = status === 'pass';
+        const isWarn = status === 'warn';
+        
+        let iconHtml = '';
+        let borderClass = '';
+        let titleClass = '';
+        let bgClass = '';
+        
+        if (isPass) {
+          iconHtml = `<div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>`;
+          borderClass = 'border-emerald-500/30';
+          titleClass = 'text-emerald-400';
+          bgClass = 'bg-emerald-900/10';
+        } else if (isWarn) {
+          iconHtml = `<div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center shrink-0"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>`;
+          borderClass = 'border-amber-500/30';
+          titleClass = 'text-amber-400';
+          bgClass = 'bg-amber-900/10';
+        } else {
+          iconHtml = `<div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></div>`;
+          borderClass = 'border-rose-500/30';
+          titleClass = 'text-rose-400';
+          bgClass = 'bg-rose-900/10';
+        }
+
+        return `
+          <div class="flex gap-4 p-4 rounded-xl border ${borderClass} ${bgClass}">
+            ${iconHtml}
+            <div>
+              <h4 class="text-sm font-bold ${titleClass} mb-1">${title}</h4>
+              <p class="text-xs text-slate-400 mb-1">${isPass ? successMsg : (isWarn ? successMsg || failMsg : failMsg)}</p>
+              ${detail ? `<p class="text-xs text-slate-500 font-mono break-all line-clamp-2" title="${detail}">${detail}</p>` : ''}
+            </div>
+          </div>
+        `;
+      }
+
+      checkBtn.addEventListener('click', () => {
+        const text = input.value.trim();
+        if (!text) return;
+        
+        // Reset state
+        resultPanel.classList.remove('hidden');
+        errorAlert.classList.add('hidden');
+        checkItemsContainer.innerHTML = '';
+        
+        let config = null;
+        let html = '';
+
+        // 1. Check YAML Format
+        try {
+          config = jsyaml.load(text);
+          if (typeof config !== 'object' || config === null) {
+            throw new Error("解析结果不是合法的字典结构 (Object)");
+          }
+          html += createCheckItem('YAML 语法格式', 'pass', '', '语法完美，成功解析为对象结构。', '');
+        } catch (e) {
+          html += createCheckItem('YAML 语法格式', 'fail', '', '', '存在缩进错误或非法字符，解析失败。');
+          errorAlert.classList.remove('hidden');
+          errorMessage.textContent = e.message;
+          checkItemsContainer.innerHTML = html;
+          return; // Stop further checks
+        }
+
+        // 2. Check Proxies
+        let hasProxies = Array.isArray(config.proxies) && config.proxies.length > 0;
+        let hasProviders = typeof config['proxy-providers'] === 'object' && Object.keys(config['proxy-providers']).length > 0;
+        
+        if (hasProxies || hasProviders) {
+          let detail = [];
+          if (hasProxies) detail.push(`发现 ${config.proxies.length} 个原生节点`);
+          if (hasProviders) detail.push(`发现 ${Object.keys(config['proxy-providers']).length} 个节点提供者`);
+          html += createCheckItem('代理节点 (Proxies)', 'pass', detail.join(' | '), '配置中已包含可用代理资源。', '');
+        } else {
+          html += createCheckItem('代理节点 (Proxies)', 'fail', '', '', '未检测到 proxies 或 proxy-providers，此配置无法翻墙。');
+        }
+
+        // 3. Check Proxy Groups
+        if (Array.isArray(config['proxy-groups']) && config['proxy-groups'].length > 0) {
+          html += createCheckItem('策略组 (Proxy Groups)', 'pass', `发现 ${config['proxy-groups'].length} 个策略组`, '路由策略架构完整。', '');
+        } else {
+          html += createCheckItem('策略组 (Proxy Groups)', 'fail', '', '', '未检测到 proxy-groups，将无法控制流量分发逻辑。');
+        }
+
+        // 4. Check Rules
+        if (Array.isArray(config.rules) && config.rules.length > 0) {
+          html += createCheckItem('分流规则 (Rules)', 'pass', `包含 ${config.rules.length} 条分流规则`, '分流体系存在。', '');
+        } else {
+          let hasRuleProviders = typeof config['rule-providers'] === 'object' && Object.keys(config['rule-providers']).length > 0;
+          if (hasRuleProviders) {
+            html += createCheckItem('分流规则 (Rules)', 'warn', '使用了 rule-providers', '主规则为空，依赖 rule-providers 分流（请确保配置合法）。', '');
+          } else {
+            html += createCheckItem('分流规则 (Rules)', 'warn', '', '', '配置极简：不存在分流规则，所有流量可能走到默认节点或直连。');
+          }
+        }
+
+        // 5. Check DNS
+        if (config.dns && config.dns.enable) {
+          const nameserverCount = Array.isArray(config.dns.nameserver) ? config.dns.nameserver.length : 0;
+          html += createCheckItem('DNS 模块解析', 'pass', `已开启，上游服务器数量: ${nameserverCount}`, '有助于防止 DNS 泄漏及提升解析精度。', '');
+        } else {
+          html += createCheckItem('DNS 模块解析', 'warn', '未启用或不存在', '', '内置 DNS 未开启，将依赖系统 DNS 进行解析。');
+        }
+
+        checkItemsContainer.innerHTML = html;
+      });
+    });
+  </script>
+</BaseLayout>

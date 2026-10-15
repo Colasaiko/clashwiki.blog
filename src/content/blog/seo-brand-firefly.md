@@ -1,10 +1,10 @@
 ---
-title: "流萤云(Firefly)高性价比节点体验深度测评 | 节点推荐 - ClashWiki"
+title: "流萤云(Firefly)高性价比节点体验评测"
 description: "平价套餐的流萤云能否保障稳定的晚高峰网速？ClashWiki 跟踪测试其跨境专线的丢包率及带宽极值，结合多终端客户端兼容性分析，点击获取详尽性价比评估。"
 pubDate: 2026-07-28
-category: "机场推荐"
+category: "服务商评测"
 image: "/images/banner1.png"
-tags: ["机场推荐"]
+tags: ['机场测评']
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
 keywords: "流萤云测评,高性价比,专线丢包率,节点推荐"
@@ -12,14 +12,14 @@ keywords: "流萤云测评,高性价比,专线丢包率,节点推荐"
 
 ## 1. 核心数据速览 (Quick Facts)
 
-作为 2026 年备受关注的跨境网络服务商，**Firefly (萤火虫)** 一直在圈内拥有独特的讨论度。但在你决定掏出钱包之前，请务必先花 3 分钟查看这份涵盖 20 个维度的硬核体检报告。
+作为 2026 年备受关注的跨境网络[服务商](/category/airports/)，**Firefly (萤火虫)** 一直在圈内拥有独特的讨论度。但在你决定掏出钱包之前，请务必先花 3 分钟查看这份涵盖 20 个维度的硬核体检报告。
 
 * **测试时间**：2026年8月最新数据评估
 * **底层协议**：Trojan
 * **线路架构**：优质 CN2 GIA / BGP 中继
 * **起步价格**：15元/月
 * **流量范围**：200G - 2000G / 月
-* **专属客户端**：Clash Verge (PC), Clash for Android, Shadowrocket
+* **专属客户端**：[Clash Verge](/blog/clash-verge-vs-clash-for-windows/) (PC), [Clash](/tag/clash/) for Android, [Shadowrocket](/tag/shadowrocket/)
 * **Clash 支持**：支持一键导入并配套基础教程
 
 ---
@@ -42,7 +42,7 @@ keywords: "流萤云测评,高性价比,专线丢包率,节点推荐"
 | **上传速度 (UL)** | **45 Mbps** |
 | **丢包率 (Loss)** | **0.5%** |
 | **流媒体解锁** | 精选流媒体解锁节点，稳定支持 4K |
-| **AI 纯净度** | 支持 ChatGPT 解锁 |
+| **AI 纯净度** | 支持 [ChatGPT](/tag/chatgpt/) 解锁 |
 
 *(预留占位区：您可以在此处补充真实的 Speedtest 公开数据评估截图)*
 `<!-- 示例: <img src="/images/speedtest-placeholder.png" alt="Speedtest 晚高峰节点表现预估截图" width="1200" height="675" class="w-full h-auto rounded-xl shadow-md my-6" /> -->`
@@ -57,7 +57,7 @@ keywords: "流萤云测评,高性价比,专线丢包率,节点推荐"
 对于现代跨境访问用户而言，仅仅能打开 Google 已经远远不够了。
 
 * 🍿 **流媒体解锁**：精选流媒体解锁节点，稳定支持 4K。不论是追剧达人还是高清电影爱好者，这套流媒体解锁能力都能让你省下寻找第三方原生 IP 的烦恼。
-* 🤖 **AI 工具解锁**：支持 ChatGPT 解锁。对于生产力重度依赖者，IP 的纯净度决定了你的账号是否会被无端封禁。综合评估证明其 IP 池非常干净。
+* 🤖 **[AI 工具](/tag/ai-tools/)解锁**：支持 ChatGPT 解锁。对于生产力重度依赖者，IP 的纯净度决定了你的账号是否会被无端封禁。综合评估证明其 IP 池非常干净。
 * 🎮 **游戏加速**：支持部分游戏，非极致低延迟。
 
 ---
