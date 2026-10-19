@@ -1,5 +1,167 @@
 [
   {
+    "date": "2026-10-19",
+    "brand": "微风网络",
+    "node": "香港 IPLC 专线",
+    "latency": 29,
+    "packetLoss": 0,
+    "speed": 840,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-19",
+    "brand": "微风网络",
+    "node": "日本 IEPL 节点",
+    "latency": 36,
+    "packetLoss": 0.2,
+    "speed": 610,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-19",
+    "brand": "速界机场",
+    "node": "新加坡 直连优化",
+    "latency": 78,
+    "packetLoss": 2.8,
+    "speed": 160,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-19",
+    "brand": "隐形人",
+    "node": "香港 BGP 中转",
+    "latency": 48,
+    "packetLoss": 1.2,
+    "speed": 320,
+    "status": "Good"
+  },
+  {
+    "date": "2026-10-19",
+    "brand": "梯子云",
+    "node": "美国 优化直连",
+    "latency": 185,
+    "packetLoss": 4.5,
+    "speed": 95,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-19",
+    "brand": "闪跃",
+    "node": "英国 跨境专线",
+    "latency": 152,
+    "packetLoss": 0.1,
+    "speed": 530,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-14",
+    "brand": "跨界云",
+    "node": "香港 BGP 入口",
+    "latency": 56,
+    "packetLoss": 3.1,
+    "speed": 130,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-14",
+    "brand": "跨界云",
+    "node": "日本 备用线路",
+    "latency": 89,
+    "packetLoss": 2.4,
+    "speed": 180,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-14",
+    "brand": "FireFly 萤火虫",
+    "node": "新加坡 原生流媒体",
+    "latency": 46,
+    "packetLoss": 0.1,
+    "speed": 680,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-14",
+    "brand": "神行加速",
+    "node": "台湾 优化线路",
+    "latency": 65,
+    "packetLoss": 1.8,
+    "speed": 240,
+    "status": "Good"
+  },
+  {
+    "date": "2026-10-14",
+    "brand": "WaveNet",
+    "node": "香港 IPLC 极速",
+    "latency": 32,
+    "packetLoss": 0,
+    "speed": 760,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-14",
+    "brand": "一翻云",
+    "node": "美国 普通中转",
+    "latency": 175,
+    "packetLoss": 3.6,
+    "speed": 110,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-10",
+    "brand": "灵动云",
+    "node": "日本 IEPL 专线",
+    "latency": 38,
+    "packetLoss": 0,
+    "speed": 790,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-10",
+    "brand": "灵猫",
+    "node": "香港 普通中转",
+    "latency": 62,
+    "packetLoss": 2.1,
+    "speed": 190,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-10",
+    "brand": "灵猫",
+    "node": "美国 原生流媒体",
+    "latency": 168,
+    "packetLoss": 1.5,
+    "speed": 210,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-10",
+    "brand": "暮光加速",
+    "node": "韩国 专线",
+    "latency": 35,
+    "packetLoss": 0.3,
+    "speed": 580,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-10",
+    "brand": "无忧链接",
+    "node": "香港 IEPL",
+    "latency": 39,
+    "packetLoss": 0.8,
+    "speed": 450,
+    "status": "Good"
+  },
+  {
+    "date": "2026-10-10",
+    "brand": "sogo云",
+    "node": "台湾 备用节点",
+    "latency": 72,
+    "packetLoss": 2.9,
+    "speed": 140,
+    "status": "Average"
+  },
+  {
     "date": "2026-10-03",
     "brand": "EdgeNova边缘节点",
     "node": "香港 IPLC 极速",
