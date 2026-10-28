@@ -5,7 +5,7 @@ description: "专门为新手与进阶用户整理的 2026 最新机场、梯子
 icon: "🛫"
 sortOrder: 1
 updatedDate: 2026-09-01
-aff_brands: ["breeze", "firefly", "worryfree", "civet", "flashleap", "kuajie"]
+aff_brands: ["breeze", "firefly", "worryfree", "civet", "flashleap", "kuajie", "dalao"]
 ---
 
 ## 什么是机场？机场和 VPN 有什么区别？

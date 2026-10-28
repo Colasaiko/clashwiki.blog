@@ -58,6 +58,17 @@ const posts = getPostsForTopic(topic.data.slug, allBlogPosts)
         <div class="space-y-4">
           {topic.data.aff_brands.map((brand: string) => <AffCard brand={brand} linkStyle="review" />)}
         </div>
+        <div class="mt-8 text-center">
+          <a 
+            href="/brands/" 
+            class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold rounded-xl border border-slate-700 hover:border-slate-600 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
+          >
+            <span>查看更多品牌</span>
+            <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
       </div>
     )}
 

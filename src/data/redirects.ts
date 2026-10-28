@@ -25,7 +25,9 @@ export const REDIRECTS: Record<string, string> = {
   'firefly': 'https://vip02.fireflyaff.com/#/?code=mcYQUZxG',
   'flashleap': 'https://vip02.flashleapaff.com/#/?code=hCwClNUi',
   'kuajie': 'https://vip02.kuajieaff.com/#/?code=HRzqSLrR',
+  'dalao': 'https://a01vipaff.dalaoyunaff.com/#/?code=4hRU02Tt',
   'worryfree': 'https://wep01.worryfreeaff.com/#/?code=ydtFVWqU',
   'quanqiuyun': 'https://sswdh.gcvipaff.com/#/?code=iZl9XAe2',
   'yuzhouyun': 'https://wzjc.yuzoucloud.cc/#/?code=204ZUc9t',
+  'cyberguard': 'https://www.clashwiki.blog/brands/cyberguard/',
 };

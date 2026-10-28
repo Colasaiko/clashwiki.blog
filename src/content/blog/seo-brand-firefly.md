@@ -1,13 +1,13 @@
 ---
-title: "流萤云(Firefly)高性价比节点体验评测"
-description: "平价套餐的流萤云能否保障稳定的晚高峰网速？ClashWiki 跟踪测试其跨境专线的丢包率及带宽极值，结合多终端客户端兼容性分析，点击获取详尽性价比评估。"
+title: "萤火虫(Firefly)高性价比节点体验评测"
+description: "平价套餐的萤火虫能否保障稳定的晚高峰网速？ClashWiki 跟踪测试其跨境专线的丢包率及带宽极值，结合多终端客户端兼容性分析，点击获取详尽性价比评估。"
 pubDate: 2026-07-28
 category: "服务商评测"
 image: "/images/banner1.png"
 tags: ['机场测评']
 author: "Clash Wiki 编辑组"
 updatedDate: 2026-08-13
-keywords: "流萤云测评,高性价比,专线丢包率,节点推荐"
+keywords: "萤火虫测评,高性价比,专线丢包率,节点推荐"
 ---
 
 ## 1. 核心数据速览 (Quick Facts)
