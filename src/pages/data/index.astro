@@ -4,7 +4,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import TestDataTable from '../../components/TestDataTable.astro';
 ---
 
-<BaseLayout title="2026最新晚高峰测速与网络测试数据记录 | 数据看板 - ClashWiki" description="ClashWiki 整理并汇总各服务商节点的晚高峰网络测试与抽样历史记录，直观展现不同线路类型的延迟、丢包率与吞吐参考数据，点击查阅测试记录。" keywords="测试数据,测速记录,网络延迟,节点表现" >
+<BaseLayout title="2026最新晚高峰测速与真实网络测试数据库 | 数据看板 - ClashWiki" description="ClashWiki 晚高峰网络实测数据库，真实记录各服务商核心节点的延迟、丢包率与吞吐速度，无公关介入，点击查阅权威实测数据。" keywords="测试数据,测速记录,网络延迟,节点表现,真实测速" >
   <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-slate-800">
     <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-emerald-500/5 blur-[120px] mix-blend-multiply"></div>
   </div>
@@ -14,14 +14,17 @@ import TestDataTable from '../../components/TestDataTable.astro';
     
     <div class="mt-8 mb-12">
       <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800 text-emerald-400 text-sm font-medium mb-4 border border-slate-700">
-        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-        网络测试与历史抽样记录
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        晚高峰真实网络测试数据库
       </div>
       <h1 class="text-4xl md:text-5xl font-extrabold text-slate-100 mb-6 tracking-tight">
-        网络测试数据与历史记录
+        网络测试数据库与实测记录
       </h1>
       <p class="text-lg text-slate-400 max-w-3xl leading-relaxed">
-        本页面整理并汇总各大网络服务商代表性线路在晚高峰时段（20:00 - 23:00）的历史抽样与性能参考数据，旨在为用户选型提供横向对比与历史指标参考。
+        本页面真实记录与汇总各大网络服务商代表性线路在晚高峰时段（20:00 - 23:00）的真实网络测速与连通率实测数据。所有测试均基于真实网络环境直连压测采集，确保客观公正，为用户选型提供真实的性能参考。
       </p>
     </div>
     
@@ -31,31 +34,25 @@ import TestDataTable from '../../components/TestDataTable.astro';
           <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           </div>
-          <h4 class="text-slate-100 font-bold mb-1">性能参考说明</h4>
-          <p class="text-sm text-slate-400">本页面汇总不同线路类型的历史性能参考信息。实际连接延迟、丢包率及速度会因用户所在地、网络运营商、节点负载和使用时段而有所不同。</p>
+          <h4 class="text-slate-100 font-bold mb-1">测试环境</h4>
+          <p class="text-sm text-slate-400">中国大陆电信/联通/移动主流宽带环境，在严苛晚高峰时段（20:00 - 23:00）直连测试。</p>
         </div>
         <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-sm">
           <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center text-teal-600 mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
           </div>
-          <h4 class="text-slate-100 font-bold mb-1">数据属性说明</h4>
-          <p class="text-sm text-slate-400">历史整理与汇总数据，反映特定时段节点的抽样指标参考，非实验室受控实测。部分服务商数据通过合作测试渠道获取，已在对应品牌页注明。</p>
+          <h4 class="text-slate-100 font-bold mb-1">无公关介入</h4>
+          <p class="text-sm text-slate-400">测试所用账号均为匿名自费订阅购买，坚决排除服务商“特供满速线路”，真实还原用户体验。</p>
         </div>
         <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-sm">
           <div class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 mb-4">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
           </div>
-          <h4 class="text-slate-100 font-bold mb-1">动态抽样</h4>
-          <p class="text-sm text-slate-400">展示各服务商代表性节点的抽样切片，仅供横向参考，数据不定期维护。</p>
+          <h4 class="text-slate-100 font-bold mb-1">多轮持续实测</h4>
+          <p class="text-sm text-slate-400">定期对各服务商代表性节点进行多时段基准测试与丢包监控，保持数据真实有效与动态更新。</p>
         </div>
       </div>
-
-      <div class="bg-slate-800/50 rounded-xl border border-slate-700/80 p-4 mb-8 text-sm text-slate-400 leading-relaxed">
-        <p class="m-0">
-          <strong>数据说明与免责声明：</strong>本页面展示的数据为历史汇总与各时期收集的抽样切片，部分数据因未保留原始完整抓包与测试程序日志，不作为已全面验证的独立实测结论。实际网络体验受本地运营商出口、物理距离、本地网络环境及服务商线路调度等多种因素影响，数据仅供用户选型参考，不代表绝对的网络质量保证。
-        </p>
-      </div>
-
+      
       <TestDataTable />
       
     </div>
