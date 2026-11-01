@@ -24,7 +24,7 @@ if (!hasReport) return null;
         <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-6 text-sm text-slate-400 bg-slate-900 p-4 rounded-xl border border-slate-800">
           <div><span class="block text-xs text-slate-400 mb-1">测试地区</span><span class="font-medium text-slate-300">广东</span></div>
           <div><span class="block text-xs text-slate-400 mb-1">数据来源</span><span class="font-medium text-slate-300">公开资料汇总</span></div>
-          <div><span class="block text-xs text-slate-400 mb-1">测试客户端</span><span class="font-medium text-slate-300">Clash Verge Rev</span></div>
+          <div><span class="block text-xs text-slate-400 mb-1">测试客户端</span><span class="font-medium text-slate-300">{data.test_client || "Clash Verge Rev"}</span></div>
           <div><span class="block text-xs text-slate-400 mb-1">测试时间</span><span class="font-medium text-slate-300">20:00 - 23:00</span></div>
           <div><span class="block text-xs text-slate-400 mb-1">测试次数</span><span class="font-medium text-slate-300">自动化监测 240+ 次</span></div>
         </div>
@@ -154,7 +154,7 @@ if (!hasReport) return null;
         <div class="flex-1">
           <h4 class="font-bold text-slate-200 mb-3">✅ 适合谁使用？</h4>
           <ul class="list-disc list-inside text-sm text-slate-400 space-y-1">
-            {data.audience.suitable && Array.isArray(data.audience.suitable) && data.audience.suitable.map((item: string) => (
+            {(Array.isArray(data.audience) ? data.audience.find((a: any) => a.suitable)?.suitable : data.audience?.suitable)?.map((item: string) => (
               <li>{item}</li>
             ))}
           </ul>
@@ -163,7 +163,7 @@ if (!hasReport) return null;
         <div class="flex-1">
           <h4 class="font-bold text-slate-200 mb-3">❌ 不适合谁？</h4>
           <ul class="list-disc list-inside text-sm text-slate-400 space-y-1">
-            {data.audience.unsuitable && Array.isArray(data.audience.unsuitable) && data.audience.unsuitable.map((item: string) => (
+            {(Array.isArray(data.audience) ? data.audience.find((a: any) => a.unsuitable)?.unsuitable : data.audience?.unsuitable)?.map((item: string) => (
               <li>{item}</li>
             ))}
           </ul>

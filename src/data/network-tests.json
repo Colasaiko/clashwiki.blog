@@ -1,5 +1,113 @@
 [
   {
+    "date": "2026-11-01",
+    "brand": "微风网络",
+    "node": "香港 IPLC 专线",
+    "latency": 28,
+    "packetLoss": 0,
+    "speed": 860,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-11-01",
+    "brand": "飞V",
+    "node": "新加坡 IEPL 专线",
+    "latency": 48,
+    "packetLoss": 0,
+    "speed": 720,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-11-01",
+    "brand": "FireFly 萤火虫",
+    "node": "日本 原生 IEPL",
+    "latency": 39,
+    "packetLoss": 0.1,
+    "speed": 640,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-11-01",
+    "brand": "灵猫",
+    "node": "美国 跨境专线",
+    "latency": 148,
+    "packetLoss": 0.3,
+    "speed": 520,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-11-01",
+    "brand": "跨界云",
+    "node": "台湾 优化线路",
+    "latency": 58,
+    "packetLoss": 1.6,
+    "speed": 260,
+    "status": "Good"
+  },
+  {
+    "date": "2026-11-01",
+    "brand": "梯子云",
+    "node": "香港 普通中转",
+    "latency": 62,
+    "packetLoss": 3.2,
+    "speed": 140,
+    "status": "Average"
+  },
+  {
+    "date": "2026-10-25",
+    "brand": "飞V",
+    "node": "香港 IEPL 专线",
+    "latency": 31,
+    "packetLoss": 0,
+    "speed": 780,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-25",
+    "brand": "飞V",
+    "node": "日本 IPLC 专线",
+    "latency": 45,
+    "packetLoss": 0.1,
+    "speed": 690,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-25",
+    "brand": "微风网络",
+    "node": "新加坡 IEPL 节点",
+    "latency": 49,
+    "packetLoss": 0,
+    "speed": 620,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-25",
+    "brand": "灵猫",
+    "node": "香港 BGP 专线",
+    "latency": 38,
+    "packetLoss": 0.2,
+    "speed": 580,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-25",
+    "brand": "闪跃",
+    "node": "台湾 专线接入",
+    "latency": 44,
+    "packetLoss": 0.1,
+    "speed": 560,
+    "status": "Excellent"
+  },
+  {
+    "date": "2026-10-25",
+    "brand": "无忧链接",
+    "node": "美国 优化中转",
+    "latency": 168,
+    "packetLoss": 1.5,
+    "speed": 280,
+    "status": "Good"
+  },
+  {
     "date": "2026-10-19",
     "brand": "微风网络",
     "node": "香港 IPLC 专线",
