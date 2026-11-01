@@ -7,10 +7,9 @@ import BackButton from '../../components/BackButton.astro';
 import HubFooterLinks from '../../components/HubFooterLinks.astro';
 
 const brands = (await getCollection('brands')).sort((a, b) => {
-  const keyA = a.id ? a.id.replace(/\.md$/, '') : (a as any).slug;
-  const keyB = b.id ? b.id.replace(/\.md$/, '') : (b as any).slug;
-  if (keyA === 'brand-017' || a.data.name.includes('飞V')) return -1;
-  if (keyB === 'brand-017' || b.data.name.includes('飞V')) return 1;
+  // 优惠页置顶飞V（仅影响本页排序）
+  if (a.id === 'brand-017') return -1;
+  if (b.id === 'brand-017') return 1;
   const orderA = a.data.sortOrder ?? 999;
   const orderB = b.data.sortOrder ?? 999;
   return orderA - orderB;
@@ -24,11 +23,11 @@ const offers: Record<string, { permanent?: {code: string, discount: string}, lim
   'breeze': { permanent: { code: 'weifeng90', discount: '9折' } },
   'civet': { permanent: { code: 'lingmao', discount: '8折' } },
   'firefly': { permanent: { code: 'firefly', discount: '8折' } },
-  'flashleap': { permanent: { code: 'wuyou666', discount: '8折' } },
+  'flashleap': { permanent: { code: 'shanyue', discount: '8折' } },
   'kuajie': { permanent: { code: 'kuajie', discount: '8折' } },
   'dalao': { permanent: { code: 'dly888', discount: '7折 (新用户月付)' } },
   'shenxing': { permanent: { code: 'sx0077', discount: '7折 (新客)' } },
-  'worryfree': {},
+  'worryfree': { permanent: { code: 'wuyou666', discount: '8折 (首次购买)' } },
   'brand-002': { permanent: { code: 'flycat888', discount: '8折' } },
   'brand-003': { permanent: { code: 'sogo10000', discount: '9折' } },
   'brand-004': { permanent: { code: 'mm88', discount: '8折' } },
