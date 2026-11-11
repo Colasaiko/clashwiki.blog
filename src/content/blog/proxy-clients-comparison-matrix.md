@@ -2,7 +2,7 @@
 title: "2026代理客户端选择表：Win/Mac/手机软件"
 description: "还在纠结用哪个代理软件？本文为您整理 2026 最新全平台代理客户端推荐清单与优缺点对照表，涵盖 Verge、sing-box 等，帮您快速选择。"
 pubDate: 2026-09-11
-category: "downloads"
+category: "软件下载"
 tags: ["client-comparison", "client-tutorials", "clash-verge", "sing-box"]
 author: "Clash Wiki 编辑组"
 ---

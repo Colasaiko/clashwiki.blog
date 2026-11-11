@@ -46,8 +46,8 @@ const brands = brandIds
           </td>
           <td class="px-5 py-4">
             <div class="flex flex-col">
-              <span class="text-amber-400 font-bold">¥{b.data.price_min}</span>
-              <span class="text-[10px] text-slate-500">/ 月起</span>
+              <span class="text-amber-400 font-bold">{b.data.price_min ? `¥${b.data.price_min}` : (typeof b.data.price_info === 'object' && b.data.price_info ? (b.data.price_info.monthly || b.data.price_info.yearly || '价格以官方公布为准') : (b.data.price_info || '价格以官方公布为准'))}</span>
+              {b.data.price_min ? <span class="text-[10px] text-slate-500">/ 月起</span> : null}
             </div>
           </td>
           <td class="px-5 py-4 hidden sm:table-cell">

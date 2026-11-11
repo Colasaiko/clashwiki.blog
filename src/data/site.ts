@@ -4,7 +4,7 @@ export const SITE = {
   keywords: '网络工具,代理客户端教程,跨境网络优化,AI工具教程,流媒体解锁',
   defaultAuthor: 'Admin',
   defaultLanguage: 'zh-CN',
-  domain: 'https://www.clashwiki.blog',
+  domain: 'https://clashwiki.blog',
   social: {
     github: '#',
     twitter: '#'

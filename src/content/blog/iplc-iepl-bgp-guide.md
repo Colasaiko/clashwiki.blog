@@ -2,7 +2,7 @@
 title: "IPLC、IEPL、BGP 专线线路是什么？怎么选节点"
 description: "挑选机场节点时常看到 IPLC、IEPL 和 BGP，它们到底什么意思？本篇专线原理解析为您通俗讲解各类网络线路区别，教您根据需求挑选最合适的稳定跨境网络方案。"
 pubDate: 2026-09-11
-category: "airports"
+category: "服务商评测"
 tags: ["iplc", "iepl", "basics", "premium-routes"]
 author: "Clash Wiki 编辑组"
 ---

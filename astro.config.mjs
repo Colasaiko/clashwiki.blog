@@ -32,7 +32,7 @@ const navWhitelist = ['clash', 'sing-box', 'troubleshooting', 'proxy-protocols',
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.clashwiki.blog',
+  site: 'https://clashwiki.blog',
   integrations: [sitemap({
     filter: (page) => {
       if (page.includes('/go/') || page.includes('/404') || page.includes('/search')) return false;

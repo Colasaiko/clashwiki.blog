@@ -29,5 +29,5 @@ export const REDIRECTS: Record<string, string> = {
   'worryfree': 'https://wep01.worryfreeaff.com/#/?code=ydtFVWqU',
   'quanqiuyun': 'https://sswdh.gcvipaff.com/#/?code=iZl9XAe2',
   'yuzhouyun': 'https://wzjc.yuzoucloud.cc/#/?code=204ZUc9t',
-  'cyberguard': 'https://www.clashwiki.blog/brands/cyberguard/',
+  'cyberguard': 'https://clashwiki.blog/brands/cyberguard/',
 };

@@ -4,7 +4,7 @@ description: "全面回顾 2026 年 10 月收录评测的核心网络品牌（�
 pubDate: 2026-11-01
 updatedDate: 2026-11-01
 author: "ClashWiki 评测组"
-category: "机场推荐"
+category: "服务商评测"
 tags: ['机场推荐', '测速报告', '优惠码']
 keywords: "10月节点服务商盘点, 飞V优惠码, 双十一优惠码, 微风优惠码, 闪跃优惠码, 晚高峰实测"
 ---

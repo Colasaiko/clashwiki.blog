@@ -22,8 +22,8 @@ interface Props {
 }
 
 const { title, description, keywords, pubDate, updatedDate, category, tags, author = 'Clash Wiki 编辑组', image, changelog: manualChangelog, aff_brands = [] } = Astro.props;
-const catObj = CATEGORIES.find(c => c.name === category);
-const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.slug}/` : `/category/${category}/`);
+const catObj = CATEGORIES.find(c => c.name === category || c.slug === category || c.id === category || (category === '机场推荐' && c.slug === 'airports'));
+const categoryUrl = catObj?.customHref || (catObj?.slug ? `/category/${catObj.slug}/` : '/category/airports/');
 
 // Generate fallback changelog if none provided
 const changelog = manualChangelog || (() => {
@@ -41,9 +41,9 @@ const changelog = manualChangelog || (() => {
 const seoKeywords = keywords || tags.slice(0, 5).join(",");
 
 const breadcrumbsData = [
-  { name: '首页', item: 'https://www.clashwiki.blog/' },
-  { name: '博客', item: 'https://www.clashwiki.blog/blog/' },
-  { name: category, item: `https://www.clashwiki.blog${categoryUrl}` },
+  { name: '首页', item: 'https://clashwiki.blog/' },
+  { name: '博客', item: 'https://clashwiki.blog/blog/' },
+  { name: category, item: `https://clashwiki.blog${categoryUrl}` },
   { name: title, item: Astro.url.href }
 ];
 

@@ -18,9 +18,28 @@ const name = data.name;
 const description = data.description;
 const suitable = (Array.isArray(data.audience) ? data.audience.find((a: any) => a.suitable)?.suitable : data.audience?.suitable)?.slice(0, 3) || [];
 const pros = data.pros?.slice(0, 3) || [];
-const price = typeof data.price_info === 'object' && data.price_info !== null
-  ? (data.price_info.monthly || data.price_info.yearly || '详见官网')
-  : (data.price_info || data.price_min ? `¥${data.price_min}起` : null);
+function formatPrice(priceInfo: any, priceMin?: any): string {
+  if (priceInfo && typeof priceInfo === 'object') {
+    const monthly = priceInfo.monthly;
+    const yearly = priceInfo.yearly;
+    if (monthly && monthly !== '-' && yearly && yearly !== '-') {
+      return `${monthly} / 月（年付 ${yearly}）`;
+    } else if (monthly && monthly !== '-') {
+      return `${monthly} / 月`;
+    } else if (yearly && yearly !== '-') {
+      return `${yearly} / 年`;
+    }
+  }
+  if (typeof priceInfo === 'string' && priceInfo.trim() && priceInfo !== '-' && priceInfo !== '资料获取中' && priceInfo !== '未知') {
+    return priceInfo;
+  }
+  if (priceMin !== undefined && priceMin !== null && priceMin !== '' && !isNaN(Number(priceMin))) {
+    return `¥${priceMin}起 / 月`;
+  }
+  return '价格以官方公布为准';
+}
+
+const price = formatPrice(data.price_info, data.price_min);
 ---
 
 <div class="not-prose my-8 p-6 bg-slate-900 border border-slate-700 rounded-2xl shadow-lg relative overflow-hidden group hover:border-emerald-500/50 transition-colors">
@@ -56,12 +75,10 @@ const price = typeof data.price_info === 'object' && data.price_info !== null
     </div>
     
     <div class="w-full md:w-auto flex flex-col items-center shrink-0 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6">
-      {price && price !== '未知' && (
-        <div class="text-center mb-3">
-          <span class="text-xs text-slate-500 block">参考价格</span>
-          <span class="text-lg font-bold text-emerald-400">{price}</span>
-        </div>
-      )}
+      <div class="text-center mb-3">
+        <span class="text-xs text-slate-500 block">参考价格</span>
+        <span class="text-lg font-bold text-emerald-400">{price}</span>
+      </div>
       <a 
         href={`/go/${brand}/`}
         target="_blank"

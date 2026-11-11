@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const HOST = 'www.clashwiki.blog';
+const HOST = 'clashwiki.blog';
 // 自动生成的专属 Key
 const KEY = 'clashwiki-indexnow-key-v2';
 
